@@ -299,18 +299,6 @@
 	resets = <&usb_hub_rst>;
 };
 
-&pcie{
-	vpcie-supply = <&reg_pcie0>;
-	status = "okay";
-};
-
-&pcie_phy{
-	fsl,refclk-pad-mode = <IMX8_PCIE_REFCLK_PAD_INPUT>;
-	clocks = <&pcie0_refclk>;
-	clock-names = "ref";
-	status = "okay";
-};
-
 &iomuxc {
 	pinctrl_otg_vbus: otgvbusgrp {
 		fsl,pins = <
