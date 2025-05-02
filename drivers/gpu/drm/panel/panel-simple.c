@@ -5038,6 +5038,35 @@ static const struct panel_desc_dsi vizionpanel_215192108 = {
 	.lanes = 4,
 };
 
+static const struct display_timing g150xtn035_panel_timing = {
+	.pixelclock = { 50000000, 65000000, 81000000 },
+	.hactive = { 1024, 1024, 1024 },
+	.hfront_porch = { 40, 90, 200 },
+	.hback_porch = { 40, 90, 200 },
+	.hsync_len = { 80, 140, 200 },
+	.vactive = { 768, 768, 768 },
+	.vfront_porch = { 7, 17, 34 },
+	.vback_porch = { 7, 17, 24 },
+	.vsync_len = { 1, 4, 10 },
+	.flags = DISPLAY_FLAGS_HSYNC_HIGH | DISPLAY_FLAGS_VSYNC_HIGH,
+};
+
+static const struct panel_desc_dsi g150xtn035_panel = {
+	.desc = {
+		.timings = &g150xtn035_panel_timing,
+		.num_timings = 1,
+		.bpc = 8,
+		.size = {
+			.width = 304,
+			.height = 228,
+		},
+		.bus_flags = DRM_BUS_FLAG_DE_LOW,
+	},
+	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE,
+	.format = MIPI_DSI_FMT_RGB888,
+	.lanes = 4,
+};
+
 static const struct display_timing dsi2lvds_panel_timing = {
 	.pixelclock = { 60400000, 71100000, 74700000 },
 	.hactive = { 1280, 1280, 1280 },
@@ -5300,6 +5329,9 @@ static const struct of_device_id dsi_of_match[] = {
 	}, {
 		.compatible = "tn,vizionpanel_215192108",
 		.data = &vizionpanel_215192108
+	}, {
+		.compatible = "tn,g150xtn035-panel",
+		.data = &g150xtn035_panel
 	}, {
 		.compatible = "tn,dsi2lvds-panel",
 		.data = &dsi2lvds_panel
