@@ -96,14 +96,6 @@
 		#reset-cells = <0>;
 	};
 
-	reg_pcie0: regulator-pcie {
-		compatible = "regulator-fixed";
-		regulator-name = "PCIE_CLKREQ_N";
-		regulator-min-microvolt = <3300000>;
-		regulator-max-microvolt = <3300000>;
-		gpio = <&gpio1 13 GPIO_ACTIVE_LOW>;
-		enable-active-low;
-	};
 
 	sound-wm8960 {
 		compatible = "fsl,imx-audio-wm8960";
@@ -134,21 +126,6 @@
 		};
 	};
 
-	gpio-leds {
-		compatible = "gpio-leds";
-
-		led {
-			label = "gpio-led";
-			gpios = <&pca9555_a23 1 GPIO_ACTIVE_HIGH>;
-			default-state = "on";
-		};
-	};
-
-	pcie0_refclk: pcie0-refclk {
-		compatible = "fixed-clock";
-		#clock-cells = <0>;
-		clock-frequency = <100000000>;
-	};
 };
 
 
