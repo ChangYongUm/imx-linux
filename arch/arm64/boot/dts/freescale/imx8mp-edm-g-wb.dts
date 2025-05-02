@@ -34,6 +34,7 @@
 		regulator-max-microvolt = <3300000>;
 		gpio = <&gpio4 12 GPIO_ACTIVE_HIGH>;
 		enable-active-high;
+		status = "okay";
 	};
 
 	reg_lvds_backlight_pwr: regulator_lvdsblpwr {
@@ -46,6 +47,7 @@
 		gpio = <&gpio4 14 GPIO_ACTIVE_HIGH>;
 		enable-active-high;
 		regulator-always-on;
+		status = "okay";
 	};
 
 	lvds_backlight: lvds_backlight {
@@ -53,7 +55,36 @@
 		pwms = <&pwm2 0 50000 0>;
 		brightness-levels = <0 36 72 108 144 180 216 255>;
 		default-brightness-level = <6>;
-		status = "disabled";
+		status = "okay";
+	};
+
+	lvds0_panel {
+		compatible = "vxt,vl10112880", "panel-lvds";
+		backlight = <&lvds_backlight>;
+		power-supply = <&reg_lvds_pwr>;
+
+		data-mapping = "vesa-24";
+		height-mm = <161>;
+		width-mm = <243>;
+
+		panel-timing {
+			clock-frequency = <71100000>;
+			hactive = <1280>;
+			vactive = <800>;
+			hback-porch = <40>;
+			hfront-porch = <40>;
+			vback-porch = <10>;
+			vfront-porch = <3>;
+			hsync-len = <80>;
+			vsync-len = <10>;
+			de-active = <1>;
+		};
+
+		port {
+			panel_lvds_in: endpoint {
+				remote-endpoint = <&lvds_out>;
+			};
+		};
 	};
 
 	usb_hub_rst: usb_hub_rst {
@@ -119,6 +150,26 @@
 		clock-frequency = <100000000>;
 	};
 };
+
+
+&ldb {
+	status = "okay";
+
+	lvds-channel@0 {
+		fsl,data-mapping = "spwg";
+		fsl,data-width = <24>;
+		status = "okay";
+		
+		port@1 {
+			reg = <1>;
+
+			lvds_out: endpoint {
+				remote-endpoint = <&panel_lvds_in>;
+			};
+		};
+	};
+};
+
 
 &gpio1 {
 	pinctrl-0 = <&pinctrl_gpio1>;
@@ -230,19 +281,6 @@
 	};
 };
 
-&i2c4 {
-	status = "okay";
-
-	pn547: pn547@2a {
-		compatible = "nxp,pn547";
-		reg = <0x2a>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_nfc>;
-		clock-frequency = <100000>;
-		interrupt-gpios = <&gpio4 10 0>;
-		status = "okay";
-	};
-};
 
 &flexcan1 {
 	status = "okay";
@@ -361,15 +399,11 @@
 		>;
 	};
 
-	pinctrl_nfc: nfcgrp {
-		fsl,pins = <
-			MX8MP_IOMUXC_SAI1_TXFS__GPIO4_IO10		0x41 /* DSI_RST */
-		>;
-	};
 
-        pinctrl_touch_irq: touch_irqgrp {
+    pinctrl_touch_irq: touch_irqgrp {
 		fsl,pins = <
 			MX8MP_IOMUXC_SAI1_TXD3__GPIO4_IO15	0x41   /* Touch INT */
 		>;
 	};
 };
+
