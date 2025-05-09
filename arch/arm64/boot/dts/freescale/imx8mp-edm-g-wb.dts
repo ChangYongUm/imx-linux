@@ -73,13 +73,13 @@
         height-mm = <216>;
 
 		panel-timing {
-			clock-frequency = <144000000>;
-			hactive = <1920>;
+			clock-frequency = <70500000>;
+			hactive = <960>;
 			vactive = <1080>;
-			hback-porch = <60>;
+			hback-porch = <52>;
 			hfront-porch = <40>;
-			vback-porch = <10>;
-			vfront-porch = <8>;
+			vback-porch = <20>;
+			vfront-porch = <16>;
 			hsync-len = <10>;
 			vsync-len = <5>;
 		};
@@ -144,6 +144,13 @@
 		fsl,data-width = <24>;
 		status = "okay";
 		
+		port@0 {  
+            reg = <0>;
+            ldb_in: endpoint {  // ← 이게 &ldb_in
+                remote-endpoint = <&lcdif1_out>;
+            };
+        };
+
 		port@1 {
 			reg = <1>;
 
@@ -158,6 +165,16 @@
         fsl,data-mapping = "spwg";
         fsl,data-width = <24>;
         status = "okay";
+    };
+};
+
+&lcdif1 {
+    status = "okay";
+    port@1 {
+        reg = <1>;
+        lcdif1_out: endpoint {
+            remote-endpoint = <&ldb_in>;
+        };
     };
 };
 
