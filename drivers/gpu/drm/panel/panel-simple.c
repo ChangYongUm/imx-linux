@@ -1158,7 +1158,7 @@ static const struct display_timing auo_g156han023_timing = {
     .vfront_porch = { 16, 16, 16 },
     .vback_porch = { 20, 20, 20 },
     .vsync_len = { 5, 5, 5 },
-    .flags = DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_SYNC_LOW | DISPLAY_FLAGS_PIXDATA_NEGEDGE,
+    .flags = DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW | DISPLAY_FLAGS_PIXDATA_NEGEDGE,
 };
 
 static const struct panel_desc auo_g156han023 = {
