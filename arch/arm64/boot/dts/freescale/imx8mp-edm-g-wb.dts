@@ -135,10 +135,12 @@
 
 &ldb {
 	status = "okay";
+	split-mode;
+    dual-channel;
 
 	lvds-channel@0 {
-		//fsl,data-mapping = "spwg";
-		fsl,data-mapping = "jeida";
+		reg = <0>;
+		fsl,data-mapping = "spwg";
 		fsl,data-width = <24>;
 		status = "okay";
 		
@@ -150,6 +152,13 @@
 			};
 		};
 	};
+
+    lvds-channel@1 {
+        reg = <1>;
+        fsl,data-mapping = "spwg";
+        fsl,data-width = <24>;
+        status = "okay";
+    };
 };
 
 &ldb_phy {
