@@ -1148,7 +1148,7 @@ static const struct panel_desc auo_g133han01 = {
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 
-static const struct drm_display_mode auo_g156xtn01_mode = {
+static const struct drm_display_mode auo_g156han02_3_mode = {
 	.clock = 76000,
 	.hdisplay = 1366,
 	.hsync_start = 1366 + 33,
@@ -1160,13 +1160,37 @@ static const struct drm_display_mode auo_g156xtn01_mode = {
 	.vtotal = 806,
 };
 
-static const struct panel_desc auo_g156xtn01 = {
-	.modes = &auo_g156xtn01_mode,
+static const struct panel_desc auo_g156han02_3 = {
+	.modes = &auo_g156han02_3_mode,
 	.num_modes = 1,
 	.bpc = 8,
 	.size = {
 		.width = 344,
 		.height = 194,
+	},
+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
+};
+
+static const struct drm_display_mode auo_g156xtn01_mode = {
+	.clock = 144000000,
+	.hdisplay = 1920,
+	.hsync_start = 1920 + 32,
+	.hsync_end = 1920 + 40 + 60,
+	.htotal = 2020,
+	.vdisplay = 1080,
+	.vsync_start = 1080 + 5,
+	.vsync_end = 1080 + 8 + 10,
+	.vtotal = 1098,
+};
+
+static const struct panel_desc auo_g156xtn01 = {
+	.modes = &auo_g156xtn01_mode,
+	.num_modes = 1,
+	.bpc = 8,
+	.size = {
+		.width = 364,
+		.height = 216,
 	},
 	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
@@ -4320,6 +4344,9 @@ static const struct of_device_id platform_of_match[] = {
 	}, {
 		.compatible = "auo,g133han01",
 		.data = &auo_g133han01,
+	}, {
+		.compatible = "auo,g156han02_3",
+		.data = &auo_g156han02_3,
 	}, {
 		.compatible = "auo,g156xtn01",
 		.data = &auo_g156xtn01,
