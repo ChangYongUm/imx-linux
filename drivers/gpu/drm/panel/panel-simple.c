@@ -1150,7 +1150,7 @@ static const struct panel_desc auo_g133han01 = {
 
 static const struct display_timing auo_g156han023_timing = {
     .pixelclock = { 70500000, 70500000, 70500000 }, // 70.5MHz
-    .hactive = { 1920, 1920, 1920 },
+    .hactive = { 960, 960, 960 },
     .hfront_porch = { 40, 40, 40 },
     .hback_porch = { 52, 52, 52 },
     .hsync_len = { 10, 10, 10 },
