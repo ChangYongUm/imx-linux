@@ -1148,6 +1148,35 @@ static const struct panel_desc auo_g133han01 = {
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 
+static const struct display_timing auo_g156han023_timing = {
+    .pixelclock = { 70500000, 70500000, 70500000 }, // 70.5MHz
+    .hactive = { 1920, 1920, 1920 },
+    .hfront_porch = { 40, 40, 40 },
+    .hback_porch = { 52, 52, 52 },
+    .hsync_len = { 10, 10, 10 },
+    .vactive = { 1080, 1080, 1080 },
+    .vfront_porch = { 16, 16, 16 },
+    .vback_porch = { 20, 20, 20 },
+    .vsync_len = { 5, 5, 5 },
+    .flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW |
+		DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE |
+		DISPLAY_FLAGS_SYNC_POSEDGE,
+};
+
+static const struct panel_desc auo_g156han023 = {
+    .timings = &auo_g156han023_timing,
+    .num_timings = 1,
+    .bpc = 8,
+    .size = {
+		.width = 364,
+		.height = 216,
+    },
+    .bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+    .bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_NEGEDGE,
+    .connector_type = DRM_MODE_CONNECTOR_LVDS,
+};
+
+/*
 static const struct drm_display_mode auo_g156han023_mode = {
 	.clock = 70500000,
 	.hdisplay = 960,
@@ -1171,6 +1200,7 @@ static const struct panel_desc auo_g156han023 = {
 	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
+*/
 
 static const struct drm_display_mode auo_g156xtn01_mode = {
 	.clock = 144000000,
