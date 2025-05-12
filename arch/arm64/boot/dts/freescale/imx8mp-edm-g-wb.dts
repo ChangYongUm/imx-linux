@@ -64,17 +64,16 @@
 	};
 
 	lvds0_panel {
-		compatible = "auo,g156han023", "panel-lvds";
+		//compatible = "auo,g156han023", "panel-lvds";
 		//compatible = "vxt,vl10112880", "panel-lvds";
-		
+		compatible = "vxt,vl156192108", "panel-lvds";
+
 		backlight = <&lvds_backlight>;
 		power-supply = <&reg_lvds_pwr>;
         
         data-mapping = "vesa-24";
         width-mm = <364>;
         height-mm = <216>;
-
-		status = "okay";
 
 /*
 		panel-timing {
@@ -88,8 +87,8 @@
 			hsync-len = <10>;
 			vsync-len = <5>;
 		};
-*/
 
+// technexion 10inch
 		panel-timing {
 			clock-frequency = <71100000>;
 			hactive = <1280>;
@@ -102,6 +101,21 @@
 			vsync-len = <10>;
 			de-active = <1>;
 		};
+*/
+
+		panel-timing {
+			clock-frequency = <141860000>;
+			hactive = <1920>;
+			vactive = <1080>;
+			vback-porch = <10>;
+			vfront-porch = <10>;
+			hback-porch = <35>;
+			hfront-porch = <34>;
+			vsync-len = <10>;
+			hsync-len = <35>;
+			de-active = <1>;
+		};
+
 
 		port {
 			panel_lvds_in: endpoint {
@@ -159,29 +173,11 @@
 
 	lvds-channel@0 {
 		reg = <0>;
+		f#address-cells = <1>;
+		#size-cells = <0>;
 		fsl,data-mapping = "spwg";
 		fsl,data-width = <24>;
-		status = "okay";		
-		crtc = "display-subsystem";
-
-		display-timings {
-            native-mode = <&timing0>;
-            timing0: lvds-1920x1080 {
-                clock-frequency = <70500000>;
-                hactive = <1920>;
-                vactive = <1080>;
-                hfront-porch = <88>;
-                hback-porch = <148>;
-                hsync-len = <44>;
-                vfront-porch = <4>;
-                vback-porch = <36>;
-                vsync-len = <5>;
-                hsync-active = <0>;
-                vsync-active = <0>;
-                de-active = <1>;
-                pixelclk-active = <0>;
-            };
-        };
+		status = "okay";
 
 		port@1 {
 			reg = <1>;
