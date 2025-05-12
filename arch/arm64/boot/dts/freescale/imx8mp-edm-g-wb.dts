@@ -10,6 +10,8 @@
 #include <dt-bindings/phy/phy-imx8-pcie.h>
 #include "imx8mp-edm-g.dtsi"
 
+//#define CODEC_SGTL5000
+
 / {
 	model = "TechNexion EDM-G-IMX8MP and WB baseboard";
 	compatible = "fsl,imx8mp-edmg", "fsl,imx8mp";
@@ -64,9 +66,9 @@
 	};
 
 	lvds0_panel {
-		//compatible = "auo,g156han023", "panel-lvds";
+		compatible = "auo,g156han023", "panel-lvds";
 		//compatible = "vxt,vl10112880", "panel-lvds";
-		compatible = "vxt,vl156192108", "panel-lvds";
+		//compatible = "vxt,vl156192108", "panel-lvds";
 
 		backlight = <&lvds_backlight>;
 		power-supply = <&reg_lvds_pwr>;
@@ -119,7 +121,20 @@
 		#reset-cells = <0>;
 	};
 
-
+#ifdef CODEC_SGTL5000
+	sound_sgtl5000 {
+			compatible = "fsl,sgtl5000", "fsl,imx-audio-sgtl5000";
+			model = "sgtl5000";
+			codec-master;
+			ssi-controller = <&sai2>;
+			audio-codec = <&codec_sgtl5000>;
+			audio-routing =
+					"MIC_IN", "Mic Jack",
+					"Mic Jack", "Mic Bias",
+					"Headphone Jack", "HP_OUT";
+			no-audmux;
+	};
+#else
 	sound-wm8960 {
 		compatible = "fsl,imx-audio-wm8960";
 		model = "wm8960-audio";
@@ -139,6 +154,7 @@
 			"Mic Jack", "MICB",
 			"AMIC", "MICB";
 	};
+#endif
 
 	clocks {
 		codec_osc: aud_mclk {
@@ -154,8 +170,9 @@
 
 &ldb {
 	status = "okay";
+
     fsl,dual-channel;
-    fsl,split-mode;
+    //fsl,split-mode;
 
 	lvds-channel@0 {
 		reg = <0>;
@@ -182,10 +199,6 @@
     };
 };
 
-
-&lcdif1 {
-    status = "okay";
-};
 
 &ldb_phy {
 	status = "okay";
@@ -264,7 +277,20 @@
 				};
 			};
 		};
-
+#ifdef CODEC_SGTL5000	
+	codec_sgtl5000: sgtl5000@a {
+                compatible = "fsl,sgtl5000";
+                reg = <0x2a>;
+                clocks = <&clk IMX8MM_CLK_SAI2_ROOT>;
+                clock-names = "mclk";
+                pinctrl-names = "default";
+                pinctrl-0 = <&pinctrl_sai2_mclk>;
+		assigned-clocks = <&clk IMX8MM_CLK_SAI2>;
+		assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
+		assigned-clock-rates = <24576000>; //12288000 ????
+		status = "okay"
+	};
+#else  
 	codec: wm8960@1a {
 		compatible = "wlf,wm8960";
 		reg = <0x1a>;
@@ -276,6 +302,7 @@
 		wlf,fixed-mclk;
 		status = "okay";
 	};
+#endif
 
 	typec_hd3ss3220: hd3ss3220@67 {
 		compatible = "ti,hd3ss3220";
