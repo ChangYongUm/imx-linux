@@ -382,7 +382,7 @@
 		acdc_reset_gpio = <&gpio4 13 GPIO_ACTIVE_HIGH>;
 		acdc_x_resolution = <1920>;
 		acdc_y_resolution = <1080>;
-		status = "disabled";
+		status = "okay";
 	};
 
 };
