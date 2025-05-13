@@ -194,12 +194,12 @@
 &lcdif1 {
     status = "okay";
 /*
-	    port {
+	port {
         lcdif1_out: endpoint {
             remote-endpoint = <&ldb_lvds0_in>;
         };
-*/		
     };
+	*/	
 };
 
 &ldb_phy {
