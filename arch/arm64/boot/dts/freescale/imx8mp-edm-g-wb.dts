@@ -233,7 +233,7 @@
 &mipi_csi_0 {
 	#address-cells = <1>;
 	#size-cells = <0>;
-	status = "okay";
+	status = "disabled";
 
 	port@0 {
 		reg = <0>;
@@ -258,7 +258,6 @@
 
 	status = "okay";
 
-/*
 	tevs_0: tevs@48 {
 			compatible = "tn,tevs";
 			reg = <0x48>;
@@ -279,7 +278,6 @@
 				};
 			};
 		};
-*/
 
 #ifdef CODEC_SGTL5000	
 	codec_sgtl5000: sgtl5000@a {
@@ -374,7 +372,6 @@
 	#size-cells = <0>;
 	status = "okay";
 
-/*
 	acdc@3c {
 		compatible = "acdc,acdc_touch";		
 		reg = <0x3c>;
@@ -384,13 +381,13 @@
 		acdc_reset_gpio = <&gpio4 13 GPIO_ACTIVE_HIGH>;
 		acdc_x_resolution = <1920>;
 		acdc_y_resolution = <1080>;
-		status = "okay";
+		status = "disabled";
 	};
-*/	
+
 };
 
 &flexcan1 {
-	status = "okay";
+	status = "disabled";
 };
 
 &flexcan2 {
