@@ -195,7 +195,7 @@
 				regulator-min-microvolt = <600000>;
 				regulator-max-microvolt = <3400000>;
 				regulator-boot-on;
-				regulator-al25ways-on;
+				regulator-always-on;
 			};
 
 			buck6: BUCK6 {
