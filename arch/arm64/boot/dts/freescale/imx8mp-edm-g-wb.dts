@@ -365,6 +365,23 @@
 	};
 };
 
+&i2c3 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+
+	acdc@3c {
+		compatible = "acdc,acdc_touch";
+		reg = <0x3c>;
+		interrupt-parent = <&gpio1>;
+		interrupts = <13 IRQ_TYPE_LEVEL_LOW>;
+		acdc_irq_gpio = <&gpio1 13 IRQ_TYPE_EDGE_FALLING>;
+		acdc_reset_gpio = <&gpio3 26 GPIO_ACTIVE_HIGH>;
+		acdc_x_resolution = <1024>;
+		acdc_y_resolution = <768>;
+		status = "okay";
+	};
+};
 
 &flexcan1 {
 	status = "okay";
