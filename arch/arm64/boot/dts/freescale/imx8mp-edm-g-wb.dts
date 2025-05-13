@@ -172,7 +172,7 @@
 	status = "okay";
 
     fsl,dual-channel;
-    //fsl,split-mode;
+    fsl,split-mode;
 
 	lvds-channel@0 {
 		reg = <0>;
@@ -258,6 +258,7 @@
 
 	status = "okay";
 
+/*
 	tevs_0: tevs@48 {
 			compatible = "tn,tevs";
 			reg = <0x48>;
@@ -278,6 +279,8 @@
 				};
 			};
 		};
+*/
+
 #ifdef CODEC_SGTL5000	
 	codec_sgtl5000: sgtl5000@a {
                 compatible = "fsl,sgtl5000";
@@ -371,6 +374,7 @@
 	#size-cells = <0>;
 	status = "okay";
 
+/*
 	acdc@3c {
 		compatible = "acdc,acdc_touch";		
 		reg = <0x3c>;
@@ -382,6 +386,7 @@
 		acdc_y_resolution = <1080>;
 		status = "okay";
 	};
+*/	
 };
 
 &flexcan1 {
