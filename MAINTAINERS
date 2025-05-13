@@ -1536,6 +1536,15 @@ S:	Maintained
 F:	Documentation/devicetree/bindings/media/i2c/onnn,ar0521.yaml
 F:	drivers/media/i2c/ar0521.c
 
+
+AR0821 ON SEMICONDUCTOR CAMERA SENSOR DRIVER
+M:	Krzysztof Hałasa <khalasa@piap.pl>
+L:	linux-media@vger.kernel.org
+S:	Maintained
+F:	Documentation/devicetree/bindings/media/i2c/onnn,ar0821.yaml
+F:	drivers/media/i2c/ar0821.c
+
+
 ARASAN NAND CONTROLLER DRIVER
 M:	Miquel Raynal <miquel.raynal@bootlin.com>
 R:	Michal Simek <michal.simek@amd.com>
