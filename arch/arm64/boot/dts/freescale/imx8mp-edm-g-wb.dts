@@ -66,9 +66,9 @@
 	};
 
 	lvds0_panel {
-		compatible = "panel-lvds";
+		//compatible = "panel-lvds";
 		//compatible = "vxt,vl10112880", "panel-lvds";
-		//compatible = "vxt,vl156192108", "panel-lvds";
+		compatible = "vxt,vl156192108", "panel-lvds";
 
 		backlight = <&lvds_backlight>;
 		power-supply = <&reg_lvds_pwr>;
@@ -227,7 +227,7 @@
 };
 
 &mipi_dsi {
-	status = "okay";
+	status = "disabled";
 };
 
 &mipi_csi_0 {
