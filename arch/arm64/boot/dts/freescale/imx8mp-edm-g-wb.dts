@@ -377,8 +377,8 @@
 		interrupts = <13 IRQ_TYPE_LEVEL_LOW>;
 		acdc_irq_gpio = <&gpio1 13 IRQ_TYPE_EDGE_FALLING>;
 		acdc_reset_gpio = <&gpio3 26 GPIO_ACTIVE_HIGH>;
-		acdc_x_resolution = <1024>;
-		acdc_y_resolution = <768>;
+		acdc_x_resolution = <1920>;
+		acdc_y_resolution = <1080>;
 		status = "okay";
 	};
 };
