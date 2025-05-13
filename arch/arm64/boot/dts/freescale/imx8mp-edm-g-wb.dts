@@ -372,12 +372,12 @@
 	status = "okay";
 
 	acdc@3c {
-		compatible = "acdc,acdc_touch";
+		compatible = "acdc,acdc_touch";		
 		reg = <0x3c>;
-		interrupt-parent = <&gpio1>;
-		interrupts = <13 IRQ_TYPE_LEVEL_LOW>;
-		acdc_irq_gpio = <&gpio1 13 IRQ_TYPE_EDGE_FALLING>;
-		acdc_reset_gpio = <&gpio3 26 GPIO_ACTIVE_HIGH>;
+		interrupt-parent = <&gpio4>;
+		interrupts = <15 IRQ_TYPE_LEVEL_LOW>;
+		acdc_irq_gpio = <&gpio4 15 IRQ_TYPE_EDGE_FALLING>;
+		acdc_reset_gpio = <&gpio4 13 GPIO_ACTIVE_HIGH>;
 		acdc_x_resolution = <1920>;
 		acdc_y_resolution = <1080>;
 		status = "okay";
