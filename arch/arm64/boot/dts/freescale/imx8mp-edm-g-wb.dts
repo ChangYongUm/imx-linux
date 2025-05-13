@@ -227,7 +227,7 @@
 };
 
 &mipi_dsi {
-	status = "disabled";
+	status = "okay";
 };
 
 &mipi_csi_0 {
@@ -247,7 +247,8 @@
 	};
 };
 
-&mipi_csi_1 {
+&mipi_csi_1 
+{
 	status = "disabled";
 };
 
@@ -365,7 +366,7 @@
 	};
 };
 
-&i2c3 {
+&i2c5 {
 	#address-cells = <1>;
 	#size-cells = <0>;
 	status = "okay";
