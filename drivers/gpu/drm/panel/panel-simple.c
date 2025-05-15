@@ -41,6 +41,10 @@
 #include <drm/drm_mipi_dsi.h>
 #include <drm/drm_panel.h>
 
+
+#include <stdio.h>
+
+
 /**
  * struct panel_desc - Describes a simple panel.
  */
