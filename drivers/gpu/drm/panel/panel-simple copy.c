@@ -41,6 +41,7 @@
 #include <drm/drm_mipi_dsi.h>
 #include <drm/drm_panel.h>
 
+
 /**
  * struct panel_desc - Describes a simple panel.
  */
@@ -1148,6 +1149,7 @@ static const struct panel_desc auo_g133han01 = {
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 
+
 static const struct display_timing auo_g156han023_timing = {
     .pixelclock = { 70500000, 70500000, 70500000 },
     .hactive = { 1920, 1920, 1920 },
@@ -1158,22 +1160,22 @@ static const struct display_timing auo_g156han023_timing = {
     .vfront_porch = { 10, 10, 10 },    
     .vback_porch = { 30, 30, 30 },     
     .vsync_len = { 5, 5, 5 },
-    .flags = DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_HSYNC_HIGH | 
-             DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE,
+	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
+//    .flags = DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_HSYNC_HIGH | 
+//             DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE,
 };
 
 static const struct panel_desc auo_g156han023 = {
-    .timings = &auo_g156han023_timing,
-    .num_timings = 1,
-    .bpc = 8,
-    .size = {
-        .width = 364,  
-        .height = 216,
-    },
-    .bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG, 
-    .bus_flags = DRM_BUS_FLAG_DE_HIGH | 
-                 DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,  
-    .connector_type = DRM_MODE_CONNECTOR_LVDS,
+	.timings = &auo_g156han023_timing,
+	.num_timings = 1,
+	.bpc = 8,
+	.size = {
+		.width = 344,
+		.height = 193,
+	},
+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+    // .bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE, 	
+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 
 static const struct drm_display_mode auo_g156xtn01_mode = {
@@ -4731,11 +4733,14 @@ static const struct of_device_id platform_of_match[] = {
 		/* sentinel */
 	}
 };
+
 MODULE_DEVICE_TABLE(of, platform_of_match);
 
 static int panel_simple_platform_probe(struct platform_device *pdev)
 {
 	const struct panel_desc *desc;
+
+	printk("LCD match Data : %s \n", pdev->dev.of_node->name);
 
 	desc = of_device_get_match_data(&pdev->dev);
 	if (!desc)
@@ -5185,6 +5190,22 @@ static const struct panel_desc_dsi vxt_vl215192108_panel = {
 	.lanes = 4,
 };
 
+static const struct panel_desc_dsi auo_g156han023_panel = {
+	.desc = {
+		.timings = &auo_g156han023_timing,
+		.num_timings = 1,
+		.bpc = 8,
+		.size = {
+			.width = 344,
+			.height = 193,
+		},
+		.bus_flags = DRM_BUS_FLAG_DE_LOW,
+	},
+	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS,
+	.format = MIPI_DSI_FMT_RGB888,
+	.lanes = 4,
+};	
+
 static const struct drm_display_mode lg_ld070wx3_sl01_mode = {
 	.clock = 71000,
 	.hdisplay = 800,
@@ -5372,6 +5393,9 @@ static const struct of_device_id dsi_of_match[] = {
 	}, {
 		.compatible = "vxt,vl215192108-panel",
 		.data = &vxt_vl215192108_panel
+	}, {
+		.compatible = "auo,g156han023-panel",
+		.data = &auo_g156han023_panel	
 	}, {
 		.compatible = "lg,ld070wx3-sl01",
 		.data = &lg_ld070wx3_sl01

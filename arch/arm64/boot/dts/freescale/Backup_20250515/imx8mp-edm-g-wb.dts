@@ -65,38 +65,6 @@
 		status = "okay";
 	};
 
-	lvds0_panel {
-		//compatible = "auo,g156han023", "panel-lvds";
-		compatible = "auo,g156han02.3-panel";
-		//compatible = "vxt,vl156192108", "panel-lvds";
-
-		backlight = <&lvds_backlight>;
-		power-supply = <&reg_lvds_pwr>;
-        
-        data-mapping = "spwg";
-        width-mm = <364>;
-        height-mm = <216>;
-
-		panel-timing {
-			clock-frequency = <70500000>;
-			hactive = <1920>;
-			vactive = <1080>;
-			hfront-porch = <88>;
-			hsync-len = <44>;
-			hback-porch = <148>;
-			vfront-porch = <10>;
-			vsync-len = <5>;
-			vback-porch = <21>;
-			hsync-active = <1>;
-			vsync-active = <1>;
-		};
-
-		port {
-			lvds0_panel_in: endpoint {
-				remote-endpoint = <&ldb_out_lvds0>;
-			};
-		};
-	};
 
 	usb_hub_rst: usb_hub_rst {
 		compatible = "gpio-reset";
@@ -151,22 +119,73 @@
 		};
 	};
 
-};
+/*
+		panel-timing {
+					clock-frequency = <135000000>;
+					hactive = <1920>;
+					vactive = <1080>;
+					hback-porch = <45>;
+					hfront-porch = <45>;
+					vback-porch = <18>;
+					vfront-porch = <18>;
+					hsync-len = <10>;
+					vsync-len = <4>;
+					de-active = <1>;
+		};
+*/
 
+
+	lvds0_panel : panel-lvds {
+		compatible = "auo,g156han023", "panel-lvds";
+
+		backlight = <&lvds_backlight>;
+		power-supply = <&reg_lvds_pwr>;
+        
+        //data-mapping = "vesa-24";
+		data-mapping = "spwg";
+        width-mm = <344>;
+        height-mm = <193>;
+
+		status = "okay";
+
+		panel-timing {
+			clock-frequency = <70500000>;
+			hactive = <1920>;
+			vactive = <1080>;
+			hfront-porch = <88>;
+			hsync-len = <44>;
+			hback-porch = <148>;
+			vfront-porch = <10>;
+			vsync-len = <5>;
+			vback-porch = <21>;
+			hsync-active = <1>;
+			vsync-active = <1>;
+		};
+
+		port {
+			lvds0_panel_in: endpoint {
+				remote-endpoint = <&ldb_out_lvds0>;
+			};
+		};
+	};
+
+};
 
 &ldb {
 	status = "okay";
-
     fsl,dual-channel;
 
 	lvds-channel@0 {
-		reg = <0>;
 		#address-cells = <1>;
 		#size-cells = <0>;
-		fsl,data-mapping = "spwg";
-		fsl,data-width = <24>;
-		status = "okay";
+		compatible = "fsl,imx8mp-ldb";
 
+		reg = <0>;		
+		fsl,data-mapping = "spwg"; 
+		fsl,data-width = <24>;
+		fsl,dual-channel;
+		status = "okay";
+		
 		port@1 {
 			reg = <1>;
 
@@ -176,26 +195,12 @@
 		};
 	};
 
-    lvds-channel@1 {
-        reg = <1>;
+	lvds-channel@1 {
+		reg = <1>;
         fsl,data-mapping = "spwg";
         fsl,data-width = <24>;
         status = "okay";
-		port@1 {
-			reg = <1>;
-			ldb_out_lvds1: endpoint {
-				remote-endpoint = <&lvds1_panel_in>;
-			};
-		};		
-    };
-};
-
-&video_pll {
-	assigned-clock-rates = <705000000>;  // 70.5MHz × 10
-};
-
-&ldb_phy {
-	status = "okay";
+	};
 };
 
 &gpio1 {
@@ -217,10 +222,6 @@
 };
 
 &snvs_pwrkey {
-	status = "disabled";
-};
-
-&mipi_dsi {
 	status = "disabled";
 };
 
@@ -491,3 +492,4 @@
 		>;
 	};
 };
+
