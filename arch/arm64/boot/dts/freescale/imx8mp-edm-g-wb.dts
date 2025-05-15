@@ -190,10 +190,6 @@
     };
 };
 
-&video_pll {
-	assigned-clock-rates = <705000000>;  // 70.5MHz × 10
-};
-
 &ldb_phy {
 	status = "okay";
 };
