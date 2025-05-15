@@ -1159,32 +1159,15 @@ static const struct display_timing auo_g156han023_timing = {
 	.vfront_porch = { 5, 18, 250 },
 	.vback_porch = { 5, 18, 250 },
 	.vsync_len = { 2, 14, 73 },
-	.flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW,
 };
 
-static const struct panel_desc_dsi auo_g156han023_panel = {
-	.desc = {
-		.timings = &auo_g156han023_timing,
-		.num_timings = 1,
-		.bpc = 8,
-		.size = {
-			.width = 344,
-			.height = 193,
-		},
-		.bus_flags = DRM_BUS_FLAG_DE_LOW,
-	},
-	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-	.format = MIPI_DSI_FMT_RGB888,
-	.lanes = 4,
-};	
-
 static const struct panel_desc auo_g156han023 = {
-	.timings = &auo_g156han023_timing,
+	.timings = &auo_g121ean01_timing,
 	.num_timings = 1,
 	.bpc = 8,
 	.size = {
 		.width = 344,
-		.height = 193,
+		.height = 163,
 	},
 	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
@@ -5198,6 +5181,35 @@ static const struct panel_desc_dsi vxt_vl215192108_panel = {
 	.format = MIPI_DSI_FMT_RGB888,
 	.lanes = 4,
 };
+
+static const struct display_timing auo_g156han023_panel_timing = {
+	.pixelclock = { 40000000, 72000000, 83000000 },
+	.hactive = { 1920, 1920, 1920 },
+	.hfront_porch = { 20, 40, 60 },
+	.hback_porch = { 20, 40, 60 },
+	.hsync_len = { 4, 10, 20 },
+	.vactive = { 1080, 1080, 1080 },
+	.vfront_porch = { 5, 18, 250 },
+	.vback_porch = { 5, 18, 250 },
+	.vsync_len = { 2, 14, 73 },
+	.flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW,
+};
+
+static const struct panel_desc_dsi auo_g156han023_panel = {
+	.desc = {
+		.timings = &auo_g156han023_panel_timing,
+		.num_timings = 1,
+		.bpc = 8,
+		.size = {
+			.width = 344,
+			.height = 193,
+		},
+		.bus_flags = DRM_BUS_FLAG_DE_LOW,
+	},
+	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS,
+	.format = MIPI_DSI_FMT_RGB888,
+	.lanes = 4,
+};	
 
 static const struct drm_display_mode lg_ld070wx3_sl01_mode = {
 	.clock = 71000,
