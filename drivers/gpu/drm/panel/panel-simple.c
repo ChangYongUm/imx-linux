@@ -1148,21 +1148,39 @@ static const struct panel_desc auo_g133han01 = {
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 
-static const struct drm_display_mode auo_g156han023_mode = {
-	.clock = 71200,
-	.hdisplay = 1920,
-	.hsync_start = 1920 + 45,
-	.hsync_end = 1920 + 45 + 10,
-	.htotal = 1920 + 45 + 10 + 45,
-	.vdisplay = 1080,
-	.vsync_start = 1080 + 18,
-	.vsync_end = 1080 + 18 + 4,
-	.vtotal = 1080 + 18 + 4 + 18,
+
+static const struct display_timing auo_g156han023_timing = {
+	.pixelclock = { 40000000, 72000000, 83000000 },
+	.hactive = { 1920, 1920, 1920 },
+	.hfront_porch = { 20, 40, 60 },
+	.hback_porch = { 20, 40, 60 },
+	.hsync_len = { 4, 10, 20 },
+	.vactive = { 1080, 1080, 1080 },
+	.vfront_porch = { 5, 18, 250 },
+	.vback_porch = { 5, 18, 250 },
+	.vsync_len = { 2, 14, 73 },
+	.flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW,
 };
 
+static const struct panel_desc_dsi auo_g156han023_panel = {
+	.desc = {
+		.timings = &auo_g156han023_timing,
+		.num_timings = 1,
+		.bpc = 8,
+		.size = {
+			.width = 344,
+			.height = 193,
+		},
+		.bus_flags = DRM_BUS_FLAG_DE_LOW,
+	},
+	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS,
+	.format = MIPI_DSI_FMT_RGB888,
+	.lanes = 4,
+};	
+
 static const struct panel_desc auo_g156han023 = {
-	.modes = &auo_g156han023_mode,
-	.num_modes = 1,
+	.timings = &auo_g156han023_timing,
+	.num_timings = 1,
 	.bpc = 8,
 	.size = {
 		.width = 344,
@@ -4711,6 +4729,9 @@ static const struct of_device_id platform_of_match[] = {
 		.compatible = "vxt,vl080-8060nt-c01",
 		.data = &vl080_8060nt_c01,
 	}, {
+		.compatible = "auo,g156han023",
+		.data = &auo_g156han023	
+	}, {
 		.compatible = "winstar,wf35ltiacd",
 		.data = &winstar_wf35ltiacd,
 	}, {
@@ -5148,35 +5169,6 @@ static const struct panel_desc_dsi vxt_vl15613676_panel = {
 	.format = MIPI_DSI_FMT_RGB888,
 	.lanes = 4,
 };
-
-static const struct display_timing auo_g156han023_timing = {
-	.pixelclock = { 40000000, 72000000, 83000000 },
-	.hactive = { 1920, 1920, 1920 },
-	.hfront_porch = { 20, 40, 60 },
-	.hback_porch = { 20, 40, 60 },
-	.hsync_len = { 4, 10, 20 },
-	.vactive = { 1080, 1080, 1080 },
-	.vfront_porch = { 5, 18, 250 },
-	.vback_porch = { 5, 18, 250 },
-	.vsync_len = { 2, 14, 73 },
-	.flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW,
-};
-
-static const struct panel_desc_dsi auo_g156han023_panel = {
-	.desc = {
-		.timings = &auo_g156han023_timing,
-		.num_timings = 1,
-		.bpc = 8,
-		.size = {
-			.width = 344,
-			.height = 193,
-		},
-		.bus_flags = DRM_BUS_FLAG_DE_LOW,
-	},
-	.flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-	.format = MIPI_DSI_FMT_RGB888,
-	.lanes = 4,
-};	
 
 static const struct display_timing vxt_vl215192108_timing = {
 	.pixelclock = { 40000000, 72000000, 83000000 },

@@ -77,6 +77,8 @@
         width-mm = <344>;
         height-mm = <194>;
 
+		status = "okay";
+
 		panel-timing {
 					clock-frequency = <72000000>;
 					hactive = <1920>;
@@ -160,7 +162,7 @@
 		reg = <0>;
 		f#address-cells = <1>;
 		#size-cells = <0>;
-		fsl,data-mapping = "pswg"; //SPWG 후속
+		fsl,data-mapping = "spwg"; 
 		fsl,data-width = <24>;
 		fsl,dual-channel;
 		status = "okay";
