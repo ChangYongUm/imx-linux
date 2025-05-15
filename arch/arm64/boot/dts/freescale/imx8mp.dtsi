@@ -2294,7 +2294,7 @@
 		assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
 		gpr = <&media_blk_ctrl>;
 		power-domains = <&pgc_mediamix>;
-		status = "okay";
+		status = "disabled";
 
 		lvds-channel@0 {
 			#address-cells = <1>;
@@ -2304,7 +2304,7 @@
 			phy-names = "ldb_phy";
 			fsl,data-mapping = "spwg";
 			fsl,data-width = <24>;			
-			status = "okay";
+			status = "disabled";
 
 			port@0 {
 				reg = <0>;
@@ -2321,7 +2321,7 @@
 			phy-names = "ldb_phy";
 			fsl,data-mapping = "spwg";
         	fsl,data-width = <24>;
-			status = "okay";
+			status = "disabled";
 
 			port {
 				ldb_ch1: endpoint {

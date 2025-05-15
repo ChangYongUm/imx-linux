@@ -194,6 +194,13 @@
 		};
 	};
 
+	lvds-channel@1 {
+		reg = <1>;
+        fsl,data-mapping = "spwg";
+        fsl,data-width = <24>;
+        status = "okay";
+	}
+
 };
 
 //LCDIF1 → MIPI-DSI
