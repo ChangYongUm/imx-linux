@@ -74,8 +74,8 @@
 		power-supply = <&reg_lvds_pwr>;
         
         data-mapping = "vesa-24";
-        width-mm = <364>;
-        height-mm = <216>;
+        width-mm = <344>;
+        height-mm = <194>;
 
 		panel-timing {
 					clock-frequency = <72000000>;
@@ -160,8 +160,9 @@
 		reg = <0>;
 		f#address-cells = <1>;
 		#size-cells = <0>;
-		fsl,data-mapping = "spwg";
+		fsl,data-mapping = "pswg"; //SPWG 후속
 		fsl,data-width = <24>;
+		fsl,dual-channel;
 		status = "okay";
 
 		port@1 {
