@@ -134,7 +134,7 @@
 		status = "okay";
 
 		panel-timing {
-					clock-frequency = <72000000>;
+					clock-frequency = <135000000>;
 					hactive = <1920>;
 					vactive = <1080>;
 					hback-porch = <45>;
@@ -174,7 +174,7 @@
 		port@0 {
             reg = <0>;
             ldb_in: endpoint {
-                remote-endpoint = <&lcdif3_out>;
+                remote-endpoint = <&lcdif2_out>;
             };
         };
 
@@ -204,16 +204,16 @@
 	};
 };
 
-//LCDIF1 → 보통 HDMI 또는 MIPI-DSI/parallel RGB
-//LCDIF2 → 일반적으로 MIPI-DSI/parallel RGB
-//LCDIF3 → LVDS(LDB) 등에 사용
+//LCDIF1 → MIPI-DSI
+//LCDIF2 → LVDS
+//LCDIF3 → HDMI
 
-&lcdif3 {
+&lcdif2 {
     status = "okay";
 
     port@1 {
         reg = <1>;
-        lcdif3_out: endpoint {
+        lcdif2_out: endpoint {
             remote-endpoint = <&ldb_in>;
         };
     };
