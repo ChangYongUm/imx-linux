@@ -127,9 +127,9 @@
 		backlight = <&lvds_backlight>;
 		power-supply = <&reg_lvds_pwr>;
         
-        data-mapping = "vesa-24";
+        data-mapping = "spwg";
         width-mm = <344>;
-        height-mm = <194>;
+        height-mm = <193>;
 
 		status = "okay";
 
@@ -158,7 +158,7 @@
 &ldb {
 	status = "okay";
     fsl,dual-channel;
-    phys = <&ldb_phy1>;
+    phys = <&ldb_phy>;
     phy-names = "ldb-phy";
 
 	lvds-channel@0 {
@@ -174,7 +174,7 @@
 		port@0 {
             reg = <0>;
             ldb_in: endpoint {
-                remote-endpoint = <&lcdif_to_ldb>;
+                remote-endpoint = <&lcdif3_out>;
             };
         };
 
@@ -204,12 +204,16 @@
 	};
 };
 
-&lcdif2 {
+//LCDIF1 → 보통 HDMI 또는 MIPI-DSI/parallel RGB
+//LCDIF2 → 일반적으로 MIPI-DSI/parallel RGB
+//LCDIF3 → LVDS(LDB) 등에 사용
+
+&lcdif3 {
     status = "okay";
 
     port@1 {
         reg = <1>;
-        lcdif_to_ldb: endpoint {
+        lcdif3_out: endpoint {
             remote-endpoint = <&ldb_in>;
         };
     };

@@ -1169,7 +1169,7 @@ static const struct panel_desc auo_g156han023 = {
 	.bpc = 8,
 	.size = {
 		.width = 344,
-		.height = 163,
+		.height = 193,
 	},
 	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
