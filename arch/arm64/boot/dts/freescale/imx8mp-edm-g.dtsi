@@ -314,7 +314,7 @@
 };
 
 &ldb {
-	status = "okay"
+	status = "okay";
 };
 
 &lcdif1 {
