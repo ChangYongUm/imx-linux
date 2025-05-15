@@ -126,7 +126,7 @@
 		power-supply = <&reg_lvds_pwr>;
         
         //data-mapping = "vesa-24";
-		data-mapping = "spwg-24";
+		data-mapping = "spwg";
         width-mm = <344>;
         height-mm = <193>;
 
