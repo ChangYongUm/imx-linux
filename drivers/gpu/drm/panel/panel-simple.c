@@ -42,7 +42,7 @@
 #include <drm/drm_panel.h>
 
 
-#include <stdio.h>
+#include "stdio.h"
 
 
 /**
