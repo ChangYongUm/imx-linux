@@ -181,12 +181,6 @@
         fsl,data-mapping = "spwg";
         fsl,data-width = <24>;
         status = "okay";
-		port@1 {
-			reg = <1>;
-			ldb_out_lvds1: endpoint {
-				remote-endpoint = <&lvds1_panel_in>;
-			};
-		};		
     };
 };
 
