@@ -66,7 +66,7 @@
 	};
 
 	lvds0_panel {
-		compatible = "auo,g156han023", "panel-lvds";
+		compatible = "panel-lvds", "auo,g156han023";
 		//compatible = "panel-lvds";
 		//compatible = "vxt,vl215192108", "panel-lvds";
 
