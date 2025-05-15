@@ -189,7 +189,6 @@
 
 };
 
-
 &ldb_phy {
 	status = "okay";
 
