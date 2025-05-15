@@ -4729,11 +4729,14 @@ static const struct of_device_id platform_of_match[] = {
 		/* sentinel */
 	}
 };
+
 MODULE_DEVICE_TABLE(of, platform_of_match);
 
 static int panel_simple_platform_probe(struct platform_device *pdev)
 {
 	const struct panel_desc *desc;
+
+	printf("of_device_get_match_data : %s \n", pdev->dev.of_node->name);
 
 	desc = of_device_get_match_data(&pdev->dev);
 	if (!desc)
