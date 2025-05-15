@@ -1158,6 +1158,7 @@ static const struct display_timing auo_g156han023_timing = {
 	.vfront_porch = { 6, 10, 40 },
 	.vback_porch = { 2, 5, 20 },
 	.vsync_len = { 2, 5, 20 },
+	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,	
 };
 
 
