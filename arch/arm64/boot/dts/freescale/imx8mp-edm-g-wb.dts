@@ -65,39 +65,6 @@
 		status = "okay";
 	};
 
-	lvds0_panel {
-		compatible = "panel-lvds", "auo,g156han023";
-		//compatible = "panel-lvds";
-		//compatible = "vxt,vl215192108", "panel-lvds";
-
-		backlight = <&lvds_backlight>;
-		power-supply = <&reg_lvds_pwr>;
-        
-        data-mapping = "vesa-24";
-        width-mm = <344>;
-        height-mm = <194>;
-
-		status = "okay";
-
-		panel-timing {
-					clock-frequency = <72000000>;
-					hactive = <1920>;
-					vactive = <1080>;
-					hback-porch = <45>;
-					hfront-porch = <45>;
-					vback-porch = <18>;
-					vfront-porch = <18>;
-					hsync-len = <10>;
-					vsync-len = <4>;
-					de-active = <1>;
-		};
-
-		port {
-			lvds0_panel_in: endpoint {
-				remote-endpoint = <&ldb_out_lvds0>;
-			};
-		};
-	};
 
 	usb_hub_rst: usb_hub_rst {
 		compatible = "gpio-reset";
@@ -152,6 +119,40 @@
 		};
 	};
 
+	lvds0_panel {
+		compatible = "panel-lvds", "auo,g156han023";
+		//compatible = "panel-lvds";
+		//compatible = "vxt,vl215192108", "panel-lvds";
+
+		backlight = <&lvds_backlight>;
+		power-supply = <&reg_lvds_pwr>;
+        
+        data-mapping = "vesa-24";
+        width-mm = <344>;
+        height-mm = <194>;
+
+		status = "okay";
+
+		panel-timing {
+					clock-frequency = <72000000>;
+					hactive = <1920>;
+					vactive = <1080>;
+					hback-porch = <45>;
+					hfront-porch = <45>;
+					vback-porch = <18>;
+					vfront-porch = <18>;
+					hsync-len = <10>;
+					vsync-len = <4>;
+					de-active = <1>;
+		};
+
+		port {
+			lvds0_panel_in: endpoint {
+				remote-endpoint = <&ldb_out_lvds0>;
+			};
+		};
+	};
+
 };
 
 &ldb {
@@ -171,14 +172,6 @@
 		fsl,dual-channel;
 		status = "okay";
 		
-		port@0 {
-			reg = <0>;
-
-			ldb_ch0: endpoint {
-				remote-endpoint = <&lcdif2_disp_ldb_ch0>;
-			};
-		};
-
 		port@1 {
 			reg = <1>;
 
@@ -188,26 +181,21 @@
 		};
 	};
 
-    lvds-channel@1 {
-        reg = <1>;
-		phys = <&ldb_phy2>;
-		phy-names = "ldb_phy";
-
-        fsl,data-mapping = "spwg";
-        fsl,data-width = <24>;
-        status = "okay";
-
-		port {
-			ldb_ch1: endpoint {
-				remote-endpoint = <&lcdif2_disp_ldb_ch1>;
-			};
-		};
-    };
 };
 
 
 &ldb_phy {
 	status = "okay";
+
+	ldb_phy1: port@0 {
+		reg = <0>;
+		#phy-cells = <0>;
+	};
+
+	ldb_phy2: port@1 {
+		reg = <1>;
+		#phy-cells = <0>;
+	};
 };
 
 &gpio1 {
