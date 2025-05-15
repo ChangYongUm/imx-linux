@@ -1151,16 +1151,17 @@ static const struct panel_desc auo_g133han01 = {
 
 
 static const struct display_timing auo_g156han023_timing = {
-	.pixelclock = { 40000000, 72000000, 83000000 },
-	.hactive = { 1920, 1920, 1920 },
-	.hfront_porch = { 20, 40, 60 },
-	.hback_porch = { 20, 40, 60 },
-	.hsync_len = { 4, 10, 20 },
-	.vactive = { 1080, 1080, 1080 },
-	.vfront_porch = { 5, 18, 250 },
-	.vback_porch = { 5, 18, 250 },
-	.vsync_len = { 2, 14, 73 },
-	.flags = DISPLAY_FLAGS_HSYNC_LOW | DISPLAY_FLAGS_VSYNC_LOW,	
+    .pixelclock = { 70500000, 70500000, 70500000 },
+    .hactive = { 1920, 1920, 1920 },
+    .hfront_porch = { 88, 88, 88 },    
+    .hback_porch = { 148, 148, 148 },  
+    .hsync_len = { 44, 44, 44 },      
+    .vactive = { 1080, 1080, 1080 },
+    .vfront_porch = { 10, 10, 10 },    
+    .vback_porch = { 30, 30, 30 },     
+    .vsync_len = { 5, 5, 5 },
+    .flags = DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_HSYNC_HIGH | 
+             DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE,
 };
 
 static const struct panel_desc auo_g156han023 = {
@@ -1172,6 +1173,8 @@ static const struct panel_desc auo_g156han023 = {
 		.height = 193,
 	},
 	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+    .bus_flags = DRM_BUS_FLAG_DE_HIGH | 
+                 DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE, 	
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 

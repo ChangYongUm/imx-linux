@@ -132,6 +132,7 @@
 
 		status = "okay";
 
+/*
 		panel-timing {
 					clock-frequency = <135000000>;
 					hactive = <1920>;
@@ -143,6 +144,21 @@
 					hsync-len = <10>;
 					vsync-len = <4>;
 					de-active = <1>;
+		};
+*/
+
+		panel-timing {
+			clock-frequency = <70500000>;
+			hactive = <1920>;
+			vactive = <1080>;
+			hfront-porch = <88>;
+			hsync-len = <44>;
+			hback-porch = <148>;
+			vfront-porch = <10>;
+			vsync-len = <5>;
+			vback-porch = <21>;
+			hsync-active = <1>;
+			vsync-active = <1>;
 		};
 
 		port {
@@ -211,8 +227,8 @@
 	status = "disabled";
 };
 
-&mipi_dsi {
-	status = "disabled";
+&video_pll {
+	assigned-clock-rates = <705000000>;  // 70.5MHz × 10
 };
 
 &mipi_csi_0 {

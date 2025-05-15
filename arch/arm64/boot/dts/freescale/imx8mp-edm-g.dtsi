@@ -325,6 +325,10 @@
 	status = "okay";
 };
 
+&mipi_dsi {
+    status = "disabled";
+};
+
 &easrc {
 	fsl,asrc-rate  = <48000>;
 	status = "okay";
