@@ -329,10 +329,6 @@
 	status = "okay";
 };
 
-&mipi_dsi {
-	status = "okay";
-};
-
 &easrc {
 	fsl,asrc-rate  = <48000>;
 	status = "okay";
