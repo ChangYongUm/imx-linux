@@ -199,18 +199,8 @@
         fsl,data-mapping = "spwg";
         fsl,data-width = <24>;
         status = "okay";
-	}
-
+	};
 };
-
-//LCDIF1 → MIPI-DSI
-//LCDIF2 → LVDS
-//LCDIF3 → HDMI
-
-&lcdif2 {
-    status = "okay";
-};
-
 
 &gpio1 {
 	pinctrl-0 = <&pinctrl_gpio1>;
