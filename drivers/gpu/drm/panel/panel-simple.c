@@ -42,9 +42,6 @@
 #include <drm/drm_panel.h>
 
 
-#include "stdio.h"
-
-
 /**
  * struct panel_desc - Describes a simple panel.
  */
@@ -4740,7 +4737,7 @@ static int panel_simple_platform_probe(struct platform_device *pdev)
 {
 	const struct panel_desc *desc;
 
-	printf("of_device_get_match_data : %s \n", pdev->dev.of_node->name);
+	// printf("of_device_get_match_data : %s \n", pdev->dev.of_node->name);
 
 	desc = of_device_get_match_data(&pdev->dev);
 	if (!desc)
