@@ -120,7 +120,7 @@
 	};
 
 
-	lvds0_panel {
+	lvds0_panel: lvds_panel  {
 		compatible = "auo,g156han023", "panel-lvds";
 		status = "okay";
 
@@ -184,7 +184,7 @@
 	lvds-channel@0 {
 		reg = <0>;
 		panel = <&lvds0_panel>; 
-		
+
 		#address-cells = <1>;
 		#size-cells = <0>;
 		fsl,data-mapping = "spwg";
