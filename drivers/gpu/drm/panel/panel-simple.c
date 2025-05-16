@@ -477,6 +477,9 @@ static int panel_dpi_probe(struct device *dev,
 	int ret;
 
 	np = dev->of_node;
+
+printk(KERN_INFO "panel_dpi_probe np = %d \n", np);
+
 	desc = devm_kzalloc(dev, sizeof(*desc), GFP_KERNEL);
 	if (!desc)
 		return -ENOMEM;
@@ -484,6 +487,7 @@ static int panel_dpi_probe(struct device *dev,
 	timing = devm_kzalloc(dev, sizeof(*timing), GFP_KERNEL);
 	if (!timing)
 		return -ENOMEM;
+
 
 	ret = of_get_display_timing(np, "panel-timing", timing);
 	if (ret < 0) {
@@ -610,6 +614,8 @@ static int panel_simple_parse_dt_settings (struct device *dev, struct panel_simp
 		pd->vflip = true;
 		ret = -1;
 	}
+
+	printk(KERN_INFO "panel_simple_parse_dt_settings height = %d \n", pd->size.height);
 
 	return ret;
 }
