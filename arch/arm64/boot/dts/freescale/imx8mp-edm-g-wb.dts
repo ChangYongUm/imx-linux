@@ -66,29 +66,29 @@
 	};
 
 	lvds0_panel {
-		//compatible = "auo,g156han023", "panel-lvds";
-		compatible = "auo,g156han02.3-panel";
-		//compatible = "vxt,vl156192108", "panel-lvds";
+		compatible = "panel-lvds", "auo,g156han023";
 
 		backlight = <&lvds_backlight>;
 		power-supply = <&reg_lvds_pwr>;
         
-        data-mapping = "spwg";
+        data-mapping = "vesa-24";
+		
         width-mm = <364>;
         height-mm = <216>;
 
 		panel-timing {
-			clock-frequency = <70500000>;
-			hactive = <1920>;
-			vactive = <1080>;
-			hfront-porch = <88>;
-			hsync-len = <44>;
-			hback-porch = <148>;
-			vfront-porch = <10>;
-			vsync-len = <5>;
-			vback-porch = <21>;
+			clock-frequency = <0x44aa200>;
+			hactive = <0x780>;
+			vactive = <0x438>;
+			hfront-porch = <0x2d>;
+			hsync-len = <0x0a>;
+			hback-porch = <0x2d>;
+			vfront-porch = <0x12>;			
+			vsync-len = <0x04>;
+			vback-porch = <0x12>;
 			hsync-active = <1>;
 			vsync-active = <1>;
+			de-active = <0x01>;
 		};
 
 		port {
@@ -164,6 +164,7 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 		fsl,data-mapping = "spwg";
+		fsl,dual-channel;
 		fsl,data-width = <24>;
 		status = "okay";
 
