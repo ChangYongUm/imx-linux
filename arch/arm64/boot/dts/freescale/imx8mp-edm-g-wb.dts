@@ -66,8 +66,7 @@
 	};
 
 	lvds0_panel {
-		compatible = "panel-lvds";
-		//compatible = "panel-lvds", "auo,g156han023";
+		compatible = "panel-lvds", "auo,g156han023";
 
 		backlight = <&lvds_backlight>;
 		power-supply = <&reg_lvds_pwr>;
@@ -75,21 +74,21 @@
         data-mapping = "vesa-24";
 		
         width-mm = <364>;
-        height-mm = <216>;
+        height-mm = <194>;
 
 		panel-timing {
-			clock-frequency = <141000000>;
+			clock-frequency = <72000000>;
 			hactive = <1920>;
 			vactive = <1080>;
-			hfront-porch = <0x2d>;
-			hsync-len = <0x0a>;
-			hback-porch = <0x2d>;
-			vfront-porch = <0x12>;			
-			vsync-len = <0x04>;
-			vback-porch = <0x12>;
+			hfront-porch = <41>;
+			hback-porch = <41>;
+			hsync-len = <16>;			
 			hsync-active = <1>;
+			vfront-porch = <18>;			
+			vback-porch = <18>;
+			vsync-len = <4>;	
 			vsync-active = <1>;
-			de-active = <0x01>;
+			de-active = <1>;
 		};
 
 		port {
