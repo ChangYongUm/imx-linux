@@ -66,7 +66,8 @@
 	};
 
 	lvds0_panel {
-		compatible = "panel-lvds", "auo,g156han023";
+		compatible = "panel-lvds";
+		#"auo,g156han023";
 
 		backlight = <&lvds_backlight>;
 		power-supply = <&reg_lvds_pwr>;
@@ -77,9 +78,9 @@
         height-mm = <216>;
 
 		panel-timing {
-			clock-frequency = <0x44aa200>;
-			hactive = <0x780>;
-			vactive = <0x438>;
+			clock-frequency = <141000000>;
+			hactive = <1920>;
+			vactive = <1080>;
 			hfront-porch = <0x2d>;
 			hsync-len = <0x0a>;
 			hback-porch = <0x2d>;
