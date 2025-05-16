@@ -119,21 +119,6 @@
 		};
 	};
 
-/*
-		panel-timing {
-					clock-frequency = <135000000>;
-					hactive = <1920>;
-					vactive = <1080>;
-					hback-porch = <45>;
-					hfront-porch = <45>;
-					vback-porch = <18>;
-					vfront-porch = <18>;
-					hsync-len = <10>;
-					vsync-len = <4>;
-					de-active = <1>;
-		};
-*/
-
 
 	lvds0_panel : panel-lvds {
 		compatible = "auo,g156han023", "panel-lvds";

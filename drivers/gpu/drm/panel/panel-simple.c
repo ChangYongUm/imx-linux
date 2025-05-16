@@ -1158,22 +1158,22 @@ static const struct display_timing auo_g156han023_timing = {
 	.vfront_porch = { 6, 10, 40 },
 	.vback_porch = { 2, 5, 20 },
 	.vsync_len = { 2, 5, 20 },
-	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,	
+	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
+//    .flags = DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_HSYNC_HIGH | 
+//             DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE,
 };
 
-
 static const struct panel_desc auo_g156han023 = {
-    .timings = &auo_g156han023_timing,
-    .num_timings = 1,
-    .bpc = 8,
-    .size = {
-        .width = 364,  
-        .height = 216,
-    },
-    .bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG, 
-    .bus_flags = DRM_BUS_FLAG_DE_HIGH | 
-                 DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE,  
-    .connector_type = DRM_MODE_CONNECTOR_LVDS,
+	.timings = &auo_g156han023_timing,
+	.num_timings = 1,
+	.bpc = 8,
+	.size = {
+		.width = 344,
+		.height = 193,
+	},
+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+        .bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE, 	
+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 
 static const struct drm_display_mode auo_g156xtn01_mode = {

@@ -1466,7 +1466,6 @@
 						remote-endpoint = <&ldb_ch1>;
 					};
 				};
-
 			};
 
 			media_blk_ctrl: blk-ctrl@32ec0000 {

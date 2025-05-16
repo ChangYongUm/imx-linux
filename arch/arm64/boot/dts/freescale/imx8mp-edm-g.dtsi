@@ -309,14 +309,6 @@
 	status = "okay";
 };
 
-&mipi_dsi {
-    status = "disabled";
-};
-
-&ldb {
-	status = "okay";
-};
-
 &lcdif1 {
 	status = "okay";
 };
@@ -331,6 +323,10 @@
 
 &ldb_phy {
 	status = "okay";
+};
+
+&mipi_dsi {
+    status = "disabled";
 };
 
 &easrc {
