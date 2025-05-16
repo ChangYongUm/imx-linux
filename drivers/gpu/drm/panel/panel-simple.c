@@ -532,6 +532,9 @@ static void panel_simple_parse_panel_timing_node(struct device *dev,
 		return;
 	}
 
+	printk(KERN_INFO "panel->desc->num_timings = %d \n", panel->desc->num_timings);
+
+
 	for (i = 0; i < panel->desc->num_timings; i++) {
 		const struct display_timing *dt = &panel->desc->timings[i];
 

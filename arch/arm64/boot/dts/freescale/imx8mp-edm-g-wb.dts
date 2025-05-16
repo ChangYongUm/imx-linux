@@ -65,38 +65,6 @@
 		status = "okay";
 	};
 
-	lvds0_panel {
-		compatible = "panel-lvds", "auo,g156han023";
-
-		backlight = <&lvds_backlight>;
-		power-supply = <&reg_lvds_pwr>;
-        
-        data-mapping = "vesa-24";
-		
-        width-mm = <364>;
-        height-mm = <194>;
-
-		panel-timing {
-			clock-frequency = <72000000>;
-			hactive = <1920>;
-			vactive = <1080>;
-			hfront-porch = <41>;
-			hback-porch = <41>;
-			hsync-len = <16>;			
-			hsync-active = <1>;
-			vfront-porch = <18>;			
-			vback-porch = <18>;
-			vsync-len = <4>;	
-			vsync-active = <1>;
-			de-active = <1>;
-		};
-
-		port {
-			lvds0_panel_in: endpoint {
-				remote-endpoint = <&ldb_out_lvds0>;
-			};
-		};
-	};
 
 	usb_hub_rst: usb_hub_rst {
 		compatible = "gpio-reset";
@@ -151,6 +119,40 @@
 		};
 	};
 
+
+	lvds0_panel {
+		compatible = "auo,g156han023", "panel-lvds";
+
+		backlight = <&lvds_backlight>;
+		power-supply = <&reg_lvds_pwr>;
+        
+        //data-mapping = "vesa-24";
+		data-mapping = "spwg";
+		
+        width-mm = <364>;
+        height-mm = <194>;
+
+		panel-timing {
+			clock-frequency = <72000000>;
+			hactive = <1920>;
+			vactive = <1080>;
+			hfront-porch = <41>;
+			hback-porch = <41>;
+			hsync-len = <16>;			
+			hsync-active = <1>;
+			vfront-porch = <18>;			
+			vback-porch = <18>;
+			vsync-len = <4>;	
+			vsync-active = <1>;
+			de-active = <1>;
+		};
+
+		port {
+			lvds0_panel_in: endpoint {
+				remote-endpoint = <&ldb_out_lvds0>;
+			};
+		};
+	};
 };
 
 
@@ -164,7 +166,7 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 		fsl,data-mapping = "spwg";
-		fsl,dual-channel;
+		//fsl,dual-channel;
 		fsl,data-width = <24>;
 		status = "okay";
 
@@ -177,16 +179,15 @@
 		};
 	};
 
+	/*
     lvds-channel@1 {
         reg = <1>;
         fsl,data-mapping = "spwg";
+		fsl,dual-channel;
         fsl,data-width = <24>;
         status = "okay";
     };
-};
-
-&ldb_phy {
-	status = "okay";
+	*/
 };
 
 &gpio1 {

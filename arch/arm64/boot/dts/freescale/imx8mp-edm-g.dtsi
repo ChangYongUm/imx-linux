@@ -18,7 +18,8 @@
 		      <0x1 0x00000000 0 0xc0000000>;
 	};
 
-	chosen {
+	chosen {		
+		bootargs = "console=ttymxc1,115200 earlycon=ec_imx6q,0x30890000,115200 video=1920x1080M@60";
 		stdout-path = &uart2;
 	};
 

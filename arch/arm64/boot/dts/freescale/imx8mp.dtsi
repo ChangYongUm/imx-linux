@@ -2296,6 +2296,8 @@
 		assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
 		gpr = <&media_blk_ctrl>;
 		power-domains = <&pgc_mediamix>;
+		phys = <&ldb_phy>;
+		phy-names = "ldb_phy";		
 		status = "disabled";
 
 		lvds-channel@0 {
