@@ -122,11 +122,11 @@
 
 	lvds0_panel {
 		compatible = "auo,g156han023", "panel-lvds";
+		status = "okay";
 
 		backlight = <&lvds_backlight>;
 		power-supply = <&reg_lvds_pwr>;
         
-		 //spwg -> /lvds0_panel: invalid or missing data-mapping DT property
 		data-mapping = "vesa-24";
 		
         width-mm = <364>;
@@ -150,6 +150,7 @@
 			};
 		};
 
+		/*
 		panel-timing {
 			clock-frequency = <70500000>;
 			hactive = <1920>;
@@ -164,6 +165,7 @@
 			vsync-active = <1>;
 			de-active = <1>;
 		};
+		*/
 
 		port {
 			lvds0_panel_in: endpoint {
@@ -181,6 +183,8 @@
 
 	lvds-channel@0 {
 		reg = <0>;
+		panel = <&lvds0_panel>; 
+		
 		#address-cells = <1>;
 		#size-cells = <0>;
 		fsl,data-mapping = "spwg";
@@ -195,18 +199,6 @@
 			};
 		};
 	};
-
-	/*  when use, it's ok, but bug report.
-	imx8mp-ldb ldb-display-controller: dual-channel mode, ignoring second output
-	Bogus possible_crtcs: [ENCODER:41:LVDS-41] possible_crtcs=0x0 (full crtc mask=0x7)
-	imx8mp-ldb ldb-display-controller: Failed to create device link (0x180) with phy-lvds
-    lvds-channel@1 {
-        reg = <1>;
-        fsl,data-mapping = "spwg";
-        fsl,data-width = <24>;
-        status = "okay";
-    };
-	*/
 };
 
 &gpio1 {
