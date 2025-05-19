@@ -181,6 +181,13 @@
 
     fsl,dual-channel;
 
+    port@0 {
+        reg = <0>; // 입력 포트
+        ldb_in_lvds: endpoint {
+            remote-endpoint = <&lcdif2_out>;
+        };
+    };
+	
 	lvds-channel@0 {
 		reg = <0>;
 		panel = <&lvds0_panel>; 

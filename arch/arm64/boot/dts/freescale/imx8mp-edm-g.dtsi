@@ -311,11 +311,18 @@
 };
 
 &lcdif1 {
-	status = "okay";
+	status = "disabled";
 };
 
 &lcdif2 {
 	status = "okay";
+
+	port@1 {
+        reg = <1>;  // 출력을 의미
+        lcdif2_out: endpoint {
+            remote-endpoint = <&ldb_in_lvds>;
+        };
+    };
 };
 
 //hdmi
