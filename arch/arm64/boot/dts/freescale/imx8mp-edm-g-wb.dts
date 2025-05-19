@@ -172,13 +172,6 @@
 		fsl,data-width = <24>;
 		status = "okay";
 
-		port@0 {
-			reg = <0>; // INPUT 
-			ldb_in_lvds: endpoint {
-				remote-endpoint = <&lcdif2_out>;
-			};
-		};
-
 		port@1 {
 			reg = <1>;
 
@@ -196,13 +189,6 @@
 &lcdif2 
 {
 	status = "okay";
-
-	port@0 {
-        reg = <0>;  // OUTPUT
-        lcdif2_out: endpoint {
-            remote-endpoint = <&ldb_in_lvds>;
-        };
-    };
 };
 
 //hdmi
