@@ -310,15 +310,6 @@
 	status = "okay";
 };
 
-&lcdif1 {
-	status = "disabled";
-};
-
-//hdmi
-&lcdif3 {
-	status = "okay";
-};
-
 &ldb_phy {
 	status = "okay";
 };

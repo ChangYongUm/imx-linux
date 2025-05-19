@@ -189,6 +189,9 @@
 	};
 };
 
+&lcdif1 {
+	status = "disabled";
+};
 
 &lcdif2 
 {
@@ -200,6 +203,11 @@
             remote-endpoint = <&ldb_in_lvds>;
         };
     };
+};
+
+//hdmi
+&lcdif3 {
+	status = "okay";
 };
 
 &gpio1 {
