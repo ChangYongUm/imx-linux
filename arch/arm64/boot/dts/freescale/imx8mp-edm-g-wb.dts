@@ -172,12 +172,14 @@
 		fsl,data-width = <24>;
 		status = "okay";
 
+		/*
 		port@0 {
 			reg = <0>; // 입력 포트
 			ldb_in_lvds: endpoint {
 				remote-endpoint = <&lcdif2_out>;
 			};
 		};
+		*/
 
 		port@1 {
 			reg = <1>;
@@ -187,6 +189,21 @@
 			};
 		};
 	};
+};
+
+
+&lcdif2 
+{
+	status = "okay";
+
+	/*
+	port@1 {
+        reg = <1>;  // 출력을 의미
+        lcdif2_out: endpoint {
+            remote-endpoint = <&ldb_in_lvds>;
+        };
+    };
+	*/
 };
 
 &gpio1 {
