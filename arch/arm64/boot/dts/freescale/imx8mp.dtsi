@@ -1436,7 +1436,7 @@
 					};
 				};
 			};
-
+   
 			lcdif2: lcd-controller@32e90000 {
 				compatible = "fsl,imx8mp-lcdif2";
 				reg = <0x32e90000 0x10000>;

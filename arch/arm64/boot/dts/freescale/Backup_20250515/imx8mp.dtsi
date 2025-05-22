@@ -796,6 +796,7 @@
 						reg = <IMX8MP_POWER_DOMAIN_USB2_PHY>;
 					};
 
+
 					pgc_gpumix: power-domain@7 {
 						#power-domain-cells = <0>;
 						reg = <IMX8MP_POWER_DOMAIN_GPUMIX>;
