@@ -125,7 +125,7 @@
 
 
 	lvds0_panel: lvds_panel  {
-		compatible = "auo,g156han023", "panel-lvds";
+		compatible = "auo,g156han02.3", "panel-lvds";
 		status = "okay";
 
 		backlight = <&lvds_backlight>;

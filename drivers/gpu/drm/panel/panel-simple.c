@@ -4726,7 +4726,7 @@ static const struct of_device_id platform_of_match[] = {
 		.compatible = "vxt,vl080-8060nt-c01",
 		.data = &vl080_8060nt_c01,
 	}, {
-		.compatible = "auo,g156han023",
+		.compatible = "auo,g156han02.3",
 		.data = &auo_g156han023	
 	}, {
 		.compatible = "winstar,wf35ltiacd",
