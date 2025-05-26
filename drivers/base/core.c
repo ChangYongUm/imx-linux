@@ -2117,6 +2117,10 @@ static int fw_devlink_create_devlink(struct device *con,
 				flags, dev_name(sup_dev));
 			ret = -EINVAL;
 		}
+		else 
+		{
+			printk(" device_link_add (0x%x) with %s \n", flags, dev_name(sup_dev));
+		}
 
 		goto out;
 	}
