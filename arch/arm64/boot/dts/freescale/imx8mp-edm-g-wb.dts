@@ -136,26 +136,8 @@
         width-mm = <364>;
         height-mm = <194>;
 
-		/*
 		panel-timing {
-			clock-frequency = <70500000>;
-			hactive = <1920>;
-			vactive = <1080>;
-			hfront-porch = <45>;
-			hback-porch = <45>;
-			hsync-len = <16>;			
-			hsync-active = <1>;
-			vfront-porch = <18>;			
-			vback-porch = <18>;
-			vsync-len = <4>;	
-			vsync-active = <1>;
-			de-active = <1>;
-			pixelclk-active = <0>;
-		};
-		*/
-
-		panel-timing {
-			clock-frequency = <130000000>;
+			clock-frequency = <141750000>;
 			hactive = <1920>;
 			vactive = <1080>;
 			hfront-porch = <40>;

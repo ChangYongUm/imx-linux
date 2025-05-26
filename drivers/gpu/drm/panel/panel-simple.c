@@ -1160,15 +1160,15 @@ static const struct panel_desc auo_g133han01 = {
 };
 
 static const struct display_timing auo_g156han023_timing = {
-    .pixelclock = { 68500000, 70500000, 73000000 },
+    .pixelclock = { 137000000, 141000000, 148500000 },
     .hactive = { 1920, 1920, 1920 },
-	.hfront_porch = { 36, 45, 148 },
-	.hback_porch = { 24, 45, 108 },
-	.hsync_len = { 10, 16, 64 },
+	.hfront_porch = { 5, 40, 148 },
+	.hback_porch = { 24, 100, 108 },
+	.hsync_len = { 5, 10, 32 },
 	.vactive = { 1080, 1080, 1080 },
-	.vfront_porch = { 6, 18, 40 },
-	.vback_porch = { 2, 18, 20 },
-	.vsync_len = { 2, 4, 20 },
+	.vfront_porch = { 1, 3, 40 },
+	.vback_porch = { 2, 30, 20 },
+	.vsync_len = { 1, 1, 20 },
 	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
 //    .flags = DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_HSYNC_HIGH | 
 //             DISPLAY_FLAGS_VSYNC_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE,
