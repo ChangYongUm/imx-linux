@@ -125,7 +125,7 @@
 
 
 	lvds0_panel: lvds_panel  {
-		compatible = "auo,g156han02.3", "panel-lvds";
+		compatible = "panel-lvds", "fsl,dual-channel", "auo,g156han02.3";
 		status = "okay";
 
 		backlight = <&lvds_backlight>;
@@ -133,8 +133,11 @@
         
 		data-mapping = "vesa-24";
 		
+		panel-type   = "lvds";
         width-mm = <364>;
         height-mm = <194>;
+
+		split-mode;
 
 		panel-timing {
 			clock-frequency = <141750000>;
