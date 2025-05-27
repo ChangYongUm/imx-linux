@@ -148,8 +148,8 @@
 			hsync-len = <20>;			
 			hsync-active = <1>;
 			vfront-porch = <16>;			
-			vback-porch = <16>;
-			vsync-len = <2>;	
+			vback-porch = <18>;
+			vsync-len = <4>;	
 			vsync-active = <1>;
 			de-active = <1>;
 			pixelclk-active = <0>;
