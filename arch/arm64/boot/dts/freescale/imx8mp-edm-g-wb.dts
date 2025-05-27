@@ -143,8 +143,6 @@
 			clock-frequency = <141750000>;
 			hactive = <1920>;
 			vactive = <1080>;
-			hactive = <1920>;
-			vactive = <1080>;
 			hfront-porch = <40>;
 			hback-porch = <40>;
 			hsync-len = <20>;			
