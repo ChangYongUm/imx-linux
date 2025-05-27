@@ -145,14 +145,15 @@
 			vactive = <1080>;
 			hfront-porch = <40>;
 			hback-porch = <100>;
-			hsync-len = <10>;			
-			hsync-active = <1>;
+			hsync-len = <10>;	
 			vfront-porch = <3>;			
 			vback-porch = <30>;
 			vsync-len = <2>;	
+
+			hsync-active = <1>;
 			vsync-active = <1>;
 			de-active = <1>;
-			pixelclk-active = <0>;
+			pixelclk-active = <1>;
 		};		
 
 		port {
