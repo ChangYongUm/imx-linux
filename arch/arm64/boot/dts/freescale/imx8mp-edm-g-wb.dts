@@ -181,8 +181,8 @@
 &gpio1 {
 	pinctrl-0 = <&pinctrl_gpio1>;
 	gpio-line-names =	\
-		"", "", "", "PMIC_nINT", "", "", "", "",	\
-		"", "ETH_Reset", "", "", "ETH_INT", "", "", "",	\
+		"", "PCIE_RST", "", "PMIC_nINT", "", "", "", "csi0_pwn",	\
+		"csi0_rst", "ETH_Reset", "", "", "ETH_INT", "PCIE_CLKREQ", "", "",	\
 		"", "", "", "", "", "", "", "",	\
 		"", "", "", "", "", "", "", "";
 };
@@ -208,9 +208,9 @@
 &gpio4 {
 	pinctrl-0 = <&pinctrl_gpio4>;
 	gpio-line-names =	\
-		"", "", "", "", "", "", "", "",	\
+		"USB_OTG_PWR_EN", "", "", "", "", "", "", "",	\
 		"", "", "", "", "LVDS0_VDDEN", "TOUCH_RST", "LVDS0_BL_EN", "TOUCH_INT",	\
-		"DSI_BL_EN", "DSI_VDDEN", "", "", "", "", "", "",	\
+		"DSI_BL_EN", "DSI_VDDEN", "", "", "", "PCIE_WAKE", "", "",	\
 		"", "", "", "", "", "", "", "";
 };
 
@@ -268,12 +268,12 @@
 		};
 
 	codec_sgtl5000: sgtl5000@a {
-                compatible = "fsl,sgtl5000";
-                reg = <0x2a>;
-                clocks = <&clk IMX8MM_CLK_SAI2_ROOT>;
-                clock-names = "mclk";
-                pinctrl-names = "default";
-                pinctrl-0 = <&pinctrl_sai2_mclk>;
+		compatible = "fsl,sgtl5000";
+		reg = <0x2a>;
+		clocks = <&audio_blk_ctrl IMX8MP_CLK_AUDIOMIX_SAI2_MCLK1>;
+		clock-names = "mclk";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_sai2_mclk>;
 		assigned-clocks = <&clk IMX8MM_CLK_SAI2>;
 		assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
 		assigned-clock-rates = <24576000>; //12288000 ????
@@ -307,9 +307,7 @@
 			};
 		};
 	};
-
 };
-
 
 &i2c5 {
 	#address-cells = <1>;
