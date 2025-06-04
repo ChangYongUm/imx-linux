@@ -108,25 +108,25 @@
 
 	status = "disabled";
 
-	spidev1: spi@0 {
+	spidev11: spi@0 {
 		reg = <0>;
 		compatible = "rohm,dh2228fv";
 		spi-max-frequency = <500000>;
 	};
 
-	spidev1: spi@1 {
+	spidev11: spi@1 {
 		reg = <1>;
 		compatible = "rohm,dh2228fv";
 		spi-max-frequency = <500000>;
 	};
 
-	spidev2: spi@2 {
+	spidev12: spi@2 {
 		reg = <2>;
 		compatible = "rohm,dh2228fv";
 		spi-max-frequency = <500000>;
 	};
 
-	spidev3: spi@3 {
+	spidev13: spi@3 {
 		reg = <3>;
 		compatible = "rohm,dh2228fv";
 		spi-max-frequency = <500000>;
@@ -150,25 +150,25 @@
 
 	status = "disabled";
 	
-	spidev1: spi@0 {
+	spidev21: spi@0 {
 		reg = <0>;
 		compatible = "rohm,dh2228fv";
 		spi-max-frequency = <500000>;
 	};
 
-	spidev1: spi@1 {
+	spidev21: spi@1 {
 		reg = <1>;
 		compatible = "rohm,dh2228fv";
 		spi-max-frequency = <500000>;
 	};
 
-	spidev2: spi@2 {
+	spidev22: spi@2 {
 		reg = <2>;
 		compatible = "rohm,dh2228fv";
 		spi-max-frequency = <500000>;
 	};
 
-	spidev3: spi@3 {
+	spidev23: spi@3 {
 		reg = <3>;
 		compatible = "rohm,dh2228fv";
 		spi-max-frequency = <500000>;
@@ -829,14 +829,13 @@
 		>;
 	};
 
-/*
 	pinctrl_uart1: uart1grp {
 		fsl,pins = <
 			MX8MM_IOMUXC_SAI2_RXC_UART1_DCE_RX		0x140
 			MX8MM_IOMUXC_SAI2_RXFS_UART1_DCE_TX		0x140
 		>;
 	};
-*/
+
 	pinctrl_uart2: uart2grp {
 		fsl,pins = <
 			MX8MP_IOMUXC_UART2_RXD__UART2_DCE_RX	0x140

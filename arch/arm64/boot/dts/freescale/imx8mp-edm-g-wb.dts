@@ -273,8 +273,8 @@
 		reg = <0x2a>;
 		clocks = <&audio_blk_ctrl IMX8MP_CLK_AUDIOMIX_SAI2_MCLK1>;
 		clock-names = "mclk";
-		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_sai2_mclk>;
+		//pinctrl-names = "default";
+		//pinctrl-0 = <&pinctrl_sai2_mclk>;
 		//assigned-clocks = <&clk IMX8MM_CLK_SAI2>;
 		//assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
 		//assigned-clock-rates = <24576000>; //12288000 ????
