@@ -78,6 +78,23 @@
 		#reset-cells = <0>;
 	};
 
+
+	reg_pcie0: regulator-pcie {
+		compatible = "regulator-fixed";
+		regulator-name = "PCIE_CLKREQ_N";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		gpio = <&gpio1 13 GPIO_ACTIVE_LOW>;
+		enable-active-low;
+	};	
+
+
+	pcie0_refclk: pcie0-refclk {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <100000000>;
+	};	
+
 #ifdef CODEC_SGTL5000
 	sound_sgtl5000 {
 			compatible = "fsl,sgtl5000", "fsl,imx-audio-sgtl5000";
@@ -402,6 +419,19 @@
 	};
 };
 
+
+&pcie{
+	vpcie-supply = <&reg_pcie0>;
+	status = "okay";
+};
+
+&pcie_phy{
+	fsl,refclk-pad-mode = <IMX8_PCIE_REFCLK_PAD_INPUT>;
+	clocks = <&pcie0_refclk>;
+	clock-names = "ref";
+	status = "okay";
+};
+
 &usb_dwc3_1 {
 	dr_mode = "host";
 	status = "okay";
@@ -445,17 +475,6 @@
 		>;
 	};
 
-	pinctrl_pca9555_a21_irq: pca9555_a21_irqgrp {
-		fsl,pins = <
-			MX8MP_IOMUXC_GPIO1_IO10__GPIO1_IO10		0x140 /* SPI_B_SS0 */
-		>;
-	};
-
-	pinctrl_pca9555_a23_irq: pca9555_a23_irqgrp {
-		fsl,pins = <
-			MX8MP_IOMUXC_SAI1_TXC__GPIO4_IO11		0x140 /* GPIO_P247 */
-		>;
-	};
 
 	pinctrl_gpio1: gpio1grp {
 		fsl,pins = <
