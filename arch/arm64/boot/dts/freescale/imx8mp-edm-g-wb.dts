@@ -80,6 +80,7 @@
 			model = "sgtl5000";
 			codec-master;
 			ssi-controller = <&sai2>;
+			audio-cpu = <&sai2>;
 			audio-codec = <&codec_sgtl5000>;
 			audio-routing =
 					"MIC_IN", "Mic Jack",
@@ -274,9 +275,9 @@
 		clock-names = "mclk";
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_sai2_mclk>;
-		assigned-clocks = <&clk IMX8MM_CLK_SAI2>;
-		assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
-		assigned-clock-rates = <24576000>; //12288000 ????
+		//assigned-clocks = <&clk IMX8MM_CLK_SAI2>;
+		//assigned-clock-parents = <&clk IMX8MM_AUDIO_PLL1_OUT>;
+		//assigned-clock-rates = <24576000>; //12288000 ????
 		status = "okay"
 	};
 
