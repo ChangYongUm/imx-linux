@@ -255,7 +255,7 @@
 			pinctrl-0 = <&pinctrl_csi0_pwn>, <&pinctrl_csi0_rst>;
 			host-pwdn-gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>;
 			reset-gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>;
-			standby-gpios = <&pca9555_a21 2 GPIO_ACTIVE_HIGH>;
+			standby-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
 			data-lanes = <4>;
 			data-frequency = <800>;
 			continuous-clock = <0>;

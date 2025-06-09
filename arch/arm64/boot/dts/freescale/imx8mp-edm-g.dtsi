@@ -334,13 +334,6 @@
 	status = "okay";
 };
 
-&i2c6 {
-	clock-frequency = <400000>;
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_i2c6>;
-	status = "okay";
-};
-
 &irqsteer_hdmi {
 	status = "okay";
 };
@@ -717,7 +710,7 @@
 
 	pinctrl_pwm3: pwm3grp {
 		fsl,pins = <
-			MX8MP_IOMUXC_GPIO1_IO14__PWM3_OUT		0x116
+			MX8MP_IOMUXC_SAI5_RXC__PWM3_OUT		0x116
 		>;
 	};
 
@@ -773,13 +766,6 @@
 			MX8MP_IOMUXC_HDMI_DDC_SDA__I2C5_SDA		0x400001a3
 		>;
 	};
-
-	pinctrl_i2c6: i2c6grp {
-		fsl,pins = <
-			MX8MP_IOMUXC_SAI5_RXFS__I2C6_SCL		0x400001a3
-			MX8MP_IOMUXC_SAI5_RXC__I2C6_SDA			0x400001a3
-		>;
-	};	
 
 	pinctrl_flexcan1: flexcan1grp {
 		fsl,pins = <
@@ -863,6 +849,7 @@
 		fsl,pins = <
 			MX8MP_IOMUXC_GPIO1_IO06__GPIO1_IO06        0x16
 			MX8MP_IOMUXC_GPIO1_IO08__GPIO1_IO08        0x16
+			MX8MP_IOMUXC_GPIO1_IO14__GPIO1_IO14        0x16
 		>;
 	};
 
@@ -875,6 +862,7 @@
 
 	pinctrl_gpio3: gpio3grp {
 		fsl,pins = <			
+			MX8MP_IOMUXC_SAI5_RXFS__GPIO3_IO19         0x16
 			MX8MP_IOMUXC_SAI5_RXD1__GPIO3_IO22         0x16
 		>;
 	};	
@@ -899,7 +887,7 @@
 			MX8MP_IOMUXC_SAI1_TXD4__GPIO4_IO16         0x16
 			MX8MP_IOMUXC_SAI1_TXD5__GPIO4_IO17         0x16		             
 			MX8MP_IOMUXC_SAI3_RXFS__GPIO4_IO28         0x16
-            MX8MP_IOMUXC_SAI3_RXC__GPIO4_IO29          0x16
+            MX8MP_IOMUXC_SAI3_RXC__GPIO4_IO29          0x16			
 		>;
 	};
 
