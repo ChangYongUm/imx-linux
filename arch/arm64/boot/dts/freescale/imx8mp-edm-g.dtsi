@@ -106,29 +106,29 @@
 		&gpio4 31 GPIO_ACTIVE_LOW  // CS3
 	>;
 
-	status = "disabled";
+	status = "okay";
 
 	spidev10: spi@0 {
 		reg = <0>;
-		compatible = "rohm,dh2228fv";
+		compatible = "spidev";
 		spi-max-frequency = <500000>;
 	};
 
 	spidev11: spi@1 {
 		reg = <1>;
-		compatible = "rohm,dh2228fv";
+		compatible = "spidev";
 		spi-max-frequency = <500000>;
 	};
 
 	spidev12: spi@2 {
 		reg = <2>;
-		compatible = "rohm,dh2228fv";
+		compatible = "spidev";
 		spi-max-frequency = <500000>;
 	};
 
 	spidev13: spi@3 {
 		reg = <3>;
-		compatible = "rohm,dh2228fv";
+		compatible = "spidev";
 		spi-max-frequency = <500000>;
 	};
 };
@@ -142,35 +142,35 @@
 	
 	num-cs = <4>;	
 	cs-gpios = <
-		&gpio5 13 GPIO_ACTIVE_LOW    // ECSPI2_SS0 (기본)
+		&gpio5 13 GPIO_ACTIVE_LOW    // ECSPI2_SS0 
 		&gpio3 23 GPIO_ACTIVE_LOW    // SAI5_RXD2
 		&gpio3 24 GPIO_ACTIVE_LOW    // SAI5_RXD3
 		&gpio3 25 GPIO_ACTIVE_LOW    // SAI5_MCLK
 	>;
 
-	status = "disabled";
+	status = "okay";
 	
 	spidev20: spi@0 {
 		reg = <0>;
-		compatible = "rohm,dh2228fv";
+		compatible = "spidev";
 		spi-max-frequency = <500000>;
 	};
 
 	spidev21: spi@1 {
 		reg = <1>;
-		compatible = "rohm,dh2228fv";
+		compatible = "spidev";
 		spi-max-frequency = <500000>;
 	};
 
 	spidev22: spi@2 {
 		reg = <2>;
-		compatible = "rohm,dh2228fv";
+		compatible = "spidev";
 		spi-max-frequency = <500000>;
 	};
 
 	spidev23: spi@3 {
 		reg = <3>;
-		compatible = "rohm,dh2228fv";
+		compatible = "spidev";
 		spi-max-frequency = <500000>;
 	}; 
 };
