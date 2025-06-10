@@ -73,6 +73,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8dxl-evk.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mm-ab2.dtb imx8mm-ab2-m4.dtb imx8mm-ddr4-ab2.dtb imx8mm-ddr4-ab2-m4.dtb \
 			  imx8mm-ddr4-ab2-revb.dtb imx8mm-ddr4-ab2-m4-revb.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mm-edm-g-wb.dtb
+dtb-$(CONFIG_ARCH_MXC) += imx8mm-facscope.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mm-edm-g-wizard.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mm-evk.dtb imx8mm-evk-rpmsg.dtb imx8mm-evk-rm67191.dtb \
 			  imx8mm-evk-root.dtb imx8mm-evk-inmate.dtb imx8mm-evk-revb-qca-wifi.dtb \
@@ -132,7 +133,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mn-evk-iqaudio-dacplus.dtb imx8mn-evk-iqaudio-dacp
 			  imx8mn-evk-hifiberry-dac2.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mp-axon-wizard.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mp-edm-g-wb.dtb 
-dtb-$(CONFIG_ARCH_MXC) += imx8mp-reh.dtb imx8mp-facscope.dt
+dtb-$(CONFIG_ARCH_MXC) += imx8mp-reh.dtb imx8mp-facscope.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mp-edm-g-wizard.dtb imx8mp-edm-g-wizard-rpmsg.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mp-tek.dtb imx8mp-tek-rpmsg.dtb
 dtb-$(CONFIG_ARCH_MXC) += imx8mp-tep.dtb imx8mp-tep-rpmsg.dtb
