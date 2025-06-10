@@ -259,7 +259,7 @@
 			data-lanes = <4>;
 			data-frequency = <800>;
 			continuous-clock = <0>;
-			status = "okay";
+			status = "disabled";
 
 			port {
 				tevs_0_ep: endpoint {
