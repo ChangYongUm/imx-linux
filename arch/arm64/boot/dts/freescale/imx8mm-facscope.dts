@@ -498,8 +498,8 @@
         mclk = <24000000>;
         mclk_source = <0>;
 
-        powerdown-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>; 
-        reset-gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;     
+        powerdown-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>; 
+        reset-gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;     
 
         rotation = <0>;
 
