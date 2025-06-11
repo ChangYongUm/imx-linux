@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0
 /*
- * ar0821 driver
+ * ar0822 driver
  *
  * Copyright (C) 2023 Rockchip Electronics Co., Ltd.
  *
@@ -45,67 +45,67 @@
 
 #define OF_CAMERA_HDR_MODE		"rockchip,camera-hdr-mode"
 
-#define AR0821_XVCLK_FREQ		27000000 /*MCLK* need to config if XCLK from SOC; open.k*/
+#define AR0822_XVCLK_FREQ		27000000 /*MCLK* need to config if XCLK from SOC; open.k*/
 
 #define CHIP_ID				0x0F56
-#define AR0821_REG_CHIP_ID		0x3000
+#define AR0822_REG_CHIP_ID		0x3000
 
-#define AR0821_REG_CTRL_MODE		0x301A
-#define AR0821_MODE_SW_STANDBY		0x0018
-#define AR0821_MODE_STREAMING		0x001C
+#define AR0822_REG_CTRL_MODE		0x301A
+#define AR0822_MODE_SW_STANDBY		0x0018
+#define AR0822_MODE_STREAMING		0x001C
 
-#define	AR0821_EXPOSURE_MIN		2 /* 最小曝光时间 行 * need to config; open.k*/
-#define	AR0821_EXPOSURE_STEP		1
-#define AR0821_VTS_MAX			0xffff  /* Frame length line; open.k*/
+#define	AR0822_EXPOSURE_MIN		2 /* 最小曝光时间 行 * need to config; open.k*/
+#define	AR0822_EXPOSURE_STEP		1
+#define AR0822_VTS_MAX			0xffff  /* Frame length line; open.k*/
 
-#define AR0821_REG_EXP		0x3012
+#define AR0822_REG_EXP		0x3012
 
-#define AR0821_REG_GAIN		0x5900
-#define AR0821_REG_GAIN2	0x5902
-#define AR0821_REG_GAIN3	0x5904
-#define AR0821_GAIN_MIN		0
-#define AR0821_GAIN_MAX		119
-#define AR0821_GAIN_STEP		1
-#define AR0821_GAIN_DEFAULT		0x20
+#define AR0822_REG_GAIN		0x5900
+#define AR0822_REG_GAIN2	0x5902
+#define AR0822_REG_GAIN3	0x5904
+#define AR0822_GAIN_MIN		0
+#define AR0822_GAIN_MAX		119
+#define AR0822_GAIN_STEP		1
+#define AR0822_GAIN_DEFAULT		0x20
 
-#define AR0821_GROUP_UPDATE_ADDRESS	0x301A
-#define AR0821_GROUP_UPDATE_START_DATA	0x801C
-#define AR0821_GROUP_UPDATE_END_DATA	0x001C  /* make sure exposure and gain take effect from N+2 frame; open.k*/
+#define AR0822_GROUP_UPDATE_ADDRESS	0x301A
+#define AR0822_GROUP_UPDATE_START_DATA	0x801C
+#define AR0822_GROUP_UPDATE_END_DATA	0x001C  /* make sure exposure and gain take effect from N+2 frame; open.k*/
 
-#define AR0821_SOFTWARE_RESET_REG	0x301A
+#define AR0822_SOFTWARE_RESET_REG	0x301A
 
-#define AR0821_REG_VTS			0x300A
+#define AR0822_REG_VTS			0x300A
 
 #define REG_NULL			0xFFFF   /* Flag address for I2C array write,indicate this is the last row of I2C register table; open.k*/
 #define REG_DELAY			0xFFFE
 
-#define AR0821_REG_VALUE_08BIT		1
-#define AR0821_REG_VALUE_16BIT		2
-#define AR0821_REG_VALUE_24BIT		3
+#define AR0822_REG_VALUE_08BIT		1
+#define AR0822_REG_VALUE_16BIT		2
+#define AR0822_REG_VALUE_24BIT		3
 
-#define AR0821_LANES			4
-#define AR0821_BPP12			12
-#define AR0821_BPP14			14
+#define AR0822_LANES			4
+#define AR0822_BPP12			12
+#define AR0822_BPP14			14
 
 #define OF_CAMERA_PINCTRL_STATE_DEFAULT	"rockchip,camera_default"
 #define OF_CAMERA_PINCTRL_STATE_SLEEP	"rockchip,camera_sleep"
 
-#define AR0821_NAME			"ar0821"
+#define AR0822_NAME			"ar0822"
 
 #define USED_SYS_DEBUG
 
 
 /*  sensor power on config, need check power, MCLK, GPIO etc,,, need go to .dts file to change the config; open.k */
-static const char * const AR0821_supply_names[] = {
+static const char * const ar0822_supply_names[] = {
 	"avdd",		/* Analog power */
 	"dovdd",	/* Digital I/O power */
 	"dvdd",		/* Digital core power */
 };
 
 
-#define AR0821_NUM_SUPPLIES ARRAY_SIZE(AR0821_supply_names)
+#define AR0822_NUM_SUPPLIES ARRAY_SIZE(ar0822_supply_names)
 
-#define AR0821_FLIP_REG			0x3040
+#define AR0822_FLIP_REG			0x3040
 #define MIRROR_BIT_MASK			BIT(14)
 #define FLIP_BIT_MASK			BIT(15)
 
@@ -115,7 +115,7 @@ struct regval {
 };
 
 /* Config resolution ,LLPCLK, FLL, exposure time,fps, MIPI channel config, HDR mode , open.k */
-struct AR0821_mode {
+struct ar0822_mode {
 	u32 bus_fmt;
 	u32 width;
 	u32 height;
@@ -130,12 +130,12 @@ struct AR0821_mode {
 	u32 vc[PAD_MAX];
 };
 
-struct ar0821 {
+struct ar0822 {
 	struct i2c_client	*client;
 	struct clk		*xvclk;
 	struct gpio_desc	*reset_gpio;
 	struct gpio_desc	*pwdn_gpio;
-	struct regulator_bulk_data supplies[AR0821_NUM_SUPPLIES];
+	struct regulator_bulk_data supplies[AR0822_NUM_SUPPLIES];
 
 	struct pinctrl		*pinctrl;
 	struct pinctrl_state	*pins_default;
@@ -157,7 +157,7 @@ struct ar0821 {
 	struct mutex		mutex;
 	bool			streaming;
 	bool			power_on;
-	const struct AR0821_mode *cur_mode;
+	const struct ar0822_mode *cur_mode;
 	u32			cfg_num;
 	u32			module_index;
 	const char		*module_facing;
@@ -173,12 +173,12 @@ struct ar0821 {
 	bool			is_first_streamoff;
 	u8			flip;
 };
-#define to_ar0821(sd) container_of(sd, struct ar0821, subdev)
+#define to_ar0822(sd) container_of(sd, struct ar0822, subdev)
 
 /*
  * Xclk 27Mhz
  */
-static const struct regval AR0821_linear_global_regs[] = {
+static const struct regval ar0822_linear_global_regs[] = {
 	{REG_DELAY, 2000},
 	{0x3030,0x0092},//PLL_MULTIPLIER
 	{0x302E,0x0002},//PRE_PLL_CLK_DIV
@@ -914,7 +914,7 @@ static const struct regval AR0821_linear_global_regs[] = {
 	{REG_NULL, 0x00},
 };
 
-static const struct regval AR0821_hdr12bit_3840x2160_25fps_regs[] = {
+static const struct regval ar0822_hdr12bit_3840x2160_25fps_regs[] = {
 	{REG_DELAY, 2000},
 	{0x3030,0x007A},//PLL_MULTIPLIER
 	{0x302E,0x0002},//PRE_PLL_CLK_DIV
@@ -1687,7 +1687,7 @@ static const struct regval AR0821_hdr12bit_3840x2160_25fps_regs[] = {
 
 	{REG_NULL, 0x00},
 };
-static const struct regval AR0821_hdr12bit_3840x2160_20fps_regs[] = {
+static const struct regval ar0822_hdr12bit_3840x2160_20fps_regs[] = {
 	{REG_DELAY, 2000},
 	{0x3030,0x0124},//PLL_MULTIPLIER
 	{0x302E,0x0006},//PRE_PLL_CLK_DIV
@@ -2456,7 +2456,7 @@ static const struct regval AR0821_hdr12bit_3840x2160_20fps_regs[] = {
 
 	{REG_NULL, 0x00},
 };
-static const struct regval AR0821_hdr12bit_3840x2160_30fps_regs[] = {
+static const struct regval ar0822_hdr12bit_3840x2160_30fps_regs[] = {
 	{REG_DELAY, 2000},
 	{0x3030,0x0092},//PLL_MULTIPLIER
 	{0x302E,0x0002},//PRE_PLL_CLK_DIV
@@ -3221,7 +3221,7 @@ static const struct regval AR0821_hdr12bit_3840x2160_30fps_regs[] = {
 	{REG_NULL, 0x00},
 };
 
-static const struct regval AR0821_linear_60fps_regs[] = {
+static const struct regval ar0822_linear_60fps_regs[] = {
 	{REG_DELAY, 2000},
 	{0x3030,0x0092},//PLL_MULTIPLIER
 	{0x302E,0x0002},//PRE_PLL_CLK_DIV
@@ -3986,7 +3986,7 @@ static const s64 link_freq_menu_items[] = {
  */
 
 /* Config resolution ,LLPCLK, FLL, exposure time,fps, MIPI channel config, HDR mode , open.k */
-static const struct AR0821_mode supported_modes[] = {
+static const struct ar0822_mode supported_modes[] = {
 /*	{
 		.bus_fmt = MEDIA_BUS_FMT_SGRBG12_1X12,
 		.width = 3840,
@@ -3998,10 +3998,10 @@ static const struct AR0821_mode supported_modes[] = {
 		.exp_def = 0x0240,
 		.hts_def = 0x4330,//for linear mode, hblank is 4*LINE_LENGTH_PCK_-WIDTH,so hts is 4*LINE_LENGTH_PCK_. not used param by RK.
 		.vts_def = 0x0944,//used by AEC, should set correctly.
-		.reg_list = AR0821_linear_60fps_regs,
+		.reg_list = ar0822_linear_60fps_regs,
 		.hdr_mode = NO_HDR,
 		.mipi_freq = MIPI_FREQ_986M_INDEX,
-		.mipi_rate = MIPI_FREQ_986M/AR0821_BPP12*2*AR0821_LANES,
+		.mipi_rate = MIPI_FREQ_986M/AR0822_BPP12*2*AR0822_LANES,
 		.vc[PAD0] = V4L2_MBUS_CSI2_CHANNEL_0,
 	},*/
 	{
@@ -4015,10 +4015,10 @@ static const struct AR0821_mode supported_modes[] = {
 		.exp_def = 0x0240,
 		.hts_def = 0x4330,//for linear mode, hblank is 4*LINE_LENGTH_PCK_-WIDTH,so hts is 4*LINE_LENGTH_PCK_. not used param by RK.
 		.vts_def = 0x09F3,//used by AEC, should set correctly.
-		.reg_list = AR0821_linear_global_regs,
+		.reg_list = ar0822_linear_global_regs,
 		.hdr_mode = NO_HDR,
 		.mipi_freq = MIPI_FREQ_492M_INDEX,
-		.mipi_rate = MIPI_FREQ_492M / AR0821_BPP12 * 2 * AR0821_LANES,
+		.mipi_rate = MIPI_FREQ_492M / AR0822_BPP12 * 2 * AR0822_LANES,
 		.vc[PAD0] = V4L2_MBUS_CSI2_CHANNEL_0,
 	},
 
@@ -4033,10 +4033,10 @@ static const struct AR0821_mode supported_modes[] = {
 		.exp_def = 0x0240,
 		.hts_def = 0x0E7C*2,//
 		.vts_def = 0x9b8,//0x0888,//
-		.reg_list = AR0821_hdr12bit_3840x2160_20fps_regs,
+		.reg_list = ar0822_hdr12bit_3840x2160_20fps_regs,
 		.hdr_mode = HDR_X2,
 		.mipi_freq = MIPI_FREQ_657M_INDEX,
-		.mipi_rate = MIPI_FREQ_657M / AR0821_BPP12 * 2 *AR0821_LANES,
+		.mipi_rate = MIPI_FREQ_657M / AR0822_BPP12 * 2 *AR0822_LANES,
 		.vc[PAD0] = V4L2_MBUS_CSI2_CHANNEL_1,
 		.vc[PAD1] = V4L2_MBUS_CSI2_CHANNEL_0,//L->csi wr0
 		.vc[PAD2] = V4L2_MBUS_CSI2_CHANNEL_1,
@@ -4054,10 +4054,10 @@ static const struct AR0821_mode supported_modes[] = {
 		.exp_def = 0x0080,
 		.hts_def = 0x0B98*4-3840,//
 		.vts_def = 0x0980,//0x0888,//
-		.reg_list = AR0821_hdr12bit_3840x2160_25fps_regs,
+		.reg_list = ar0822_hdr12bit_3840x2160_25fps_regs,
 		.hdr_mode = HDR_X2,
 		.mipi_freq = MIPI_FREQ_823M_INDEX,
-		.mipi_rate = MIPI_FREQ_823M / AR0821_BPP12 * 2 * AR0821_LANES,
+		.mipi_rate = MIPI_FREQ_823M / AR0822_BPP12 * 2 * AR0822_LANES,
 		.vc[PAD0] = V4L2_MBUS_CSI2_CHANNEL_1,
 		.vc[PAD1] = V4L2_MBUS_CSI2_CHANNEL_0,
 		.vc[PAD2] = V4L2_MBUS_CSI2_CHANNEL_1,//M->csi wr0
@@ -4075,10 +4075,10 @@ static const struct AR0821_mode supported_modes[] = {
 		.exp_def = 0x0240,
 		.hts_def = 0x3430,//for HDR, hblank is 4*LINE_LENGTH_PCK_-WIDTH*2, so hts is 4*LINE_LENGTH_PCK_-WIDTH. param not used by RK.
 		.vts_def = 0x9F3,//should be set correctly,
-		.reg_list = AR0821_hdr12bit_3840x2160_30fps_regs,
+		.reg_list = ar0822_hdr12bit_3840x2160_30fps_regs,
 		.hdr_mode = HDR_X2,
 		.mipi_freq = MIPI_FREQ_986M_INDEX,
-		.mipi_rate = MIPI_FREQ_986M / AR0821_BPP12 * 2 * AR0821_LANES,
+		.mipi_rate = MIPI_FREQ_986M / AR0822_BPP12 * 2 * AR0822_LANES,
 		.vc[PAD1] = V4L2_MBUS_CSI2_CHANNEL_0,
 		.vc[PAD3] = V4L2_MBUS_CSI2_CHANNEL_1,//M->csi wr0
 	},
@@ -4087,8 +4087,8 @@ static const struct AR0821_mode supported_modes[] = {
 };
 
 
-/* use AR0821_enable_test_pattern to config test pattern mode here, open.k */
-static const char * const AR0821_test_pattern_menu[] = {
+/* use ar0822_enable_test_pattern to config test pattern mode here, open.k */
+static const char * const ar0822_test_pattern_menu[] = {
 	"Disabled",
 	"Vertical Color Bar Type 1",
 	"Vertical Color Bar Type 2",
@@ -4096,10 +4096,10 @@ static const char * const AR0821_test_pattern_menu[] = {
 	"Vertical Color Bar Type 4"
 };
 
-static int __AR0821_power_on(struct ar0821 *ar0821);
+static int __ar0822_power_on(struct ar0822 *ar0822);
 
 /* Write registers up to 4 at a time */
-static int AR0821_write_reg(struct i2c_client *client, u16 reg,
+static int ar0822_write_reg(struct i2c_client *client, u16 reg,
 			    u32 len, u32 val)
 {
 	u32 buf_i, val_i;
@@ -4127,7 +4127,7 @@ static int AR0821_write_reg(struct i2c_client *client, u16 reg,
 	return 0;
 }
 
-static int AR0821_write_array(struct i2c_client *client,
+static int ar0822_write_array(struct i2c_client *client,
 			       const struct regval *regs)
 {
 	u32 i;
@@ -4137,14 +4137,14 @@ static int AR0821_write_array(struct i2c_client *client,
 		if (unlikely(regs[i].addr == REG_DELAY))
 			usleep_range(regs[i].val, regs[i].val * 2);
 		else
-			ret |= AR0821_write_reg(client, regs[i].addr,
-				AR0821_REG_VALUE_16BIT, regs[i].val);
+			ret |= ar0822_write_reg(client, regs[i].addr,
+				AR0822_REG_VALUE_16BIT, regs[i].val);
 	}
 	return ret;
 }
 
 /* Read registers up to 4 at a time */
-static int AR0821_read_reg(struct i2c_client *client,
+static int ar0822_read_reg(struct i2c_client *client,
 			    u16 reg,
 			    unsigned int len,
 			    u32 *val)
@@ -4180,15 +4180,15 @@ static int AR0821_read_reg(struct i2c_client *client,
 	return 0;
 }
 
-static int AR0821_get_reso_dist(const struct AR0821_mode *mode,
+static int ar0822_get_reso_dist(const struct ar0822_mode *mode,
 				struct v4l2_mbus_framefmt *framefmt)
 {
 	return abs(mode->width - framefmt->width) +
 	       abs(mode->height - framefmt->height);
 }
 
-static const struct AR0821_mode *
-AR0821_find_best_fit(struct ar0821 *ar0821, struct v4l2_subdev_format *fmt)
+static const struct ar0822_mode *
+ar0822_find_best_fit(struct ar0822 *ar0822, struct v4l2_subdev_format *fmt)
 {
 	struct v4l2_mbus_framefmt *framefmt = &fmt->format;
 	int dist;
@@ -4196,8 +4196,8 @@ AR0821_find_best_fit(struct ar0821 *ar0821, struct v4l2_subdev_format *fmt)
 	int cur_best_fit_dist = -1;
 	unsigned int i;
 	
-	for (i = 0; i < ar0821->cfg_num; i++) {
-		dist = AR0821_get_reso_dist(&supported_modes[i], framefmt);
+	for (i = 0; i < ar0822->cfg_num; i++) {
+		dist = ar0822_get_reso_dist(&supported_modes[i], framefmt);
 		if ((cur_best_fit_dist == -1 || dist < cur_best_fit_dist) &&
 			(supported_modes[i].bus_fmt == framefmt->code)) {
 			cur_best_fit_dist = dist;
@@ -4207,41 +4207,41 @@ AR0821_find_best_fit(struct ar0821 *ar0821, struct v4l2_subdev_format *fmt)
 
 	return &supported_modes[cur_best_fit];
 }
-static int AR0821_set_rates(struct ar0821 *ar0821)
+static int ar0822_set_rates(struct ar0822 *ar0822)
 {
-	const struct AR0821_mode *mode = ar0821->cur_mode;
+	const struct ar0822_mode *mode = ar0822->cur_mode;
 	s64 h_blank, vblank_def;
 	int ret = 0;
 
 	h_blank = mode->hts_def - mode->width;
-	dev_err(&ar0821->client->dev,
+	dev_err(&ar0822->client->dev,
 		"set format hblank is (%lld), mipi freq: %d, rate: %d\n",
 		 h_blank, mode->mipi_freq,mode->mipi_rate);
-	__v4l2_ctrl_modify_range(ar0821->hblank, h_blank,
+	__v4l2_ctrl_modify_range(ar0822->hblank, h_blank,
 				h_blank, 1, h_blank);
 	vblank_def = mode->vts_def - mode->height;
-	__v4l2_ctrl_modify_range(ar0821->vblank, vblank_def,
-				AR0821_VTS_MAX - mode->height,
+	__v4l2_ctrl_modify_range(ar0822->vblank, vblank_def,
+				AR0822_VTS_MAX - mode->height,
 				1, vblank_def);
 
-	__v4l2_ctrl_s_ctrl_int64(ar0821->pixel_rate,
+	__v4l2_ctrl_s_ctrl_int64(ar0822->pixel_rate,
 				 mode->mipi_rate);
-	__v4l2_ctrl_s_ctrl(ar0821->link_freq,
+	__v4l2_ctrl_s_ctrl(ar0822->link_freq,
 			   mode->mipi_freq);
 
 	return ret;
 }
 /* setup sensor work format to determine the MIPI speed, open.k */
-static int AR0821_set_fmt(struct v4l2_subdev *sd,
+static int ar0822_set_fmt(struct v4l2_subdev *sd,
 			  struct v4l2_subdev_pad_config *cfg,
 			  struct v4l2_subdev_format *fmt)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
-	const struct AR0821_mode *mode;
+	struct ar0822 *ar0822 = to_ar0822(sd);
+	const struct ar0822_mode *mode;
 
-	mutex_lock(&ar0821->mutex);
+	mutex_lock(&ar0822->mutex);
 
-	mode = AR0821_find_best_fit(ar0821, fmt);
+	mode = ar0822_find_best_fit(ar0822, fmt);
 	fmt->format.code = mode->bus_fmt;
 	fmt->format.width = mode->width;
 	fmt->format.height = mode->height;
@@ -4250,32 +4250,32 @@ static int AR0821_set_fmt(struct v4l2_subdev *sd,
 #ifdef CONFIG_VIDEO_V4L2_SUBDEV_API
 		*v4l2_subdev_get_try_format(sd, cfg, fmt->pad) = fmt->format;
 #else
-		mutex_unlock(&ar0821->mutex);
+		mutex_unlock(&ar0822->mutex);
 		return -ENOTTY;
 #endif
 	} else {
-		ar0821->cur_mode = mode;
-		AR0821_set_rates(ar0821);
+		ar0822->cur_mode = mode;
+		ar0822_set_rates(ar0822);
 	}
 
-	mutex_unlock(&ar0821->mutex);
+	mutex_unlock(&ar0822->mutex);
 
 	return 0;
 }
 
-static int AR0821_get_fmt(struct v4l2_subdev *sd,
+static int ar0822_get_fmt(struct v4l2_subdev *sd,
 			  struct v4l2_subdev_pad_config *cfg,
 			  struct v4l2_subdev_format *fmt)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
-	const struct AR0821_mode *mode = ar0821->cur_mode;
+	struct ar0822 *ar0822 = to_ar0822(sd);
+	const struct ar0822_mode *mode = ar0822->cur_mode;
 
-	mutex_lock(&ar0821->mutex);
+	mutex_lock(&ar0822->mutex);
 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
 #ifdef CONFIG_VIDEO_V4L2_SUBDEV_API
 		fmt->format = *v4l2_subdev_get_try_format(sd, cfg, fmt->pad);
 #else
-		mutex_unlock(&ar0821->mutex);
+		mutex_unlock(&ar0822->mutex);
 		return -ENOTTY;
 #endif
 	} else {
@@ -4288,31 +4288,31 @@ static int AR0821_get_fmt(struct v4l2_subdev *sd,
 		else
 			fmt->reserved[0] = mode->vc[PAD0];
 	}
-	mutex_unlock(&ar0821->mutex);
+	mutex_unlock(&ar0822->mutex);
 
 	return 0;
 }
 
-static int AR0821_enum_mbus_code(struct v4l2_subdev *sd,
+static int ar0822_enum_mbus_code(struct v4l2_subdev *sd,
 				 struct v4l2_subdev_pad_config *cfg,
 				 struct v4l2_subdev_mbus_code_enum *code)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 
-	if (code->index >= ar0821->cfg_num)
+	if (code->index >= ar0822->cfg_num)
 		return -EINVAL;
 	code->code = supported_modes[code->index].bus_fmt;
 
 	return 0;
 }
 
-static int AR0821_enum_frame_sizes(struct v4l2_subdev *sd,
+static int ar0822_enum_frame_sizes(struct v4l2_subdev *sd,
 				   struct v4l2_subdev_pad_config *cfg,
 				   struct v4l2_subdev_frame_size_enum *fse)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 
-	if (fse->index >= ar0821->cfg_num)
+	if (fse->index >= ar0822->cfg_num)
 		return -EINVAL;
 
 	if (fse->code != supported_modes[fse->index].bus_fmt)
@@ -4325,35 +4325,35 @@ static int AR0821_enum_frame_sizes(struct v4l2_subdev *sd,
 
 	return 0;
 }
-/* use AR0821_enable_test_pattern to config test pattern mode here, open.k */
-static int AR0821_enable_test_pattern(struct ar0821 *ar0821, u32 pattern)
+/* use ar0822_enable_test_pattern to config test pattern mode here, open.k */
+static int ar0822_enable_test_pattern(struct ar0822 *ar0822, u32 pattern)
 {
 	int ret = 0;
 
 	return ret;
 }
 
-static int AR0821_g_frame_interval(struct v4l2_subdev *sd,
+static int ar0822_g_frame_interval(struct v4l2_subdev *sd,
 				   struct v4l2_subdev_frame_interval *fi)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
-	const struct AR0821_mode *mode = ar0821->cur_mode;
+	struct ar0822 *ar0822 = to_ar0822(sd);
+	const struct ar0822_mode *mode = ar0822->cur_mode;
 
-	mutex_lock(&ar0821->mutex);
+	mutex_lock(&ar0822->mutex);
 	fi->interval = mode->max_fps;
-	mutex_unlock(&ar0821->mutex);
+	mutex_unlock(&ar0822->mutex);
 
 	return 0;
 }
 
-static int AR0821_g_mbus_config(struct v4l2_subdev *sd, unsigned int pad_id,
+static int ar0822_g_mbus_config(struct v4l2_subdev *sd, unsigned int pad_id,
 				struct v4l2_mbus_config *config)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
-	const struct AR0821_mode *mode = ar0821->cur_mode;
+	struct ar0822 *ar0822 = to_ar0822(sd);
+	const struct ar0822_mode *mode = ar0822->cur_mode;
 	u32 val = 0;
 
-	val = 1 << (AR0821_LANES - 1) |
+	val = 1 << (AR0822_LANES - 1) |
 		  V4L2_MBUS_CSI2_CHANNEL_0 |
 		  V4L2_MBUS_CSI2_CONTINUOUS_CLOCK;
 	if (mode->hdr_mode != NO_HDR)
@@ -4368,17 +4368,17 @@ static int AR0821_g_mbus_config(struct v4l2_subdev *sd, unsigned int pad_id,
 }
 
 
-static void AR0821_get_module_inf(struct ar0821 *ar0821,
+static void ar0822_get_module_inf(struct ar0822 *ar0822,
 				  struct rkmodule_inf *inf)
 {
 	memset(inf, 0, sizeof(*inf));
-	strlcpy(inf->base.sensor, AR0821_NAME, sizeof(inf->base.sensor));
-	strlcpy(inf->base.module, ar0821->module_name,
+	strlcpy(inf->base.sensor, AR0822_NAME, sizeof(inf->base.sensor));
+	strlcpy(inf->base.module, ar0822->module_name,
 		sizeof(inf->base.module));
-	strlcpy(inf->base.lens, ar0821->len_name, sizeof(inf->base.lens));
+	strlcpy(inf->base.lens, ar0822->len_name, sizeof(inf->base.lens));
 }
 
-static int AR0821_set_hdrae(struct ar0821 *ar0821,
+static int ar0822_set_hdrae(struct ar0822 *ar0822,
 			     struct preisp_hdrae_exp_s *ae)
 {
 	u32 l_exp_time, m_exp_time, s_exp_time;
@@ -4389,10 +4389,10 @@ static int AR0821_set_hdrae(struct ar0821 *ar0821,
 	u8 s_cg_mode = 0;
 	u32 gain_val = 0;
 
-	if (!ar0821->has_init_exp && !ar0821->streaming) {
-		ar0821->init_hdrae_exp = *ae;
-		ar0821->has_init_exp = true;
-		dev_err(&ar0821->client->dev, "ar0821 don't stream, record exp for hdr!\n");
+	if (!ar0822->has_init_exp && !ar0822->streaming) {
+		ar0822->init_hdrae_exp = *ae;
+		ar0822->has_init_exp = true;
+		dev_err(&ar0822->client->dev, "ar0822 don't stream, record exp for hdr!\n");
 		return ret;
 	}
 	l_exp_time = ae->long_exp_reg;
@@ -4404,13 +4404,13 @@ static int AR0821_set_hdrae(struct ar0821 *ar0821,
 	l_cg_mode = ae->long_cg_mode;
 	m_cg_mode = ae->middle_cg_mode;
 	s_cg_mode = ae->short_cg_mode;
-	dev_dbg(&ar0821->client->dev,
+	dev_dbg(&ar0822->client->dev,
 		"Li-HDR irev exp req: L_exp: 0x%x, 0x%x, M_exp: 0x%x, 0x%x S_exp: 0x%x, 0x%x\n",
 		l_exp_time, l_a_gain,
 		m_exp_time, m_a_gain,
 		s_exp_time, s_a_gain);
 
-	if (ar0821->cur_mode->hdr_mode == HDR_X2) {
+	if (ar0822->cur_mode->hdr_mode == HDR_X2) {
 		//2 stagger
 		l_a_gain = m_a_gain;
 		l_exp_time = m_exp_time;
@@ -4420,50 +4420,50 @@ static int AR0821_set_hdrae(struct ar0821 *ar0821,
 		m_cg_mode = s_cg_mode;
 	}
 
-	l_a_gain = (l_a_gain > AR0821_GAIN_MAX) ? AR0821_GAIN_MAX:l_a_gain;
-	m_a_gain = (m_a_gain > AR0821_GAIN_MAX) ? AR0821_GAIN_MAX:m_a_gain;
-	s_a_gain = (s_a_gain > AR0821_GAIN_MAX) ? AR0821_GAIN_MAX:s_a_gain;
-	l_a_gain = (l_a_gain < AR0821_GAIN_MIN) ? AR0821_GAIN_MIN:l_a_gain;
-	m_a_gain = (m_a_gain < AR0821_GAIN_MIN) ? AR0821_GAIN_MIN:m_a_gain;
-	s_a_gain = (s_a_gain < AR0821_GAIN_MIN) ? AR0821_GAIN_MIN:s_a_gain;
+	l_a_gain = (l_a_gain > AR0822_GAIN_MAX) ? AR0822_GAIN_MAX:l_a_gain;
+	m_a_gain = (m_a_gain > AR0822_GAIN_MAX) ? AR0822_GAIN_MAX:m_a_gain;
+	s_a_gain = (s_a_gain > AR0822_GAIN_MAX) ? AR0822_GAIN_MAX:s_a_gain;
+	l_a_gain = (l_a_gain < AR0822_GAIN_MIN) ? AR0822_GAIN_MIN:l_a_gain;
+	m_a_gain = (m_a_gain < AR0822_GAIN_MIN) ? AR0822_GAIN_MIN:m_a_gain;
+	s_a_gain = (s_a_gain < AR0822_GAIN_MIN) ? AR0822_GAIN_MIN:s_a_gain;
 
 	gain_val = l_a_gain;
-	ret |= AR0821_write_reg(ar0821->client,
-		AR0821_GROUP_UPDATE_ADDRESS,
-		AR0821_REG_VALUE_16BIT,
-		AR0821_GROUP_UPDATE_START_DATA);
+	ret |= ar0822_write_reg(ar0822->client,
+		AR0822_GROUP_UPDATE_ADDRESS,
+		AR0822_REG_VALUE_16BIT,
+		AR0822_GROUP_UPDATE_START_DATA);
 
-	ret |= AR0821_write_reg(ar0821->client,
-		AR0821_REG_GAIN,
-		AR0821_REG_VALUE_16BIT, gain_val);
+	ret |= ar0822_write_reg(ar0822->client,
+		AR0822_REG_GAIN,
+		AR0822_REG_VALUE_16BIT, gain_val);
 
 	gain_val = m_a_gain;
-	ret |= AR0821_write_reg(ar0821->client,
-		AR0821_REG_GAIN2,
-		AR0821_REG_VALUE_16BIT, gain_val);
+	ret |= ar0822_write_reg(ar0822->client,
+		AR0822_REG_GAIN2,
+		AR0822_REG_VALUE_16BIT, gain_val);
 
-	if (ar0821->cur_mode->hdr_mode == HDR_X3) {
+	if (ar0822->cur_mode->hdr_mode == HDR_X3) {
 		gain_val = s_a_gain;
-		ret |= AR0821_write_reg(ar0821->client,
-			AR0821_REG_GAIN3,
-			AR0821_REG_VALUE_16BIT, gain_val);
+		ret |= ar0822_write_reg(ar0822->client,
+			AR0822_REG_GAIN3,
+			AR0822_REG_VALUE_16BIT, gain_val);
     	}
-	ret |= AR0821_write_reg(ar0821->client,
-		AR0821_REG_EXP,
-		AR0821_REG_VALUE_16BIT,
+	ret |= ar0822_write_reg(ar0822->client,
+		AR0822_REG_EXP,
+		AR0822_REG_VALUE_16BIT,
 		l_exp_time);//fixed ratio 1/16 is used here, T2 and T3 is from ratio* T1 or ratio^2* T1.
 
-	ret |= AR0821_write_reg(ar0821->client,
-		AR0821_GROUP_UPDATE_ADDRESS,
-		AR0821_REG_VALUE_16BIT,
-		AR0821_GROUP_UPDATE_END_DATA);
+	ret |= ar0822_write_reg(ar0822->client,
+		AR0822_GROUP_UPDATE_ADDRESS,
+		AR0822_REG_VALUE_16BIT,
+		AR0822_GROUP_UPDATE_END_DATA);
 
-	dev_dbg(&ar0821->client->dev, "AR0821_set_hdrae exp 0x%x\n",l_exp_time);
+	dev_dbg(&ar0822->client->dev, "ar0822_set_hdrae exp 0x%x\n",l_exp_time);
 
 	return ret;
 }
 
-static int AR0821_set_conversion_gain(struct ar0821 *ar0821, u32 *cg)
+static int ar0822_set_conversion_gain(struct ar0822 *ar0822, u32 *cg)
 {
 	int ret = 0;
 	return ret;
@@ -4478,13 +4478,13 @@ static ssize_t set_conversion_gain_status(struct device *dev,
 {
 	struct i2c_client *client = to_i2c_client(dev);
 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 	int status = 0;
 	int ret = 0;
 
 	ret = kstrtoint(buf, 0, &status);
 	if (!ret && status >= 0 && status < 2)
-		AR0821_set_conversion_gain(ar0821, &status);
+		ar0822_set_conversion_gain(ar0822, &status);
 	else
 		dev_err(dev, "input 0 for LCG, 1 for HCG, cur %d\n", status);
 	return count;
@@ -4510,20 +4510,20 @@ undo:
 }
 #endif
 
-static int AR0821_get_channel_info(struct ar0821 *ar0821, struct rkmodule_channel_info *ch_info)
+static int ar0822_get_channel_info(struct ar0822 *ar0822, struct rkmodule_channel_info *ch_info)
 {
 	if (ch_info->index < PAD0 || ch_info->index >= PAD_MAX)
 		return -EINVAL;
-	ch_info->vc = ar0821->cur_mode->vc[ch_info->index];
-	ch_info->width = ar0821->cur_mode->width;
-	ch_info->height = ar0821->cur_mode->height;
-	ch_info->bus_fmt = ar0821->cur_mode->bus_fmt;
+	ch_info->vc = ar0822->cur_mode->vc[ch_info->index];
+	ch_info->width = ar0822->cur_mode->width;
+	ch_info->height = ar0822->cur_mode->height;
+	ch_info->bus_fmt = ar0822->cur_mode->bus_fmt;
 	return 0;
 }
 
-static long AR0821_ioctl(struct v4l2_subdev *sd, unsigned int cmd, void *arg)
+static long ar0822_ioctl(struct v4l2_subdev *sd, unsigned int cmd, void *arg)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 	struct rkmodule_hdr_cfg *hdr_cfg;
 	struct rkmodule_channel_info *ch_info;
 	long ret = 0;
@@ -4532,65 +4532,65 @@ static long AR0821_ioctl(struct v4l2_subdev *sd, unsigned int cmd, void *arg)
 
 	switch (cmd) {
 	case PREISP_CMD_SET_HDRAE_EXP:
-		AR0821_set_hdrae(ar0821, arg);
+		ar0822_set_hdrae(ar0822, arg);
 		break;
 	case RKMODULE_SET_HDR_CFG:
 		hdr_cfg = (struct rkmodule_hdr_cfg *)arg;
-		w = ar0821->cur_mode->width;
-		h = ar0821->cur_mode->height;
-		for (i = 0; i < ar0821->cfg_num; i++) {
+		w = ar0822->cur_mode->width;
+		h = ar0822->cur_mode->height;
+		for (i = 0; i < ar0822->cfg_num; i++) {
 			if (w == supported_modes[i].width &&
 			h == supported_modes[i].height &&
 			supported_modes[i].hdr_mode == hdr_cfg->hdr_mode) {
-				ar0821->cur_mode = &supported_modes[i];
+				ar0822->cur_mode = &supported_modes[i];
 				break;
 			}
 		}
-		if (i == ar0821->cfg_num) {
-			dev_err(&ar0821->client->dev,
+		if (i == ar0822->cfg_num) {
+			dev_err(&ar0822->client->dev,
 				"not find hdr mode:%d %dx%d config\n",
 				hdr_cfg->hdr_mode, w, h);
 			ret = -EINVAL;
 		} else {
-			w = ar0821->cur_mode->hts_def - ar0821->cur_mode->width;
-			h = ar0821->cur_mode->vts_def - ar0821->cur_mode->height;
-			dev_info(&ar0821->client->dev,
+			w = ar0822->cur_mode->hts_def - ar0822->cur_mode->width;
+			h = ar0822->cur_mode->vts_def - ar0822->cur_mode->height;
+			dev_info(&ar0822->client->dev,
 			"set hdr cfg, hblank is (%d)\n", w);
-			__v4l2_ctrl_modify_range(ar0821->hblank, w, w, 1, w);
-			__v4l2_ctrl_modify_range(ar0821->vblank, h,
-				AR0821_VTS_MAX - ar0821->cur_mode->height,
+			__v4l2_ctrl_modify_range(ar0822->hblank, w, w, 1, w);
+			__v4l2_ctrl_modify_range(ar0822->vblank, h,
+				AR0822_VTS_MAX - ar0822->cur_mode->height,
 				1, h);
-			dev_info(&ar0821->client->dev,
+			dev_info(&ar0822->client->dev,
 				"sensor mode: %d\n",
-				ar0821->cur_mode->hdr_mode);
+				ar0822->cur_mode->hdr_mode);
 		}
-		AR0821_set_rates(ar0821);
+		ar0822_set_rates(ar0822);
 		break;
 	case RKMODULE_GET_MODULE_INFO:
-		AR0821_get_module_inf(ar0821, (struct rkmodule_inf *)arg);
+		ar0822_get_module_inf(ar0822, (struct rkmodule_inf *)arg);
 		break;
 	case RKMODULE_GET_HDR_CFG:
 		hdr_cfg = (struct rkmodule_hdr_cfg *)arg;
 		hdr_cfg->esp.mode = HDR_NORMAL_VC;
-		hdr_cfg->hdr_mode = ar0821->cur_mode->hdr_mode;
+		hdr_cfg->hdr_mode = ar0822->cur_mode->hdr_mode;
 		break;
 	case RKMODULE_SET_CONVERSION_GAIN:
-		ret = 0;//AR0821_set_conversion_gain(ar0821, (u32 *)arg);
+		ret = 0;//ar0822_set_conversion_gain(ar0822, (u32 *)arg);
 		break;
 	case RKMODULE_SET_QUICK_STREAM:
 
 		stream = *((u32 *)arg);
 
 		if (stream)
-			ret = AR0821_write_reg(ar0821->client, AR0821_REG_CTRL_MODE,
-				AR0821_REG_VALUE_16BIT, AR0821_MODE_STREAMING);
+			ret = ar0822_write_reg(ar0822->client, AR0822_REG_CTRL_MODE,
+				AR0822_REG_VALUE_16BIT, AR0822_MODE_STREAMING);
 		else
-			ret = AR0821_write_reg(ar0821->client, AR0821_REG_CTRL_MODE,
-				AR0821_REG_VALUE_16BIT, AR0821_MODE_SW_STANDBY);
+			ret = ar0822_write_reg(ar0822->client, AR0822_REG_CTRL_MODE,
+				AR0822_REG_VALUE_16BIT, AR0822_MODE_SW_STANDBY);
 		break;
 	case RKMODULE_GET_CHANNEL_INFO:
 		ch_info = (struct rkmodule_channel_info *)arg;
-		ret = AR0821_get_channel_info(ar0821, ch_info);
+		ret = ar0822_get_channel_info(ar0822, ch_info);
 		break;
 	default:
 		ret = -ENOIOCTLCMD;
@@ -4601,7 +4601,7 @@ static long AR0821_ioctl(struct v4l2_subdev *sd, unsigned int cmd, void *arg)
 }
 
 #ifdef CONFIG_COMPAT
-static long AR0821_compat_ioctl32(struct v4l2_subdev *sd,
+static long ar0822_compat_ioctl32(struct v4l2_subdev *sd,
 				  unsigned int cmd, unsigned long arg)
 {
 	void __user *up = compat_ptr(arg);
@@ -4622,7 +4622,7 @@ static long AR0821_compat_ioctl32(struct v4l2_subdev *sd,
 			return ret;
 		}
 
-		ret = AR0821_ioctl(sd, cmd, inf);
+		ret = ar0822_ioctl(sd, cmd, inf);
 		if (!ret)
 			ret = copy_to_user(up, inf, sizeof(*inf));
 		kfree(inf);
@@ -4636,7 +4636,7 @@ static long AR0821_compat_ioctl32(struct v4l2_subdev *sd,
 
 		ret = copy_from_user(cfg, up, sizeof(*cfg));
 		if (!ret)
-			ret = AR0821_ioctl(sd, cmd, cfg);
+			ret = ar0822_ioctl(sd, cmd, cfg);
 		kfree(cfg);
 		break;
 	case RKMODULE_GET_HDR_CFG:
@@ -4646,7 +4646,7 @@ static long AR0821_compat_ioctl32(struct v4l2_subdev *sd,
 			return ret;
 		}
 
-		ret = AR0821_ioctl(sd, cmd, hdr);
+		ret = ar0822_ioctl(sd, cmd, hdr);
 		if (!ret)
 			ret = copy_to_user(up, hdr, sizeof(*hdr));
 		kfree(hdr);
@@ -4660,7 +4660,7 @@ static long AR0821_compat_ioctl32(struct v4l2_subdev *sd,
 
 		ret = copy_from_user(hdr, up, sizeof(*hdr));
 		if (!ret)
-			ret = AR0821_ioctl(sd, cmd, hdr);
+			ret = ar0822_ioctl(sd, cmd, hdr);
 		kfree(hdr);
 		break;
 	case PREISP_CMD_SET_HDRAE_EXP:
@@ -4672,18 +4672,18 @@ static long AR0821_compat_ioctl32(struct v4l2_subdev *sd,
 
 		ret = copy_from_user(hdrae, up, sizeof(*hdrae));
 		if (!ret)
-			ret = AR0821_ioctl(sd, cmd, hdrae);
+			ret = ar0822_ioctl(sd, cmd, hdrae);
 		kfree(hdrae);
 		break;
 	case RKMODULE_SET_CONVERSION_GAIN:
 		ret = copy_from_user(&cg, up, sizeof(cg));
 		if (!ret)
-			ret = AR0821_ioctl(sd, cmd, &cg);
+			ret = ar0822_ioctl(sd, cmd, &cg);
 		break;
 	case RKMODULE_SET_QUICK_STREAM:
 		ret = copy_from_user(&stream, up, sizeof(u32));
 		if (!ret)
-			ret = AR0821_ioctl(sd, cmd, &stream);
+			ret = ar0822_ioctl(sd, cmd, &stream);
 		break;
 	case RKMODULE_GET_CHANNEL_INFO:
 		ch_info = kzalloc(sizeof(*ch_info), GFP_KERNEL);
@@ -4692,7 +4692,7 @@ static long AR0821_compat_ioctl32(struct v4l2_subdev *sd,
 			return ret;
 		}
 
-		ret = AR0821_ioctl(sd, cmd, ch_info);
+		ret = ar0822_ioctl(sd, cmd, ch_info);
 		if (!ret) {
 			ret = copy_to_user(up, ch_info, sizeof(*ch_info));
 			if (ret)
@@ -4709,62 +4709,62 @@ static long AR0821_compat_ioctl32(struct v4l2_subdev *sd,
 }
 #endif
 
-static int __AR0821_start_stream(struct ar0821 *ar0821)
+static int __ar0822_start_stream(struct ar0822 *ar0822)
 {
 	int ret;
 
-	if (!ar0821->is_thunderboot) {
-		ret = AR0821_write_reg(ar0821->client,
-					 AR0821_SOFTWARE_RESET_REG,
-					 AR0821_REG_VALUE_16BIT,
+	if (!ar0822->is_thunderboot) {
+		ret = ar0822_write_reg(ar0822->client,
+					 AR0822_SOFTWARE_RESET_REG,
+					 AR0822_REG_VALUE_16BIT,
 					 0x0001);
 		usleep_range(100000, 200000);
-		ret = AR0821_write_array(ar0821->client, ar0821->cur_mode->reg_list);
+		ret = ar0822_write_array(ar0822->client, ar0822->cur_mode->reg_list);
 		if (ret)
 			return ret;
 	}
 
 	/* In case these controls are set before streaming */
-	ret = __v4l2_ctrl_handler_setup(&ar0821->ctrl_handler);
+	ret = __v4l2_ctrl_handler_setup(&ar0822->ctrl_handler);
 	if (ret)
 		return ret;
-	if (ar0821->has_init_exp && ar0821->cur_mode->hdr_mode != NO_HDR) {
-		ret = AR0821_ioctl(&ar0821->subdev, PREISP_CMD_SET_HDRAE_EXP, &ar0821->init_hdrae_exp);
+	if (ar0822->has_init_exp && ar0822->cur_mode->hdr_mode != NO_HDR) {
+		ret = ar0822_ioctl(&ar0822->subdev, PREISP_CMD_SET_HDRAE_EXP, &ar0822->init_hdrae_exp);
 		if (ret) {
-			dev_err(&ar0821->client->dev,
+			dev_err(&ar0822->client->dev,
 				"init exp fail in hdr mode\n");
 			return ret;
 		}
-		dev_err(&ar0821->client->dev,
+		dev_err(&ar0822->client->dev,
 				"init exp success in hdr mode\n");
 	}
-	return AR0821_write_reg(ar0821->client, AR0821_REG_CTRL_MODE,
-		AR0821_REG_VALUE_16BIT, AR0821_MODE_STREAMING);
+	return ar0822_write_reg(ar0822->client, AR0822_REG_CTRL_MODE,
+		AR0822_REG_VALUE_16BIT, AR0822_MODE_STREAMING);
 }
 
-static int __AR0821_stop_stream(struct ar0821 *ar0821)
+static int __ar0822_stop_stream(struct ar0822 *ar0822)
 {
-	ar0821->has_init_exp = false;
-	if (ar0821->is_thunderboot)
-		ar0821->is_first_streamoff = true;
-	return AR0821_write_reg(ar0821->client, AR0821_REG_CTRL_MODE,
-		AR0821_REG_VALUE_16BIT, AR0821_MODE_SW_STANDBY);
+	ar0822->has_init_exp = false;
+	if (ar0822->is_thunderboot)
+		ar0822->is_first_streamoff = true;
+	return ar0822_write_reg(ar0822->client, AR0822_REG_CTRL_MODE,
+		AR0822_REG_VALUE_16BIT, AR0822_MODE_SW_STANDBY);
 }
 
-static int AR0821_s_stream(struct v4l2_subdev *sd, int on)
+static int ar0822_s_stream(struct v4l2_subdev *sd, int on)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
-	struct i2c_client *client = ar0821->client;
+	struct ar0822 *ar0822 = to_ar0822(sd);
+	struct i2c_client *client = ar0822->client;
 	int ret = 0;
 
-	mutex_lock(&ar0821->mutex);
+	mutex_lock(&ar0822->mutex);
 	on = !!on;
-	if (on == ar0821->streaming)
+	if (on == ar0822->streaming)
 		goto unlock_and_return;
 	if (on) {
-		if (ar0821->is_thunderboot && rkisp_tb_get_state() == RKISP_TB_NG) {
-			ar0821->is_thunderboot = false;
-			__AR0821_power_on(ar0821);
+		if (ar0822->is_thunderboot && rkisp_tb_get_state() == RKISP_TB_NG) {
+			ar0822->is_thunderboot = false;
+			__ar0822_power_on(ar0822);
 		}
 		ret = pm_runtime_get_sync(&client->dev);
 		if (ret < 0) {
@@ -4772,34 +4772,34 @@ static int AR0821_s_stream(struct v4l2_subdev *sd, int on)
 			goto unlock_and_return;
 		}
 
-		ret = __AR0821_start_stream(ar0821);
+		ret = __ar0822_start_stream(ar0822);
 		if (ret) {
 			v4l2_err(sd, "start stream failed while write regs\n");
 			pm_runtime_put(&client->dev);
 			goto unlock_and_return;
 		}
 	} else {
-		__AR0821_stop_stream(ar0821);
+		__ar0822_stop_stream(ar0822);
 		pm_runtime_put(&client->dev);
 	}
-	ar0821->streaming = on;
+	ar0822->streaming = on;
 
 
 unlock_and_return:
-	mutex_unlock(&ar0821->mutex);
+	mutex_unlock(&ar0822->mutex);
 
 	return ret;
 }
 
-static int AR0821_s_power(struct v4l2_subdev *sd, int on)
+static int ar0822_s_power(struct v4l2_subdev *sd, int on)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
-	struct i2c_client *client = ar0821->client;
+	struct ar0822 *ar0822 = to_ar0822(sd);
+	struct i2c_client *client = ar0822->client;
 	int ret = 0;
 
-	mutex_lock(&ar0821->mutex);
+	mutex_lock(&ar0822->mutex);
 	/* If the power state is not modified - no work to do. */
-	if (ar0821->power_on == !!on)
+	if (ar0822->power_on == !!on)
 		goto unlock_and_return;
 
 	if (on) {
@@ -4809,175 +4809,175 @@ static int AR0821_s_power(struct v4l2_subdev *sd, int on)
 			goto unlock_and_return;
 		}
 
-		if (!ar0821->is_thunderboot) {
-			ret |= AR0821_write_reg(ar0821->client,
-						 AR0821_SOFTWARE_RESET_REG,
-						 AR0821_REG_VALUE_16BIT,
+		if (!ar0822->is_thunderboot) {
+			ret |= ar0822_write_reg(ar0822->client,
+						 AR0822_SOFTWARE_RESET_REG,
+						 AR0822_REG_VALUE_16BIT,
 						 0x0001);
 			usleep_range(100, 200);
 		}
 
-		ar0821->power_on = true;
+		ar0822->power_on = true;
 	} else {
 		pm_runtime_put(&client->dev);
-		ar0821->power_on = false;
+		ar0822->power_on = false;
 	}
 
 unlock_and_return:
-	mutex_unlock(&ar0821->mutex);
+	mutex_unlock(&ar0822->mutex);
 
 	return ret;
 }
 
 /* Calculate the delay in us by clock rate and clock cycles */
-static inline u32 AR0821_cal_delay(u32 cycles)
+static inline u32 ar0822_cal_delay(u32 cycles)
 {
-	return DIV_ROUND_UP(cycles, AR0821_XVCLK_FREQ / 1000 / 1000);
+	return DIV_ROUND_UP(cycles, AR0822_XVCLK_FREQ / 1000 / 1000);
 }
 
-static int __AR0821_power_on(struct ar0821 *ar0821)  /*  sensor power on config, need check power, MCLK, GPIO etc,,, need go to .dts file to change the config; open.k */
+static int __ar0822_power_on(struct ar0822 *ar0822)  /*  sensor power on config, need check power, MCLK, GPIO etc,,, need go to .dts file to change the config; open.k */
 {
 	int ret;
 	u32 delay_us;
-	struct device *dev = &ar0821->client->dev;
+	struct device *dev = &ar0822->client->dev;
 
-	if (ar0821->is_thunderboot)
+	if (ar0822->is_thunderboot)
 		return 0;
 
-	if (!IS_ERR_OR_NULL(ar0821->pins_default)) {
-		ret = pinctrl_select_state(ar0821->pinctrl,
-					   ar0821->pins_default);
+	if (!IS_ERR_OR_NULL(ar0822->pins_default)) {
+		ret = pinctrl_select_state(ar0822->pinctrl,
+					   ar0822->pins_default);
 		if (ret < 0)
 			dev_err(dev, "could not set pins\n");
 	}
-	ret = clk_set_rate(ar0821->xvclk, AR0821_XVCLK_FREQ);
+	ret = clk_set_rate(ar0822->xvclk, AR0822_XVCLK_FREQ);
 	if (ret < 0)
 		dev_warn(dev, "Failed to set xvclk rate (24MHz)\n");
-	if (clk_get_rate(ar0821->xvclk) != AR0821_XVCLK_FREQ)
+	if (clk_get_rate(ar0822->xvclk) != AR0822_XVCLK_FREQ)
 		dev_warn(dev, "xvclk mismatched, modes are based on 24MHz\n");
-	ret = clk_prepare_enable(ar0821->xvclk);
+	ret = clk_prepare_enable(ar0822->xvclk);
 	if (ret < 0) {
 		dev_err(dev, "Failed to enable xvclk\n");
 		return ret;
 	}
-	if (!IS_ERR(ar0821->reset_gpio))
-		gpiod_direction_output(ar0821->reset_gpio, 1);
+	if (!IS_ERR(ar0822->reset_gpio))
+		gpiod_direction_output(ar0822->reset_gpio, 1);
 
-	ret = regulator_bulk_enable(AR0821_NUM_SUPPLIES, ar0821->supplies);
+	ret = regulator_bulk_enable(AR0822_NUM_SUPPLIES, ar0822->supplies);
 	if (ret < 0) {
 		dev_err(dev, "Failed to enable regulators\n");
 		goto disable_clk;
 	}
 
-	if (!IS_ERR(ar0821->reset_gpio))
-		gpiod_direction_output(ar0821->reset_gpio, 0);
+	if (!IS_ERR(ar0822->reset_gpio))
+		gpiod_direction_output(ar0822->reset_gpio, 0);
 
 	usleep_range(500, 1000);
-	if (!IS_ERR(ar0821->pwdn_gpio))
-		gpiod_direction_output(ar0821->pwdn_gpio, 1);
+	if (!IS_ERR(ar0822->pwdn_gpio))
+		gpiod_direction_output(ar0822->pwdn_gpio, 1);
 	/*
 	 * There is no need to wait for the delay of RC circuit
 	 * if the reset signal is directly controlled by GPIO.
 	 */
-	if (!IS_ERR(ar0821->reset_gpio))
+	if (!IS_ERR(ar0822->reset_gpio))
 		usleep_range(6000, 8000);
 	else
 		usleep_range(12000, 16000);
 
 	/* 8192 cycles prior to first SCCB transaction */
-	delay_us = AR0821_cal_delay(8192);
+	delay_us = ar0822_cal_delay(8192);
 	usleep_range(delay_us, delay_us * 2);
 
 	return 0;
 
 disable_clk:
-	clk_disable_unprepare(ar0821->xvclk);
+	clk_disable_unprepare(ar0822->xvclk);
 
 	return ret;
 }
 
-static void __AR0821_power_off(struct ar0821 *ar0821)
+static void __ar0822_power_off(struct ar0822 *ar0822)
 {
 	int ret;
-	struct device *dev = &ar0821->client->dev;
+	struct device *dev = &ar0822->client->dev;
 
-	if (ar0821->is_thunderboot) {
-		if (ar0821->is_first_streamoff) {
-			ar0821->is_thunderboot = false;
-			ar0821->is_first_streamoff = false;
+	if (ar0822->is_thunderboot) {
+		if (ar0822->is_first_streamoff) {
+			ar0822->is_thunderboot = false;
+			ar0822->is_first_streamoff = false;
 		} else {
 			return;
 		}
 	}
 
-	if (!IS_ERR(ar0821->pwdn_gpio))
-		gpiod_direction_output(ar0821->pwdn_gpio, 0);
+	if (!IS_ERR(ar0822->pwdn_gpio))
+		gpiod_direction_output(ar0822->pwdn_gpio, 0);
 
-	clk_disable_unprepare(ar0821->xvclk);
+	clk_disable_unprepare(ar0822->xvclk);
 
-	if (!IS_ERR(ar0821->reset_gpio))
-		gpiod_direction_output(ar0821->reset_gpio, 0);
-	if (!IS_ERR_OR_NULL(ar0821->pins_sleep)) {
-		ret = pinctrl_select_state(ar0821->pinctrl,
-					   ar0821->pins_sleep);
+	if (!IS_ERR(ar0822->reset_gpio))
+		gpiod_direction_output(ar0822->reset_gpio, 0);
+	if (!IS_ERR_OR_NULL(ar0822->pins_sleep)) {
+		ret = pinctrl_select_state(ar0822->pinctrl,
+					   ar0822->pins_sleep);
 		if (ret < 0)
 			dev_dbg(dev, "could not set pins\n");
 	}
 
-	if (ar0821->is_thunderboot_ng) {
-		ar0821->is_thunderboot_ng = false;
-		regulator_bulk_disable(AR0821_NUM_SUPPLIES, ar0821->supplies);
+	if (ar0822->is_thunderboot_ng) {
+		ar0822->is_thunderboot_ng = false;
+		regulator_bulk_disable(AR0822_NUM_SUPPLIES, ar0822->supplies);
 	}
 }
 
-static int AR0821_runtime_resume(struct device *dev)
+static int ar0822_runtime_resume(struct device *dev)
 {
 	struct i2c_client *client = to_i2c_client(dev);
 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 
-	return __AR0821_power_on(ar0821);
+	return __ar0822_power_on(ar0822);
 }
 
-static int AR0821_runtime_suspend(struct device *dev)
+static int ar0822_runtime_suspend(struct device *dev)
 {
 	struct i2c_client *client = to_i2c_client(dev);
 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 
-	__AR0821_power_off(ar0821);
+	__ar0822_power_off(ar0822);
 
 	return 0;
 }
 
 #ifdef CONFIG_VIDEO_V4L2_SUBDEV_API
-static int AR0821_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+static int ar0822_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 	struct v4l2_mbus_framefmt *try_fmt =
 				v4l2_subdev_get_try_format(sd, fh->pad, 0);
-	const struct AR0821_mode *def_mode = &supported_modes[0];
-	mutex_lock(&ar0821->mutex);
+	const struct ar0822_mode *def_mode = &supported_modes[0];
+	mutex_lock(&ar0822->mutex);
 	/* Initialize try_fmt */
 	try_fmt->width = def_mode->width;
 	try_fmt->height = def_mode->height;
 	try_fmt->code = def_mode->bus_fmt;
 	try_fmt->field = V4L2_FIELD_NONE;
 
-	mutex_unlock(&ar0821->mutex);
+	mutex_unlock(&ar0822->mutex);
 	/* No crop or compose */
 
 	return 0;
 }
 #endif
 
-static int AR0821_enum_frame_interval(struct v4l2_subdev *sd,
+static int ar0822_enum_frame_interval(struct v4l2_subdev *sd,
 				       struct v4l2_subdev_pad_config *cfg,
 				       struct v4l2_subdev_frame_interval_enum *fie)
 {
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 
-	if (fie->index >= ar0821->cfg_num)
+	if (fie->index >= ar0822->cfg_num)
 		return -EINVAL;
 	fie->code = supported_modes[fie->index].bus_fmt;
 	fie->width = supported_modes[fie->index].width;
@@ -4987,51 +4987,51 @@ static int AR0821_enum_frame_interval(struct v4l2_subdev *sd,
 	return 0;
 }
 
-static const struct dev_pm_ops AR0821_pm_ops = {
-	SET_RUNTIME_PM_OPS(AR0821_runtime_suspend,
-			   AR0821_runtime_resume, NULL)
+static const struct dev_pm_ops ar0822_pm_ops = {
+	SET_RUNTIME_PM_OPS(ar0822_runtime_suspend,
+			   ar0822_runtime_resume, NULL)
 };
 
 #ifdef CONFIG_VIDEO_V4L2_SUBDEV_API
-static const struct v4l2_subdev_internal_ops AR0821_internal_ops = {
-	.open = AR0821_open,
+static const struct v4l2_subdev_internal_ops ar0822_internal_ops = {
+	.open = ar0822_open,
 };
 #endif
 
-static const struct v4l2_subdev_core_ops AR0821_core_ops = {
-	.s_power = AR0821_s_power,
-	.ioctl = AR0821_ioctl,
+static const struct v4l2_subdev_core_ops ar0822_core_ops = {
+	.s_power = ar0822_s_power,
+	.ioctl = ar0822_ioctl,
 #ifdef CONFIG_COMPAT
-	.compat_ioctl32 = AR0821_compat_ioctl32,
+	.compat_ioctl32 = ar0822_compat_ioctl32,
 #endif
 };
 
-static const struct v4l2_subdev_video_ops AR0821_video_ops = {
-	.s_stream = AR0821_s_stream,
-	.g_frame_interval = AR0821_g_frame_interval,
+static const struct v4l2_subdev_video_ops ar0822_video_ops = {
+	.s_stream = ar0822_s_stream,
+	.g_frame_interval = ar0822_g_frame_interval,
 };
 
-static const struct v4l2_subdev_pad_ops AR0821_pad_ops = {
-	.enum_mbus_code = AR0821_enum_mbus_code,
-	.enum_frame_size = AR0821_enum_frame_sizes,
-	.enum_frame_interval = AR0821_enum_frame_interval,
-	.get_fmt = AR0821_get_fmt,
-	.set_fmt = AR0821_set_fmt,
-	.get_mbus_config = AR0821_g_mbus_config,
+static const struct v4l2_subdev_pad_ops ar0822_pad_ops = {
+	.enum_mbus_code = ar0822_enum_mbus_code,
+	.enum_frame_size = ar0822_enum_frame_sizes,
+	.enum_frame_interval = ar0822_enum_frame_interval,
+	.get_fmt = ar0822_get_fmt,
+	.set_fmt = ar0822_set_fmt,
+	.get_mbus_config = ar0822_g_mbus_config,
 };
 
-static const struct v4l2_subdev_ops AR0821_subdev_ops = {
-	.core	= &AR0821_core_ops,
-	.video	= &AR0821_video_ops,
-	.pad	= &AR0821_pad_ops,
+static const struct v4l2_subdev_ops ar0822_subdev_ops = {
+	.core	= &ar0822_core_ops,
+	.video	= &ar0822_video_ops,
+	.pad	= &ar0822_pad_ops,
 };
 
 
-static int AR0821_set_ctrl(struct v4l2_ctrl *ctrl)
+static int ar0822_set_ctrl(struct v4l2_ctrl *ctrl)
 {
-	struct ar0821 *ar0821 = container_of(ctrl->handler,
-					     struct ar0821, ctrl_handler);
-	struct i2c_client *client = ar0821->client;
+	struct ar0822 *ar0822 = container_of(ctrl->handler,
+					     struct ar0822, ctrl_handler);
+	struct i2c_client *client = ar0822->client;
 	s64 max;
 	int ret = 0;
 	u32 again = 0;
@@ -5041,11 +5041,11 @@ static int AR0821_set_ctrl(struct v4l2_ctrl *ctrl)
 	switch (ctrl->id) {
 	case V4L2_CID_VBLANK:
 		/* Update max exposure while meeting expected vblanking */
-		max = ar0821->cur_mode->height + ctrl->val - 4;
-		__v4l2_ctrl_modify_range(ar0821->exposure,
-					 ar0821->exposure->minimum, max,
-					 ar0821->exposure->step,
-					 ar0821->exposure->default_value);
+		max = ar0822->cur_mode->height + ctrl->val - 4;
+		__v4l2_ctrl_modify_range(ar0822->exposure,
+					 ar0822->exposure->minimum, max,
+					 ar0822->exposure->step,
+					 ar0822->exposure->default_value);
 		break;
 	}
 
@@ -5054,76 +5054,76 @@ static int AR0821_set_ctrl(struct v4l2_ctrl *ctrl)
 
 	switch (ctrl->id) {
 	case V4L2_CID_EXPOSURE:
-		if (ar0821->cur_mode->hdr_mode != NO_HDR)
+		if (ar0822->cur_mode->hdr_mode != NO_HDR)
 			goto ctrl_end;
-		ret = AR0821_write_reg(ar0821->client,
-					AR0821_REG_EXP,
-					AR0821_REG_VALUE_16BIT,
+		ret = ar0822_write_reg(ar0822->client,
+					AR0822_REG_EXP,
+					AR0822_REG_VALUE_16BIT,
 					ctrl->val);
 
 		dev_dbg(&client->dev, "set exposure 0x%x\n",
 			ctrl->val);
 		break;
 	case V4L2_CID_ANALOGUE_GAIN:
-		if (ar0821->cur_mode->hdr_mode != NO_HDR)
+		if (ar0822->cur_mode->hdr_mode != NO_HDR)
 			goto ctrl_end;
-		if (ctrl->val > AR0821_GAIN_MAX) {
-			again = AR0821_GAIN_MAX;
+		if (ctrl->val > AR0822_GAIN_MAX) {
+			again = AR0822_GAIN_MAX;
 		} else {
 			again = ctrl->val;
 		}
-		if (ctrl->val < AR0821_GAIN_MIN) {
-			again = AR0821_GAIN_MIN;
+		if (ctrl->val < AR0822_GAIN_MIN) {
+			again = AR0822_GAIN_MIN;
 		} else {
 			again = ctrl->val;
 		}
 
 		val = again;
-		ret = AR0821_write_reg(ar0821->client,
-					AR0821_REG_GAIN,
-					AR0821_REG_VALUE_16BIT,
+		ret = ar0822_write_reg(ar0822->client,
+					AR0822_REG_GAIN,
+					AR0822_REG_VALUE_16BIT,
 					val);
 
 		dev_dbg(&client->dev, "Corn set analog gain 0x%x\n",
 			ctrl->val);
 		break;
 	case V4L2_CID_VBLANK:
-		//ret = AR0821_write_reg(ar0821->client, AR0821_REG_VTS,
-		//			AR0821_REG_VALUE_16BIT,
-		//			ctrl->val + ar0821->cur_mode->height);
+		//ret = ar0822_write_reg(ar0822->client, AR0822_REG_VTS,
+		//			AR0822_REG_VALUE_16BIT,
+		//			ctrl->val + ar0822->cur_mode->height);
 		dev_dbg(&client->dev, "set vblank 0x%x\n",
 			ctrl->val);
 		break;
 	case V4L2_CID_TEST_PATTERN:
-		ret = AR0821_enable_test_pattern(ar0821, ctrl->val);
+		ret = ar0822_enable_test_pattern(ar0822, ctrl->val);
 		break;
 	case V4L2_CID_HFLIP:
-		ret = AR0821_read_reg(ar0821->client, AR0821_FLIP_REG,
-				       AR0821_REG_VALUE_16BIT,
+		ret = ar0822_read_reg(ar0822->client, AR0822_FLIP_REG,
+				       AR0822_REG_VALUE_16BIT,
 				       &val);
 		if (ctrl->val)
 			val |= MIRROR_BIT_MASK;
 		else
 			val &= ~MIRROR_BIT_MASK;
-		ret = AR0821_write_reg(ar0821->client, AR0821_FLIP_REG,
-					AR0821_REG_VALUE_16BIT,
+		ret = ar0822_write_reg(ar0822->client, AR0822_FLIP_REG,
+					AR0822_REG_VALUE_16BIT,
 					val);
 		if (ret == 0)
-			ar0821->flip = val;
+			ar0822->flip = val;
 		break;
 	case V4L2_CID_VFLIP:
-		ret = AR0821_read_reg(ar0821->client, AR0821_FLIP_REG,
-				       AR0821_REG_VALUE_16BIT,
+		ret = ar0822_read_reg(ar0822->client, AR0822_FLIP_REG,
+				       AR0822_REG_VALUE_16BIT,
 				       &val);
 		if (ctrl->val)
 			val |= FLIP_BIT_MASK;
 		else
 			val &= ~FLIP_BIT_MASK;
-		ret = AR0821_write_reg(ar0821->client, AR0821_FLIP_REG,
-					AR0821_REG_VALUE_16BIT,
+		ret = ar0822_write_reg(ar0822->client, AR0822_FLIP_REG,
+					AR0822_REG_VALUE_16BIT,
 					val);
 		if (ret == 0)
-			ar0821->flip = val;
+			ar0822->flip = val;
 		break;
 	default:
 		dev_warn(&client->dev, "%s Unhandled id:0x%x, val:0x%x\n",
@@ -5138,13 +5138,13 @@ ctrl_end:
 	return ret;
 }
 
-static const struct v4l2_ctrl_ops AR0821_ctrl_ops = {
-	.s_ctrl = AR0821_set_ctrl,
+static const struct v4l2_ctrl_ops ar0822_ctrl_ops = {
+	.s_ctrl = ar0822_set_ctrl,
 };
 
-static int AR0821_initialize_controls(struct ar0821 *ar0821)
+static int ar0822_initialize_controls(struct ar0822 *ar0822)
 {
-	const struct AR0821_mode *mode;
+	const struct ar0822_mode *mode;
 	struct v4l2_ctrl_handler *handler;
 	s64 exposure_max, vblank_def;
 	u32 h_blank;
@@ -5152,72 +5152,72 @@ static int AR0821_initialize_controls(struct ar0821 *ar0821)
 	u64 dst_link_freq = 0;
 	u64 dst_pixel_rate = 0;
 
-	handler = &ar0821->ctrl_handler;
-	mode = ar0821->cur_mode;
+	handler = &ar0822->ctrl_handler;
+	mode = ar0822->cur_mode;
 	ret = v4l2_ctrl_handler_init(handler, 9);
 	if (ret)
 		return ret;
-	handler->lock = &ar0821->mutex;
-	ar0821->link_freq = v4l2_ctrl_new_int_menu(handler, NULL,
+	handler->lock = &ar0822->mutex;
+	ar0822->link_freq = v4l2_ctrl_new_int_menu(handler, NULL,
 			V4L2_CID_LINK_FREQ,
 			MIPI_FREQ_MAX_INDEX, 0, link_freq_menu_items);
 
 	dst_link_freq = mode->mipi_freq;
 	dst_pixel_rate = mode->mipi_rate;
 	/* pixel rate = link frequency * 2 * lanes / BITS_PER_SAMPLE */
-	ar0821->pixel_rate = v4l2_ctrl_new_std(handler, NULL,
+	ar0822->pixel_rate = v4l2_ctrl_new_std(handler, NULL,
 			V4L2_CID_PIXEL_RATE,
 			0, PIXEL_RATE_MAX,
 			1, dst_pixel_rate);
-	__v4l2_ctrl_s_ctrl(ar0821->link_freq,
+	__v4l2_ctrl_s_ctrl(ar0822->link_freq,
 			   dst_link_freq);
 
 	h_blank = mode->hts_def - mode->width;
-	ar0821->hblank = v4l2_ctrl_new_std(handler, NULL, V4L2_CID_HBLANK,
+	ar0822->hblank = v4l2_ctrl_new_std(handler, NULL, V4L2_CID_HBLANK,
 				h_blank, h_blank, 1, h_blank);
-	if (ar0821->hblank)
-		ar0821->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+	if (ar0822->hblank)
+		ar0822->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
 
 	vblank_def = mode->vts_def - mode->height;
-	ar0821->vblank = v4l2_ctrl_new_std(handler, &AR0821_ctrl_ops,
+	ar0822->vblank = v4l2_ctrl_new_std(handler, &ar0822_ctrl_ops,
 				V4L2_CID_VBLANK, vblank_def,
-				AR0821_VTS_MAX - mode->height,
+				AR0822_VTS_MAX - mode->height,
 				1, vblank_def);
 
 	exposure_max = mode->vts_def - 4;
-	ar0821->exposure = v4l2_ctrl_new_std(handler, &AR0821_ctrl_ops,
-				V4L2_CID_EXPOSURE, AR0821_EXPOSURE_MIN,
-				exposure_max, AR0821_EXPOSURE_STEP,
+	ar0822->exposure = v4l2_ctrl_new_std(handler, &ar0822_ctrl_ops,
+				V4L2_CID_EXPOSURE, AR0822_EXPOSURE_MIN,
+				exposure_max, AR0822_EXPOSURE_STEP,
 				mode->exp_def);
 
-	ar0821->anal_gain = v4l2_ctrl_new_std(handler, &AR0821_ctrl_ops,
-				V4L2_CID_ANALOGUE_GAIN, AR0821_GAIN_MIN,
-				AR0821_GAIN_MAX, AR0821_GAIN_STEP,
-				AR0821_GAIN_DEFAULT);
+	ar0822->anal_gain = v4l2_ctrl_new_std(handler, &ar0822_ctrl_ops,
+				V4L2_CID_ANALOGUE_GAIN, AR0822_GAIN_MIN,
+				AR0822_GAIN_MAX, AR0822_GAIN_STEP,
+				AR0822_GAIN_DEFAULT);
 
-	ar0821->test_pattern = v4l2_ctrl_new_std_menu_items(handler,
-				&AR0821_ctrl_ops, V4L2_CID_TEST_PATTERN,
-				ARRAY_SIZE(AR0821_test_pattern_menu) - 1,
-				0, 0, AR0821_test_pattern_menu);
+	ar0822->test_pattern = v4l2_ctrl_new_std_menu_items(handler,
+				&ar0822_ctrl_ops, V4L2_CID_TEST_PATTERN,
+				ARRAY_SIZE(ar0822_test_pattern_menu) - 1,
+				0, 0, ar0822_test_pattern_menu);
 
-	ar0821->h_flip = v4l2_ctrl_new_std(handler, &AR0821_ctrl_ops,
+	ar0822->h_flip = v4l2_ctrl_new_std(handler, &ar0822_ctrl_ops,
 				V4L2_CID_HFLIP, 0, 1, 1, 0);
 
-	ar0821->v_flip = v4l2_ctrl_new_std(handler, &AR0821_ctrl_ops,
+	ar0822->v_flip = v4l2_ctrl_new_std(handler, &ar0822_ctrl_ops,
 				V4L2_CID_VFLIP, 0, 1, 1, 0);
-	ar0821->flip = 0;
+	ar0822->flip = 0;
 	if (handler->error) {
 		ret = handler->error;
-		dev_err(&ar0821->client->dev,
+		dev_err(&ar0822->client->dev,
 			"Failed to init controls(%d)\n", ret);
 		goto err_free_handler;
 	}
 
-	ar0821->subdev.ctrl_handler = handler;
-	ar0821->has_init_exp = false;
-	ar0821->long_hcg = false;
-	ar0821->middle_hcg = false;
-	ar0821->short_hcg = false;
+	ar0822->subdev.ctrl_handler = handler;
+	ar0822->has_init_exp = false;
+	ar0822->long_hcg = false;
+	ar0822->middle_hcg = false;
+	ar0822->short_hcg = false;
 
 	return 0;
 
@@ -5227,48 +5227,48 @@ err_free_handler:
 	return ret;
 }
 
-static int AR0821_check_sensor_id(struct ar0821 *ar0821,
+static int ar0822_check_sensor_id(struct ar0822 *ar0822,
 				  struct i2c_client *client)
 {
-	struct device *dev = &ar0821->client->dev;
+	struct device *dev = &ar0822->client->dev;
 	u32 id = 0;
 	int ret;
 
-	if (ar0821->is_thunderboot) {
+	if (ar0822->is_thunderboot) {
 		dev_info(dev, "Enable thunderboot mode, skip sensor id check\n");
 		return 0;
 	}
 
-	ret = AR0821_read_reg(client, AR0821_REG_CHIP_ID,
-			       AR0821_REG_VALUE_16BIT, &id);
+	ret = ar0822_read_reg(client, AR0822_REG_CHIP_ID,
+			       AR0822_REG_VALUE_16BIT, &id);
 	if (id != CHIP_ID) {
 		dev_err(dev, "Unexpected sensor id(%06x), ret(%d)\n", id, ret);
 		return -ENODEV;
 	}
 
-	dev_info(dev, "Detected ar0821%04x sensor\n", CHIP_ID);
+	dev_info(dev, "Detected ar0822%04x sensor\n", CHIP_ID);
 
 	return 0;
 }
 
-static int AR0821_configure_regulators(struct ar0821 *ar0821)
+static int ar0822_configure_regulators(struct ar0822 *ar0822)
 {
 	unsigned int i;
 
-	for (i = 0; i < AR0821_NUM_SUPPLIES; i++)
-		ar0821->supplies[i].supply = AR0821_supply_names[i];
+	for (i = 0; i < AR0822_NUM_SUPPLIES; i++)
+		ar0822->supplies[i].supply = ar0822_supply_names[i];
 
-	return devm_regulator_bulk_get(&ar0821->client->dev,
-				       AR0821_NUM_SUPPLIES,
-				       ar0821->supplies);
+	return devm_regulator_bulk_get(&ar0822->client->dev,
+				       AR0822_NUM_SUPPLIES,
+				       ar0822->supplies);
 }
 
-static int AR0821_probe(struct i2c_client *client,
+static int ar0822_probe(struct i2c_client *client,
 			const struct i2c_device_id *id)
 {
 	struct device *dev = &client->dev;
 	struct device_node *node = dev->of_node;
-	struct ar0821 *ar0821;
+	struct ar0822 *ar0822;
 	struct v4l2_subdev *sd;
 	char facing[2];
 	int ret;
@@ -5279,118 +5279,118 @@ static int AR0821_probe(struct i2c_client *client,
 		(DRIVER_VERSION & 0xff00) >> 8,
 		DRIVER_VERSION & 0x00ff);
 
-	ar0821 = devm_kzalloc(dev, sizeof(*ar0821), GFP_KERNEL);
-	if (!ar0821)
+	ar0822 = devm_kzalloc(dev, sizeof(*ar0822), GFP_KERNEL);
+	if (!ar0822)
 		return -ENOMEM;
 
 	ret = of_property_read_u32(node, RKMODULE_CAMERA_MODULE_INDEX,
-				   &ar0821->module_index);
+				   &ar0822->module_index);
 	ret |= of_property_read_string(node, RKMODULE_CAMERA_MODULE_FACING,
-				       &ar0821->module_facing);
+				       &ar0822->module_facing);
 	ret |= of_property_read_string(node, RKMODULE_CAMERA_MODULE_NAME,
-				       &ar0821->module_name);
+				       &ar0822->module_name);
 	ret |= of_property_read_string(node, RKMODULE_CAMERA_LENS_NAME,
-				       &ar0821->len_name);
+				       &ar0822->len_name);
 	if (ret) {
 		dev_err(dev, "could not get module information!\n");
 		return -EINVAL;
 	}
 
-	ar0821->is_thunderboot = IS_ENABLED(CONFIG_VIDEO_ROCKCHIP_THUNDER_BOOT_ISP);
+	ar0822->is_thunderboot = IS_ENABLED(CONFIG_VIDEO_ROCKCHIP_THUNDER_BOOT_ISP);
 	ret = of_property_read_u32(node, OF_CAMERA_HDR_MODE,
 			&hdr_mode);
 	if (ret) {
 		hdr_mode = NO_HDR;
 		dev_warn(dev, " Get hdr mode failed! no hdr default\n");
 	}
-	ar0821->cfg_num = ARRAY_SIZE(supported_modes);
-	if(ar0821->cfg_num == 0){
+	ar0822->cfg_num = ARRAY_SIZE(supported_modes);
+	if(ar0822->cfg_num == 0){
 		dev_err(dev, "no any supported mode providec, force exit probe!\n");
 		return -EINVAL;
 	}
-	ar0821->cur_mode = &supported_modes[0];//initialize.
-	for (i = 0; i < ar0821->cfg_num; i++) {
+	ar0822->cur_mode = &supported_modes[0];//initialize.
+	for (i = 0; i < ar0822->cfg_num; i++) {
 		if (hdr_mode == supported_modes[i].hdr_mode) {
-			ar0821->cur_mode = &supported_modes[i];
+			ar0822->cur_mode = &supported_modes[i];
 			break;
 		}
 	}
-	ar0821->client = client;
+	ar0822->client = client;
 
-	ar0821->xvclk = devm_clk_get(dev, "xvclk");
-	if (IS_ERR(ar0821->xvclk)) {
+	ar0822->xvclk = devm_clk_get(dev, "xvclk");
+	if (IS_ERR(ar0822->xvclk)) {
 		dev_err(dev, "Failed to get xvclk\n");
 		return -EINVAL;
 	}
 
-	ar0821->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_ASIS);
-	if (IS_ERR(ar0821->reset_gpio))
+	ar0822->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_ASIS);
+	if (IS_ERR(ar0822->reset_gpio))
 		dev_warn(dev, "Failed to get reset-gpios\n");
 
-	ar0821->pwdn_gpio = devm_gpiod_get(dev, "pwdn", GPIOD_ASIS);
-	if (IS_ERR(ar0821->pwdn_gpio))
+	ar0822->pwdn_gpio = devm_gpiod_get(dev, "pwdn", GPIOD_ASIS);
+	if (IS_ERR(ar0822->pwdn_gpio))
 		dev_warn(dev, "Failed to get pwdn-gpios\n");
 
-	ar0821->pinctrl = devm_pinctrl_get(dev);
-	if (!IS_ERR(ar0821->pinctrl)) {
-		ar0821->pins_default =
-			pinctrl_lookup_state(ar0821->pinctrl,
+	ar0822->pinctrl = devm_pinctrl_get(dev);
+	if (!IS_ERR(ar0822->pinctrl)) {
+		ar0822->pins_default =
+			pinctrl_lookup_state(ar0822->pinctrl,
 					     OF_CAMERA_PINCTRL_STATE_DEFAULT);
-		if (IS_ERR(ar0821->pins_default))
+		if (IS_ERR(ar0822->pins_default))
 			dev_err(dev, "could not get default pinstate\n");
 
-		ar0821->pins_sleep =
-			pinctrl_lookup_state(ar0821->pinctrl,
+		ar0822->pins_sleep =
+			pinctrl_lookup_state(ar0822->pinctrl,
 					     OF_CAMERA_PINCTRL_STATE_SLEEP);
-		if (IS_ERR(ar0821->pins_sleep))
+		if (IS_ERR(ar0822->pins_sleep))
 			dev_err(dev, "could not get sleep pinstate\n");
 	} else {
 		dev_err(dev, "no pinctrl\n");
 	}
 
-	ret = AR0821_configure_regulators(ar0821);
+	ret = ar0822_configure_regulators(ar0822);
 	if (ret) {
 		dev_err(dev, "Failed to get power regulators\n");
 		return ret;
 	}
 
-	mutex_init(&ar0821->mutex);
+	mutex_init(&ar0822->mutex);
 
-	sd = &ar0821->subdev;
-	v4l2_i2c_subdev_init(sd, client, &AR0821_subdev_ops);
-	ret = AR0821_initialize_controls(ar0821);
+	sd = &ar0822->subdev;
+	v4l2_i2c_subdev_init(sd, client, &ar0822_subdev_ops);
+	ret = ar0822_initialize_controls(ar0822);
 	if (ret)
 		goto err_destroy_mutex;
 
-	ret = __AR0821_power_on(ar0821);
+	ret = __ar0822_power_on(ar0822);
 	if (ret)
 		goto err_free_handler;
 
-	ret = AR0821_check_sensor_id(ar0821, client);
+	ret = ar0822_check_sensor_id(ar0822, client);
 	if (ret)
 		goto err_power_off;
 
 #ifdef CONFIG_VIDEO_V4L2_SUBDEV_API
-	sd->internal_ops = &AR0821_internal_ops;
+	sd->internal_ops = &ar0822_internal_ops;
 	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
 #endif
 #if defined(CONFIG_MEDIA_CONTROLLER)
-	ar0821->pad.flags = MEDIA_PAD_FL_SOURCE;
+	ar0822->pad.flags = MEDIA_PAD_FL_SOURCE;
 	sd->entity.function = MEDIA_ENT_F_CAM_SENSOR;
-	ret = media_entity_pads_init(&sd->entity, 1, &ar0821->pad);
+	ret = media_entity_pads_init(&sd->entity, 1, &ar0822->pad);
 	if (ret < 0)
 		goto err_power_off;
 #endif
 
 	memset(facing, 0, sizeof(facing));
-	if (strcmp(ar0821->module_facing, "back") == 0)
+	if (strcmp(ar0822->module_facing, "back") == 0)
 		facing[0] = 'b';
 	else
 		facing[0] = 'f';
 
 	snprintf(sd->name, sizeof(sd->name), "m%02d_%s_%s %s",
-		 ar0821->module_index, facing,
-		 AR0821_NAME, dev_name(sd->dev));
+		 ar0822->module_index, facing,
+		 AR0822_NAME, dev_name(sd->dev));
 	ret = v4l2_async_register_subdev_sensor_common(sd);
 	if (ret) {
 		dev_err(dev, "v4l2 async register subdev failed\n");
@@ -5410,75 +5410,75 @@ err_clean_entity:
 	media_entity_cleanup(&sd->entity);
 #endif
 err_power_off:
-	__AR0821_power_off(ar0821);
+	__ar0822_power_off(ar0822);
 err_free_handler:
-	v4l2_ctrl_handler_free(&ar0821->ctrl_handler);
+	v4l2_ctrl_handler_free(&ar0822->ctrl_handler);
 err_destroy_mutex:
-	mutex_destroy(&ar0821->mutex);
+	mutex_destroy(&ar0822->mutex);
 
 	return ret;
 }
 
-static int AR0821_remove(struct i2c_client *client)
+static int ar0822_remove(struct i2c_client *client)
 {
 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-	struct ar0821 *ar0821 = to_ar0821(sd);
+	struct ar0822 *ar0822 = to_ar0822(sd);
 
 	v4l2_async_unregister_subdev(sd);
 #if defined(CONFIG_MEDIA_CONTROLLER)
 	media_entity_cleanup(&sd->entity);
 #endif
-	v4l2_ctrl_handler_free(&ar0821->ctrl_handler);
-	mutex_destroy(&ar0821->mutex);
+	v4l2_ctrl_handler_free(&ar0822->ctrl_handler);
+	mutex_destroy(&ar0822->mutex);
 
 	pm_runtime_disable(&client->dev);
 	if (!pm_runtime_status_suspended(&client->dev))
-		__AR0821_power_off(ar0821);
+		__ar0822_power_off(ar0822);
 	pm_runtime_set_suspended(&client->dev);
 
 	return 0;
 }
 
 #if IS_ENABLED(CONFIG_OF)
-static const struct of_device_id AR0821_of_match[] = {
-	{ .compatible = "onsemi,ar0821" },
+static const struct of_device_id ar0822_of_match[] = {
+	{ .compatible = "onsemi,ar0822" },
 	{},
 };
-MODULE_DEVICE_TABLE(of, AR0821_of_match);
+MODULE_DEVICE_TABLE(of, ar0822_of_match);
 #endif
 
-static const struct i2c_device_id AR0821_match_id[] = {
-	{ "onsemi,ar0821", 0 },
+static const struct i2c_device_id ar0822_match_id[] = {
+	{ "onsemi,ar0822", 0 },
 	{ },
 };
 
-static struct i2c_driver AR0821_i2c_driver = {
+static struct i2c_driver ar0822_i2c_driver = {
 	.driver = {
-		.name = AR0821_NAME,
-		.pm = &AR0821_pm_ops,
-		.of_match_table = of_match_ptr(AR0821_of_match),
+		.name = AR0822_NAME,
+		.pm = &ar0822_pm_ops,
+		.of_match_table = of_match_ptr(ar0822_of_match),
 	},
-	.probe		= &AR0821_probe,
-	.remove		= &AR0821_remove,
-	.id_table	= AR0821_match_id,
+	.probe		= &ar0822_probe,
+	.remove		= &ar0822_remove,
+	.id_table	= ar0822_match_id,
 };
 
 #ifdef CONFIG_ROCKCHIP_THUNDER_BOOT
-module_i2c_driver(AR0821_i2c_driver);
+module_i2c_driver(ar0822_i2c_driver);
 #else
 static int __init sensor_mod_init(void)
 {
-	return i2c_add_driver(&AR0821_i2c_driver);
+	return i2c_add_driver(&ar0822_i2c_driver);
 }
 
 static void __exit sensor_mod_exit(void)
 {
-	i2c_del_driver(&AR0821_i2c_driver);
+	i2c_del_driver(&ar0822_i2c_driver);
 }
 
 device_initcall_sync(sensor_mod_init);
 module_exit(sensor_mod_exit);
 #endif
 
-MODULE_DESCRIPTION("Onsemi ar0821 sensor driver");
+MODULE_DESCRIPTION("Onsemi ar0822 sensor driver");
 MODULE_LICENSE("GPL");
