@@ -49,6 +49,15 @@ config VIDEO_AR0521
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called ar0521.
+	  
+config VIDEO_AR0822
+	tristate "ON Semiconductor AR0822 sensor support"
+	help
+	  This is a Video4Linux2 sensor driver for the ON Semiconductor
+	  AR0822 camera.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called ar0822.
 
 config VIDEO_AR0821
 	tristate "ON Semiconductor AR0821 sensor support"

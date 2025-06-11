@@ -22,14 +22,15 @@
 #include <linux/sysfs.h>
 #include <linux/slab.h>
 #include <linux/version.h>
-#include <linux/rk-camera-module.h>
+#include <linux/of_device.h>
 #include <media/media-entity.h>
 #include <media/v4l2-async.h>
 #include <media/v4l2-ctrls.h>
 #include <media/v4l2-subdev.h>
 #include <linux/pinctrl/consumer.h>
-#include <linux/rk-preisp.h>
-#include "../platform/rockchip/isp/rkisp_tb_helper.h"
+//#include <linux/rk-camera-module.h>
+//#include <linux/rk-preisp.h>
+//#include "../platform/rockchip/isp/rkisp_tb_helper.h"
 
 #define DRIVER_VERSION			KERNEL_VERSION(0, 0x01, 0x04)
 #ifndef V4L2_CID_DIGITAL_GAIN
