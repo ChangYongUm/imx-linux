@@ -480,10 +480,63 @@
 		acdc_y_resolution = <768>;
 		status = "okay";
 	};
+
+	ar0521: camera@10 {
+        compatible = "onsemi,ar0521";
+        reg = <0x10>; // I2C address (확인 필요)
+
+        clocks = <&clk IMX8MM_CLK_CLKO2>;
+        clock-names = "xclk";
+        assigned-clocks = <&clk IMX8MM_CLK_CLKO2>;
+        assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
+        assigned-clock-rates = <24000000>;
+
+        pinctrl-names = "default";
+        pinctrl-0 = <&pinctrl_csi_mclk>; // mclk 핀 설정 필요
+
+        csi_id = <0>;
+        mclk = <24000000>;
+        mclk_source = <0>;
+
+        powerdown-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>; 
+        reset-gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;     
+
+        rotation = <0>;
+
+        status = "okay";
+
+        port {
+            ar0521_ep: endpoint {
+                remote-endpoint = <&mipi_csi0_ep>;
+                data-lanes = <1 2>; // MIPI lanes, 센서 사양에 맞게 조정
+                clock-lanes = <0>;
+                link-frequencies = /bits/ 64 <360000000>; // MIPI 링크 속도, 센서에 맞게 조정
+            };
+        };
+    };
 };
 
 &i2c4 {
 	status = "okay";
+};
+
+&mipi_csi_0 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "okay";
+
+    port@0 {
+        reg = <0>;
+        mipi_csi0_ep: endpoint {
+            remote-endpoint = <&ar0521_ep>;
+            data-lanes = <1 2>;
+            clock-lanes = <0>;
+        };
+    };
+};
+
+&csi1_bridge {
+    status = "okay";
 };
 
 &usbotg1 {
