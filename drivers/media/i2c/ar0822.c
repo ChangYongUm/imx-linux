@@ -28,7 +28,7 @@
 #include <media/v4l2-ctrls.h>
 #include <media/v4l2-subdev.h>
 #include <linux/pinctrl/consumer.h>
-
+#include <linux/videodev2.h>
 
 #define DRIVER_VERSION			KERNEL_VERSION(0, 0x01, 0x04)
 #ifndef V4L2_CID_DIGITAL_GAIN
@@ -159,6 +159,16 @@ struct regval {
 	u16 addr;
 	u16 val;
 };
+
+#define PAD0 0
+#define PAD1 1
+#define PAD2 2
+#define PAD3 3
+#define PAD_MAX 1
+
+#define NO_HDR      0
+#define HDR_X2      1
+#define HDR_X3      2
 
 /* Config resolution ,LLPCLK, FLL, exposure time,fps, MIPI channel config, HDR mode , open.k */
 struct ar0822_mode {
@@ -4128,7 +4138,6 @@ static const struct ar0822_mode supported_modes[] = {
 		.vc[PAD1] = V4L2_MBUS_CSI2_CHANNEL_0,
 		.vc[PAD3] = V4L2_MBUS_CSI2_CHANNEL_1,//M->csi wr0
 	},
-
 
 };
 
