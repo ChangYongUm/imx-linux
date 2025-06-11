@@ -28,9 +28,7 @@
 #include <media/v4l2-ctrls.h>
 #include <media/v4l2-subdev.h>
 #include <linux/pinctrl/consumer.h>
-//#include <linux/rk-camera-module.h>
-//#include <linux/rk-preisp.h>
-//#include "../platform/rockchip/isp/rkisp_tb_helper.h"
+
 
 #define DRIVER_VERSION			KERNEL_VERSION(0, 0x01, 0x04)
 #ifndef V4L2_CID_DIGITAL_GAIN
@@ -94,6 +92,53 @@
 #define AR0822_NAME			"ar0822"
 
 #define USED_SYS_DEBUG
+
+
+#define RKMODULE_GET_MODULE_INFO         _IOWR('V', BASE_VIDIOC_PRIVATE + 0, struct rkmodule_inf)
+#define RKMODULE_SET_HDR_CFG             _IOWR('V', BASE_VIDIOC_PRIVATE + 1, struct rkmodule_hdr_cfg)
+#define RKMODULE_GET_HDR_CFG             _IOWR('V', BASE_VIDIOC_PRIVATE + 2, struct rkmodule_hdr_cfg)
+#define PREISP_CMD_SET_HDRAE_EXP         _IOWR('V', BASE_VIDIOC_PRIVATE + 3, struct preisp_hdrae_exp_s)
+#define RKMODULE_SET_CONVERSION_GAIN     _IOWR('V', BASE_VIDIOC_PRIVATE + 4, u32)
+#define RKMODULE_SET_QUICK_STREAM        _IOWR('V', BASE_VIDIOC_PRIVATE + 5, u32)
+#define RKMODULE_GET_CHANNEL_INFO        _IOWR('V', BASE_VIDIOC_PRIVATE + 6, struct rkmodule_channel_info)
+
+// 최소한의 구조체 정의
+struct rkmodule_inf {
+	struct {
+		char sensor[32];
+		char module[32];
+		char lens[32];
+	} base;
+	u32 version;
+};
+
+struct preisp_hdrae_exp_s {
+	u32 long_exp_reg;
+	u32 middle_exp_reg;
+	u32 short_exp_reg;
+	u32 long_gain_reg;
+	u32 middle_gain_reg;
+	u32 short_gain_reg;
+	u8 long_cg_mode;
+	u8 middle_cg_mode;
+	u8 short_cg_mode;
+};
+
+struct rkmodule_hdr_cfg {
+	struct {
+		u8 mode;
+	} esp;
+	u8 hdr_mode;
+};
+
+struct rkmodule_channel_info {
+	int index;
+	u32 vc;
+	u32 width;
+	u32 height;
+	u32 bus_fmt;
+};
+
 
 
 /*  sensor power on config, need check power, MCLK, GPIO etc,,, need go to .dts file to change the config; open.k */
