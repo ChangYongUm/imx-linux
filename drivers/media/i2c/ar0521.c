@@ -1151,9 +1151,13 @@ static int ar0521_probe(struct i2c_client *client)
 	ret = ar0521_power_on(&client->dev);
 	if (ret)
 		goto disable;
-	pm_runtime_set_active(&client->dev);
+	
+		pm_runtime_set_active(&client->dev);
 	pm_runtime_enable(&client->dev);
 	pm_runtime_idle(&client->dev);
+
+	printk("AR0521 Probed\n");
+
 	return 0;
 
 disable:
