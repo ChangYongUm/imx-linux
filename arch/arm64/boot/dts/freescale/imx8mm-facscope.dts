@@ -452,7 +452,7 @@
 		compatible = "onnn,ar0521";
 		reg = <0x36>; 
 
-		csi_id = <1>;
+		csi_id = <0>;
 
 		clocks = <&clk IMX8MM_CLK_CLKO2>;
 		clock-names = "extclk";
@@ -471,7 +471,8 @@
 		port {
 			ar0521_to_csi: endpoint {
 				remote-endpoint = <&csi1_from_mipi>;
-            	data-lanes = <0 1>;  
+            	data-lanes = <1 2 3 4>;
+				clock-lanes = <0>;
             	bus-type = <4>;          // MIPI CSI-2
 			};
 		};
@@ -564,7 +565,8 @@
         reg = <0>;
         csi1_from_mipi: endpoint {
             remote-endpoint = <&ar0521_to_csi>;
-            data-lanes = <0 1>;  
+            data-lanes = <1 2 3 4>;
+			clock-lanes = <0>;
             bus-type = <4>;          // MIPI CSI-2
         };
     };
