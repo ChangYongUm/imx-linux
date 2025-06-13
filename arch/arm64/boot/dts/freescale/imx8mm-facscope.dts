@@ -563,13 +563,13 @@
 	#address-cells = <1>;
 	#size-cells = <0>;
 	status = "okay";
-
+/*
 	port {
 		csi1_mipi_ep: endpoint@2 {
 			remote-endpoint = <&csi1_ep>;
 		};
 	};
-
+*/
     port@0 {
         reg = <0>;
         csi1_from_mipi: endpoint{
@@ -583,11 +583,13 @@
 &csi1_bridge {
 	fsl,mipi-mode;
 	status = "okay";
+/*
 	port {
 		csi1_ep: endpoint {
 			remote-endpoint = <&csi1_mipi_ep>;
 		};
 	};	
+*/	
 };
 
 &usbotg1 {
