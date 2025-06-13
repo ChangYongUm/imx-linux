@@ -1243,7 +1243,6 @@
 				status = "disabled";
 
 				port@0 {
-
 					dsim_from_lcdif: endpoint {
 						remote-endpoint = <&lcdif_to_dsim>;
 					};
