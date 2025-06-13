@@ -370,7 +370,7 @@
 };
 
 &lcdif {
-	status = "okay";
+	status = "disabled";
 };
 
 &i2c1 { /* BRD_CONF I2C */
