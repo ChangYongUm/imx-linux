@@ -390,6 +390,12 @@
 	};
 };
 
+&clks {
+	assigned-clocks = <&clk IMX8MM_CLK_CLKO2>;
+	assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
+	assigned-clock-rates = <24000000>;
+};
+
 &i2c2 {
 #ifdef CODEC_SGTL5000	
 	codec_sgtl5000: sgtl5000@a {
