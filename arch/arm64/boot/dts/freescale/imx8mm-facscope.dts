@@ -458,10 +458,6 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_csi_reset &pinctrl_csi_pwdn>;
 
-		csi_id = <0>;
-		mclk = <24000000>;
-		mclk_source = <0>;
-
 		reset-gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;     
 		powerdown-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;         
 		vaa-supply = <&reg_2p7v>;
@@ -471,12 +467,9 @@
 		status = "okay";
 
 		port {
-			ar0521_ep: endpoint {
-				remote-endpoint = <&mipi_csi0_ep>;
+			ar0521_to_csi: endpoint {
+				remote-endpoint = <&csi1_from_mipi>;
 				data-lanes = <1 2 3 4>;
-				clock-lanes = <0>;
-				bus-type = <4>; // CSI-2
-				link-frequencies = /bits/ 64 <360000000>;
 			};
 		};
 	};
@@ -566,11 +559,9 @@
 
     port@0 {
         reg = <0>;
-        mipi_csi0_ep: endpoint {
-            remote-endpoint = <&ar0521_ep>;
+        csi1_from_mipi: endpoint {
+            remote-endpoint = <&ar0521_to_csi>;
             data-lanes = <1 2 3 4>;
-			bus-type = <4>; // MIPI CSI-2
-            clock-lanes = <0>;
         };
     };
 };
