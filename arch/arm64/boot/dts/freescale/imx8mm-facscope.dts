@@ -57,6 +57,30 @@
 			regulator-always-on;
 		};
 
+		reg_2p7v: regulator-2p7v {
+			compatible = "regulator-fixed";
+			regulator-name = "2p7v";
+			regulator-min-microvolt = <2700000>;
+			regulator-max-microvolt = <2700000>;
+			regulator-always-on;
+		};
+
+		reg_1p2v: regulator-1p2v {
+			compatible = "regulator-fixed";
+			regulator-name = "1p2v";
+			regulator-min-microvolt = <1200000>;
+			regulator-max-microvolt = <1200000>;
+			regulator-always-on;
+		};
+
+		reg_1p8v: regulator-1p8v {
+			compatible = "regulator-fixed";
+			regulator-name = "1p8v";
+			regulator-min-microvolt = <1800000>;
+			regulator-max-microvolt = <1800000>;
+			regulator-always-on;
+		};
+
 	};
 
 	lvds_backlight: lvds_backlight {
@@ -440,7 +464,10 @@
 
 		reset-gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;     
 		powerdown-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;         
-
+		vaa-supply = <&reg_2p7v>;
+		vdd-supply = <&reg_1p2v>;
+		vdd_io-supply = <&reg_1p8v>;
+		
 		status = "okay";
 
 		port {
