@@ -568,7 +568,7 @@
         reg = <0>;
         mipi_csi0_ep: endpoint {
             remote-endpoint = <&ar0521_ep>;
-            data-lanes = <1 2>;
+            data-lanes = <1 2 3 4>;
 			bus-type = <4>; // MIPI CSI-2
             clock-lanes = <0>;
         };
