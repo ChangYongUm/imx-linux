@@ -113,6 +113,10 @@
 #endif
 
 	clocks {
+		assigned-clocks = <&clk IMX8MM_CLK_CLKO2>;
+		assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
+		assigned-clock-rates = <24000000>;
+				
 		codec_osc: aud_mclk {
 			compatible = "fixed-clock";
 			#clock-cells = <0>;
@@ -199,9 +203,6 @@
 
 
 &iomuxc {
-
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_clko2>;
 
 	pinctrl_csi_reset: csi_reset {
 		fsl,pins = <
@@ -437,7 +438,7 @@
 		clock-names = "xclk";
 
 		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_csi_reset &pinctrl_csi_pwdn>;
+		pinctrl-0 = <&pinctrl_csi_reset &pinctrl_csi_pwdn &pinctrl_clko2>;
 
 		csi_id = <0>;
 		mclk = <24000000>;
