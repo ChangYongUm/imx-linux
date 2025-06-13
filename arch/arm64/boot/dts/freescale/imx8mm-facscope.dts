@@ -137,6 +137,10 @@
 #endif
 
 	clocks {
+		assigned-clocks = <&clk IMX8MM_CLK_CLKO2>;
+		assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
+		assigned-clock-rates = <24000000>;
+
 		codec_osc: aud_mclk {
 			compatible = "fixed-clock";
 			#clock-cells = <0>;
@@ -369,7 +373,6 @@
 	status = "okay";
 };
 
-
 &i2c1 { /* BRD_CONF I2C */
 	eeprom_baseboard: eeprom@51 {
 		compatible = "atmel,24c02";
@@ -448,7 +451,6 @@
 		status = "okay";
 	};
 #endif
-
 	typec_hd3ss3220: hd3ss3220@67 {
 		compatible = "ti,hd3ss3220";
 		interrupts-extended = <&gpio2 10 IRQ_TYPE_LEVEL_LOW>;
@@ -492,9 +494,12 @@
 							"EXPOSURE_TRIG_IN2", "FLASH_OUT2", "INFO_TRIG_IN2", "CAM_SHUTTER2", "XVS2", "PWR2_TIME0", "PWR2_TIME1", "PWR2_TIME2";
 	};
 
+
 	ar0521: camera@36 {
 		compatible = "onnn,ar0521";
 		reg = <0x36>; 
+
+		csi_id = <0>;
 
 		clocks = <&clk IMX8MM_CLK_CLKO2>;
 		clock-names = "extclk";
@@ -518,6 +523,7 @@
 			};
 		};
 	};
+
 };
 
 &i2c3 {
@@ -554,19 +560,11 @@
 };
 
 &mipi_csi_1 {
-    #address-cells = <1>;
-    #size-cells = <0>;
     status = "okay";
-	
-	port@0 {
-		csi1_mipi_ep: endpoint@0 {
-			remote-endpoint = <&csi1_ep>;
-		};
-	};
 
-    port@1 {
+    port@0 {
         reg = <0>;
-        csi1_from_mipi: endpoint@1{
+        csi1_from_mipi: endpoint {
             remote-endpoint = <&ar0521_to_csi>;
             data-lanes = <1 2 3 4>;  
             bus-type = <4>;          // MIPI CSI-2
@@ -575,14 +573,7 @@
 };
 
 &csi1_bridge {
-	fsl,mipi-mode;
-
-    status = "okay";	
-	port@0 {
-		csi1_ep: endpoint@0 {
-			remote-endpoint = <&csi1_mipi_ep>;
-		};
-	};	
+    status = "okay";
 };
 
 &usbotg1 {
