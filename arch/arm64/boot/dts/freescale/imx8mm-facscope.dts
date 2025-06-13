@@ -200,6 +200,9 @@
 
 &iomuxc {
 
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_clko2>;
+
 	pinctrl_csi_reset: csi_reset {
 		fsl,pins = <
 			MX8MM_IOMUXC_GPIO1_IO05_GPIO1_IO5		0x16 //P136
@@ -299,6 +302,12 @@
 			MX8MM_IOMUXC_SAI5_MCLK_GPIO3_IO25		0x41 /* TOUCH_nRST, LVDS1_VDDEN */
 		>;
 	};
+
+	pinctrl_clko2: clko2grp {
+		fsl,pins = <
+			MX8MM_IOMUXC_GPIO1_IO14__CCM_CLKO2 0x154
+		>;
+	};
 };
 
 
@@ -390,12 +399,6 @@
 	};
 };
 
-&clks {
-	assigned-clocks = <&clk IMX8MM_CLK_CLKO2>;
-	assigned-clock-parents = <&clk IMX8MM_CLK_24M>;
-	assigned-clock-rates = <24000000>;
-};
-
 &i2c2 {
 #ifdef CODEC_SGTL5000	
 	codec_sgtl5000: sgtl5000@a {
@@ -427,35 +430,35 @@
 #endif
 
 	ar0521: camera@36 {
-        compatible = "onsemi,ar0521";
-        reg = <0x36>; 
+		compatible = "onsemi,ar0521";
+		reg = <0x36>; 
 
 		clocks = <&clk IMX8MM_CLK_CLKO2>;
 		clock-names = "xclk";
+
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_csi_reset &pinctrl_csi_pwdn>;
 
-        csi_id = <0>;
-        mclk = <24000000>;
-        mclk_source = <0>;
+		csi_id = <0>;
+		mclk = <24000000>;
+		mclk_source = <0>;
 
 		reset-gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;     
-        powerdown-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;         
+		powerdown-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;         
 
-        rotation = <0>;
+		rotation = <0>;
+		status = "okay";
 
-        status = "okay";
-
-        port {
-            ar0521_ep: endpoint {
-                remote-endpoint = <&mipi_csi0_ep>;
-                data-lanes = <1 2>; // MIPI lanes, 센서 사양에 맞게 조정
-				bus-type = <4>; // MIPI CSI-2
-                clock-lanes = <0>;
-                link-frequencies = /bits/ 64 <360000000>; // MIPI 링크 속도, 센서에 맞게 조정
-            };
-        };
-    };
+		port {
+			ar0521_ep: endpoint {
+				remote-endpoint = <&mipi_csi0_ep>;
+				data-lanes = <1 2>;
+				clock-lanes = <0>;
+				bus-type = <4>; // CSI-2
+				link-frequencies = /bits/ 64 <360000000>;
+			};
+		};
+	};
 
 	typec_hd3ss3220: hd3ss3220@67 {
 		compatible = "ti,hd3ss3220";
