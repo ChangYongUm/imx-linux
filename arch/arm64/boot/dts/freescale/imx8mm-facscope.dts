@@ -452,6 +452,8 @@
 		compatible = "onnn,ar0521";
 		reg = <0x36>; 
 
+		csi_id = <1>;
+
 		clocks = <&clk IMX8MM_CLK_CLKO2>;
 		clock-names = "extclk";
 
