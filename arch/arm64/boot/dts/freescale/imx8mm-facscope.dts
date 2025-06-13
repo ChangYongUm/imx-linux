@@ -370,7 +370,7 @@
 };
 
 &lcdif {
-	status = "disabled";
+	status = "okay";
 };
 
 &i2c1 { /* BRD_CONF I2C */
@@ -499,7 +499,7 @@
 		compatible = "onnn,ar0521";
 		reg = <0x36>; 
 
-		csi_id = <0>;
+		csi_id = <1>;
 
 		clocks = <&clk IMX8MM_CLK_CLKO2>;
 		clock-names = "extclk";
@@ -560,11 +560,19 @@
 };
 
 &mipi_csi_1 {
-    status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+
+	port {
+		csi1_mipi_ep: endpoint@2 {
+			remote-endpoint = <&csi1_ep>;
+		};
+	};
 
     port@0 {
         reg = <0>;
-        csi1_from_mipi: endpoint {
+        csi1_from_mipi: endpoint{
             remote-endpoint = <&ar0521_to_csi>;
             data-lanes = <1 2 3 4>;  
             bus-type = <4>;          // MIPI CSI-2
@@ -573,7 +581,13 @@
 };
 
 &csi1_bridge {
-    status = "okay";
+	fsl,mipi-mode;
+	status = "okay";
+	port {
+		csi1_ep: endpoint {
+			remote-endpoint = <&csi1_mipi_ep>;
+		};
+	};	
 };
 
 &usbotg1 {
