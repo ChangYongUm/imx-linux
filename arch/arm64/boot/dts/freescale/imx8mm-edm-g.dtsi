@@ -175,6 +175,16 @@
 	status = "okay";
 };
 
+// M4 console, UART_B 
+&uart4 { 
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart4>;
+	assigned-clocks = <&clk IMX8MM_CLK_UART4>;
+	assigned-clock-parents = <&clk IMX8MM_SYS_PLL1_80M>;
+	//fsl,uart-has-rtscts;
+	status = "disabled";
+};
+
 &usbotg1 {
 	dr_mode = "otg";
 	hnp-disable;

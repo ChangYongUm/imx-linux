@@ -437,6 +437,7 @@
             ar0521_ep: endpoint {
                 remote-endpoint = <&mipi_csi0_ep>;
                 data-lanes = <1 2>; // MIPI lanes, 센서 사양에 맞게 조정
+				bus-type = <4>; // MIPI CSI-2
                 clock-lanes = <0>;
                 link-frequencies = /bits/ 64 <360000000>; // MIPI 링크 속도, 센서에 맞게 조정
             };
@@ -531,6 +532,7 @@
         mipi_csi0_ep: endpoint {
             remote-endpoint = <&ar0521_ep>;
             data-lanes = <1 2>;
+			bus-type = <4>; // MIPI CSI-2
             clock-lanes = <0>;
         };
     };
