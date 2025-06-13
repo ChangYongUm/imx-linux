@@ -428,8 +428,8 @@
 		compatible = "onnn,ar0521";
 		reg = <0x36>; 
 
-		clocks = <&clk IMX8MM_CLK_CLKO2>;
-		clock-names = "xclk";
+		//clocks = <&clk IMX8MM_CLK_CLKO2>;
+		//clock-names = "xclk";
 
 		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_csi_reset &pinctrl_csi_pwdn>;
