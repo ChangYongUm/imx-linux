@@ -11,8 +11,8 @@
 #include "imx8mp-edm-g.dtsi"
 
 / {
-	model = "TechNexion EDM-G-IMX8MP and WB baseboard";
-	compatible = "fsl,imx8mp-edmg", "fsl,imx8mp";
+	model = "REH-IMX8MP";
+	compatible = "fsl,imx8mp-reh", "fsl,imx8mp";
 
 	reg_usb_otg_vbus: usb_otg_vbus {
 		pinctrl-names = "default";

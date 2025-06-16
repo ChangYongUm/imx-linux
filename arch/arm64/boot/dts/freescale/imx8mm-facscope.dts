@@ -14,8 +14,8 @@
 //#define CODEC_SGTL5000
 
 / {
-	model = "TechNexion EDM-G-IMX8MM and WB baseboard";
-	compatible = "fsl,imx8mm-edm-g", "fsl,imx8mm";
+	model = "FACSCOPE-IMX8MM";
+	compatible = "fsl,imx8mm-facscope", "fsl,imx8mm";
 
 	regulators {
 		compatible = "simple-bus";
